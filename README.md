@@ -5,7 +5,7 @@ Learning automation for SMEs. I have already built websites (my first one in HTM
 > **About the language:** Spanish is my native language, so I wrote the code (comments, messages and data) in Spanish, which is more comfortable for me. I publish the documentation in English to reach a wider audience and so more people can understand it.
 
 ## About me
-I'm Kairu, an economics student at the University of Barcelona focused on automation and websites for small and medium-sized businesses (SMEs). My first real-world project, which I worked on for months, went far beyond a website: I helped a baby-care consultant turn her expertise into a complete business, from positioning and branding to a bilingual Shopify site, legal pages, a WhatsApp-based contact flow and an affiliate revenue stream. This portfolio shows automation projects built with n8n, Make, Google Sheets, Gmail, Google Gemini (AI), Python, SQL (SQLite), REST APIs and Git/GitHub. I work with AI as a development partner: I plan the work, direct the build and review every change before it goes live. I work in English, Spanish and Catalan.
+I'm Kairu, an economics student at the University of Barcelona focused on automation and websites for small and medium-sized businesses (SMEs). My first real-world project, which I worked on for months, went far beyond a website: I helped a baby-care consultant turn her expertise into a complete business, from positioning and branding to a bilingual Shopify site, legal pages, a WhatsApp-based contact flow and an affiliate revenue stream. This portfolio shows automation projects built with n8n, Make, Google Sheets, Gmail, Google Gemini (AI), Telegram, Python, SQL (SQLite), REST APIs and Git/GitHub. I work with AI as a development partner: I plan the work, direct the build and review every change before it goes live. I work in English, Spanish and Catalan.
 
 ## The story
 All the projects revolve around **a small clothing brand that sells online with Shopify** (fictional) and automate its two sides:
@@ -22,9 +22,12 @@ flowchart LR
     P3 --> P7[7 · The same in Make]
     P1 --> P4[4 · AI customer service]
     P6 --> P8[8 · Ask your data with AI]
+    P4 --> P9[9 · AI agent on Telegram]
+    P3 --> P9
+    P6 --> P9
 ```
 
-**Tools:** n8n · Make · Google Sheets · Gmail · Google Gemini · Python · SQL (SQLite) · REST APIs · Git and GitHub
+**Tools:** n8n · Make · Google Sheets · Gmail · Google Gemini · Telegram · Python · SQL (SQLite) · REST APIs · Git and GitHub
 
 ## Projects
 | # | Project | What I learn | Status |
@@ -37,5 +40,6 @@ flowchart LR
 | 6 | [Business questions with SQL on the sales data (fictional data)](06-sql-ventas/) | SQL (SQLite) | ✅ Done |
 | 7 | [The returns workflow in Make, compared with n8n](07-make-devoluciones/) | Make | ✅ Done |
 | 8 | [Ask your data with AI: question → SQL → result (fictional data)](08-ia-preguntas-datos/) | AI + SQL + Python | ✅ Done |
+| 9 | [AI agent on Telegram that uses tools, with human approval (fictional data)](09-agente-telegram/) | AI agents, tools, webhooks, human-in-the-loop | ✅ Done |
 
-Each project has its own folder with a README: the problem, the solution, how to use it and what I learned. Projects 3, 4 and 8 also explain **why I built them the way I did**. Projects 5, 6 and 8 use **fictional sales data**, generated for practice.
+Each project has its own folder with a README: the problem, the solution, how to use it and what I learned. Projects 3, 4, 8 and 9 also explain **why I built them the way I did**. Projects 5, 6, 8 and 9 use **fictional sales data**, generated for practice.

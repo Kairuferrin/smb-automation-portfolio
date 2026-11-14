@@ -1,0 +1,575 @@
+{
+  "name": "Agente de atención en Telegram (con herramientas y aprobación humana)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a9000000-0000-4000-8000-000000000001",
+      "webhookId": "a9000000-0000-4000-8000-0000000000aa"
+    },
+    {
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1",
+              "name": "formulario_url",
+              "type": "string",
+              "value": "PEGA_AQUI_LA_URL_DEL_FORMULARIO"
+            },
+            {
+              "id": "c2",
+              "name": "grupo_equipo_id",
+              "type": "string",
+              "value": "PEGA_AQUI_EL_ID_DEL_GRUPO"
+            },
+            {
+              "id": "c3",
+              "name": "umbral_seguridad",
+              "type": "number",
+              "value": 70
+            },
+            {
+              "id": "c4",
+              "name": "modo_demo",
+              "type": "boolean",
+              "value": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "a9000000-0000-4000-8000-000000000002"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f1",
+              "leftValue": "={{ String($('Telegram Trigger').item.json.message.chat.id) }}",
+              "rightValue": "={{ String($('Config').item.json.grupo_equipo_id) }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "f2",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "¿Es un cliente?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "a9000000-0000-4000-8000-000000000003"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {
+          "systemMessage": "Eres el asistente de atención al cliente por Telegram de una pequeña marca de ropa online (los datos son ficticios).\n\nTienes tres herramientas:\n- consultar_pedido: da el contenido, el estado y si un pedido se puede devolver. Úsala SIEMPRE que el cliente hable de un pedido; nunca inventes datos de un pedido.\n- enviar_formulario_devolucion: da el enlace del formulario de devoluciones.\n- derivar_a_persona: avisa al equipo humano para que se encargue del caso.\n\nReglas:\n1. Si el cliente quiere saber algo de un pedido y no te ha dado el número, pídeselo.\n2. Devoluciones: consulta el pedido. Si \"dentro_plazo_devolucion\" es true, usa enviar_formulario_devolucion y dale el enlace. Si es false (más de 30 días desde la entrega, aún no entregado o ya devuelto), explícale el motivo con amabilidad y usa derivar_a_persona.\n3. Usa derivar_a_persona solo para problemas reales de un cliente con la tienda: devoluciones fuera de plazo, quejas, un cliente enfadado o que pide hablar con una persona.\n4. Si la pregunta no tiene que ver con pedidos ni devoluciones de la tienda (el tiempo, quién dirige la empresa, temas generales...), responde con amabilidad que solo puedes ayudar con pedidos y devoluciones, y NO uses ninguna herramienta.\n5. Responde en el idioma del cliente, con un tono cercano y breve (máximo 4 frases).\n\nFormato de salida: responde SOLO con un JSON válido, sin texto antes ni después:\n{\"respuesta\": \"texto para el cliente\", \"motivo\": \"por qué has hecho lo que has hecho, en una frase corta\"}",
+          "maxIterations": 6,
+          "returnIntermediateSteps": true
+        }
+      },
+      "name": "Agente de atención",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        680,
+        0
+      ],
+      "id": "a9000000-0000-4000-8000-000000000004"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash-lite",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "name": "Gemini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        520,
+        260
+      ],
+      "id": "a9000000-0000-4000-8000-000000000005"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 10
+      },
+      "name": "Memoria de la conversación",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        660,
+        260
+      ],
+      "id": "a9000000-0000-4000-8000-000000000006"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Consulta un pedido por su número (solo cifras, por ejemplo 1002). Devuelve productos, estado (preparando, enviado, entregado o devuelto), fechas y si está dentro del plazo de devolución de 30 días.",
+        "url": "http://127.0.0.1:8009/pedido",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "numero",
+              "value": "={{ $fromAI('numero', 'Número de pedido, solo cifras, por ejemplo 1002', 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "consultar_pedido",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        260
+      ],
+      "id": "a9000000-0000-4000-8000-000000000007"
+    },
+    {
+      "parameters": {
+        "name": "enviar_formulario_devolucion",
+        "description": "Devuelve el enlace del formulario de devoluciones. Úsala solo si consultar_pedido dice que el pedido está dentro del plazo de devolución.",
+        "jsCode": "// Devuelve el enlace del formulario de devoluciones (proyecto 3).\nreturn 'Enlace del formulario de devoluciones: ' + $('Config').first().json.formulario_url;"
+      },
+      "name": "enviar_formulario_devolucion",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.3,
+      "position": [
+        940,
+        260
+      ],
+      "id": "a9000000-0000-4000-8000-000000000008"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Avisa al equipo humano para que se encargue del caso. Escribe un resumen corto del caso y el motivo.",
+        "chatId": "={{ $('Config').item.json.grupo_equipo_id }}",
+        "text": "=🙋 Caso derivado por el agente\nCliente: {{ String($('Telegram Trigger').item.json.message.from.first_name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }} (chat {{ $('Telegram Trigger').item.json.message.chat.id }})\nMensaje: {{ String($('Telegram Trigger').item.json.message.text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}\n\nResumen: {{ $fromAI('resumen', 'Resumen corto del caso y por qué lo pasas a una persona', 'string').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "name": "derivar_a_persona",
+      "type": "n8n-nodes-base.telegramTool",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        260
+      ],
+      "id": "a9000000-0000-4000-8000-000000000009"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Convierte la respuesta del agente en datos ordenados, calcula la\n// seguridad con reglas fijas y prepara la línea de transparencia.\nconst salida = String($json.output ?? '');\nconst pasos = $json.intermediateSteps ?? [];\nconst config = $('Config').first().json;\nconst mensaje = $('Telegram Trigger').first().json.message;\n\nlet datos;\nlet formatoCorrecto = true;\ntry {\n  const limpio = salida.replace(/```json|```/g, '').trim();\n  datos = JSON.parse(limpio.slice(limpio.indexOf('{'), limpio.lastIndexOf('}') + 1));\n  if (!String(datos.respuesta ?? '').trim()) throw new Error('respuesta vacía');\n} catch (error) {\n  datos = { respuesta: salida.trim() || 'Perdona, no he podido procesar tu mensaje. ¿Puedes repetirlo?',\n            motivo: 'la IA no devolvió el formato esperado' };\n  formatoCorrecto = false;\n}\n\n// Las herramientas salen de lo que el agente HIZO de verdad, no de lo que dice.\nconst herramientas = [...new Set(pasos.map(p => p.action?.tool).filter(Boolean))];\nconst cliente = String(mensaje.text ?? '').toLowerCase();\nconst respuesta = String(datos.respuesta ?? '').toLowerCase();\n\n// SEGURIDAD: no se la preguntamos a la IA (siempre dice 100). Empieza en 100\n// y cada señal de riesgo resta puntos. Así siempre se calcula igual.\nconst senales = [\n  [!formatoCorrecto, 'formato incorrecto', 100],\n  [pasos.some(p => /error|refused/i.test(String(p.observation)) && !/No existe el pedido/.test(String(p.observation))),\n    'una herramienta falló', 40],\n  [/\\b\\d{4,}\\b/.test(cliente) && !herramientas.includes('consultar_pedido'),\n    'hay un número de pedido y no lo consultó', 40],\n  [(respuesta.match(/https?:\\/\\/\\S+/g) ?? []).some(url =>\n      !config.formulario_url || !url.startsWith(String(config.formulario_url).toLowerCase())),\n    'enlace desconocido', 50],\n  [/reembols|dinero|descuento|compensa|indemniza/.test(cliente + ' ' + respuesta),\n    'tema de dinero', 40],\n  [/correo|e-?mail|instagram|whatsapp|tel[eé]fono|llamar/.test(respuesta),\n    'promete un canal de contacto', 40],\n];\nconst restas = senales.filter(([activa]) => activa);\nconst seguridad = Math.max(0, 100 - restas.reduce((total, [, , puntos]) => total + puntos, 0));\nconst detalle = restas.map(([, nombre, puntos]) => `−${puntos} ${nombre}`).join(', ');\n\n// Telegram interpreta el texto como HTML: escapamos < > & para que\n// un mensaje con esos símbolos no rompa el envío.\nconst html = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\nconst linea = `🔧 ${herramientas.join(', ') || 'ninguna herramienta'} · 💭 ${datos.motivo || 'sin motivo'} · 🎯 seguridad ${seguridad}/100${detalle ? ` (${detalle})` : ''}`;\n\nreturn [{ json: {\n  chat_id: mensaje.chat.id,\n  cliente: html(mensaje.from?.first_name ?? 'cliente'),\n  mensaje_cliente: html(mensaje.text),\n  respuesta: html(datos.respuesta),\n  motivo: html(datos.motivo),\n  seguridad,\n  herramientas,\n  linea: html(linea),\n  // modo_demo: el cliente también ve la línea de transparencia (para enseñarlo).\n  // Si está apagado, el cliente solo ve la respuesta y la línea va al equipo.\n  texto_cliente: config.modo_demo\n    ? `${html(datos.respuesta)}\\n\\n<i>— ${html(linea)}</i>`\n    : html(datos.respuesta),\n} }];"
+      },
+      "name": "Leer respuesta del agente",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "a9000000-0000-4000-8000-000000000010"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "s1",
+              "leftValue": "={{ $json.seguridad }}",
+              "rightValue": "={{ $('Config').first().json.umbral_seguridad }}",
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "¿Seguridad suficiente?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1260,
+        0
+      ],
+      "id": "a9000000-0000-4000-8000-000000000011"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "={{ $json.texto_cliente }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "name": "Responder al cliente",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1500,
+        -120
+      ],
+      "id": "a9000000-0000-4000-8000-000000000012"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Config').first().json.grupo_equipo_id }}",
+        "text": "=📋 Respondido automáticamente\nCliente {{ $('Leer respuesta del agente').item.json.cliente }}: «{{ $('Leer respuesta del agente').item.json.mensaje_cliente }}»\nRespuesta: «{{ $('Leer respuesta del agente').item.json.respuesta }}»\n<i>{{ $('Leer respuesta del agente').item.json.linea }}</i>",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "name": "Registro para el equipo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1740,
+        -120
+      ],
+      "id": "a9000000-0000-4000-8000-000000000013"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "={{ $('Config').first().json.grupo_equipo_id }}",
+        "message": "=🤔 El agente duda (seguridad {{ $json.seguridad }}/100). ¿Envío esta respuesta?\n\nCliente {{ $json.cliente }}: «{{ $json.mensaje_cliente }}»\n\nBorrador: «{{ $json.respuesta }}»\n\nMotivo: {{ $json.motivo }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "✅ Enviar",
+            "disapproveLabel": "❌ No enviar"
+          }
+        },
+        "options": {
+          "limitWaitTime": {
+            "values": {
+              "limitType": "afterTimeInterval",
+              "resumeAmount": 1,
+              "resumeUnit": "hours"
+            }
+          }
+        }
+      },
+      "name": "Pedir aprobación al equipo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1500,
+        120
+      ],
+      "id": "a9000000-0000-4000-8000-000000000014",
+      "webhookId": "a9000000-0000-4000-8000-0000000000bb"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a1",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "¿Aprobado?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1740,
+        120
+      ],
+      "id": "a9000000-0000-4000-8000-000000000015"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Leer respuesta del agente').item.json.chat_id }}",
+        "text": "={{ $('Leer respuesta del agente').item.json.texto_cliente }}\n<i>✅ revisado por una persona</i>",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "name": "Enviar borrador aprobado",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1980,
+        40
+      ],
+      "id": "a9000000-0000-4000-8000-000000000016"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Leer respuesta del agente').item.json.chat_id }}",
+        "text": "=Gracias por tu paciencia. Una persona del equipo revisará tu caso y te escribirá por aquí.{{ $('Config').first().json.modo_demo ? '\\n\\n<i>— 🔧 derivado a una persona · 🎯 seguridad ' + $('Leer respuesta del agente').item.json.seguridad + '/100</i>' : '' }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "name": "Avisar: lo verá una persona",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1980,
+        220
+      ],
+      "id": "a9000000-0000-4000-8000-000000000017"
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "¿Es un cliente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Es un cliente?": {
+      "main": [
+        [
+          {
+            "node": "Agente de atención",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Agente de atención": {
+      "main": [
+        [
+          {
+            "node": "Leer respuesta del agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer respuesta del agente": {
+      "main": [
+        [
+          {
+            "node": "¿Seguridad suficiente?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Seguridad suficiente?": {
+      "main": [
+        [
+          {
+            "node": "Responder al cliente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pedir aprobación al equipo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responder al cliente": {
+      "main": [
+        [
+          {
+            "node": "Registro para el equipo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pedir aprobación al equipo": {
+      "main": [
+        [
+          {
+            "node": "¿Aprobado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Aprobado?": {
+      "main": [
+        [
+          {
+            "node": "Enviar borrador aprobado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Avisar: lo verá una persona",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agente de atención",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memoria de la conversación": {
+      "ai_memory": [
+        [
+          {
+            "node": "Agente de atención",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar_pedido": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente de atención",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enviar_formulario_devolucion": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente de atención",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "derivar_a_persona": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente de atención",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
