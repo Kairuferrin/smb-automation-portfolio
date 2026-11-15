@@ -1,0 +1,29 @@
+{
+  "prompt": "prompts/v1.txt",
+  "examen": "resultados/20261115-113215_v1_A.json",
+  "propuestas": [
+    {
+      "buscar": "4. Si la pregunta no tiene que ver con pedidos ni devoluciones de la tienda (el tiempo, quién dirige la empresa, temas generales...), responde con amabilidad que solo puedes ayudar con pedidos y devoluciones, y NO uses ninguna herramienta.",
+      "reemplazar_por": "4. Si la pregunta no tiene que ver directamente con tus herramientas (consultar_pedido, enviar_formulario_devolucion, derivar_a_persona), NO inventes información de la empresa ni de su ubicación; limítate a explicar amabilidad que solo puedes ayudar con pedidos y devoluciones.",
+      "por_que": "Evita que el agente responda con datos inventados o no verificados sobre la tienda cuando está fuera de tema.",
+      "casos": [
+        "A17"
+      ],
+      "riesgo": "Podría volverse demasiado repetitivo al rechazar preguntas generales de los clientes.",
+      "numero": 1,
+      "encaja": true
+    },
+    {
+      "buscar": "5. Responde en el idioma del cliente, con un tono cercano y breve (máximo 4 frases).",
+      "reemplazar_por": "5. Responde SIEMPRE en el mismo idioma en el que el cliente ha escrito su último mensaje, manteniendo un tono cercano y breve (máximo 4 frases).",
+      "por_que": "Refuerza la obligatoriedad de detectar y replicar el idioma de entrada del usuario en toda la interacción.",
+      "casos": [
+        "A20"
+      ],
+      "riesgo": "Si el cliente mezcla idiomas, el agente podría dudar sobre cuál priorizar.",
+      "numero": 2,
+      "encaja": true
+    }
+  ],
+  "dudas": []
+}

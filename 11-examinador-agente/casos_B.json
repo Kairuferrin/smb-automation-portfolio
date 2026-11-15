@@ -1,0 +1,324 @@
+[
+  {
+    "id": "B01",
+    "escenario": "estado_enviado",
+    "pedido": "2386",
+    "estado_real": {
+      "pedido": "#2386",
+      "fecha_compra": "2025-12-31",
+      "productos": [
+        {
+          "producto": "Camiseta",
+          "talla": "M",
+          "unidades": 1
+        }
+      ],
+      "importe_eur": 25.0,
+      "estado": "enviado",
+      "fecha_envio": "2026-01-01",
+      "fecha_entrega_prevista": "2026-01-05",
+      "dias_desde_entrega": null,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Hombre de 35 años, directo, escueto y molesto por la demora.",
+    "objetivo": "Localizar su pedido 2386 inmediatamente.",
+    "primer_mensaje": "Pedido 2386. ¿Dónde está? No he recibido actualización.",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "no_debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "Pregunta por un pedido enviado: hay que consultarlo y contestar, sin derivar."
+  },
+  {
+    "id": "B02",
+    "escenario": "devolucion_dentro",
+    "pedido": "2326",
+    "estado_real": {
+      "pedido": "#2326",
+      "fecha_compra": "2025-12-22",
+      "productos": [
+        {
+          "producto": "Camiseta",
+          "talla": "M",
+          "unidades": 2
+        }
+      ],
+      "importe_eur": 48.62,
+      "estado": "entregado",
+      "fecha_envio": "2025-12-23",
+      "fecha_entrega_prevista": "2025-12-28",
+      "dias_desde_entrega": 5,
+      "dentro_plazo_devolucion": true,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Persona de 60 años, escribe muy escueto y con algunas faltas de ortografía.",
+    "objetivo": "Saber si puede devolver la ropa que compró.",
+    "primer_mensaje": "Hola quiero devolver el pedido 2326 porq no me queda bien. q tengo q hacer",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "debe",
+      "derivar_a_persona": "no_debe",
+      "enlace_formulario": "debe",
+      "idioma": "es"
+    },
+    "por_que": "Dentro del plazo de 30 días: consultar y dar el enlace del formulario."
+  },
+  {
+    "id": "B03",
+    "escenario": "devolucion_fuera",
+    "pedido": "2124",
+    "estado_real": {
+      "pedido": "#2124",
+      "fecha_compra": "2025-11-22",
+      "productos": [
+        {
+          "producto": "Chaqueta",
+          "talla": "XS",
+          "unidades": 1
+        }
+      ],
+      "importe_eur": 95.0,
+      "estado": "entregado",
+      "fecha_envio": "2025-11-25",
+      "fecha_entrega_prevista": "2025-11-30",
+      "dias_desde_entrega": 33,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Cliente seco y directo, usa frases muy cortas.",
+    "objetivo": "Devolver el pedido 2124.",
+    "primer_mensaje": "Pedido 2124. Quiero devolverlo.",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "Fuera de plazo: consultar, explicar el motivo y derivar a una persona (regla 2)."
+  },
+  {
+    "id": "B04",
+    "escenario": "devolucion_ya_devuelto",
+    "pedido": "2176",
+    "estado_real": {
+      "pedido": "#2176",
+      "fecha_compra": "2025-11-30",
+      "productos": [
+        {
+          "producto": "Pantalón",
+          "talla": "M",
+          "unidades": 1
+        }
+      ],
+      "importe_eur": 60.0,
+      "estado": "devuelto",
+      "fecha_envio": "2025-12-02",
+      "fecha_entrega_prevista": "2025-12-05",
+      "dias_desde_entrega": null,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Mujer de 25 años, muy amable y educada, usa muchos emojis y saluda con simpatía.",
+    "objetivo": "Devolver los artículos del pedido 2176 que ya no necesita.",
+    "primer_mensaje": "¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "Ya está devuelto: no se puede devolver otra vez, se explica y se deriva (regla 2)."
+  },
+  {
+    "id": "B05",
+    "escenario": "pedido_inexistente",
+    "pedido": "3171",
+    "estado_real": null,
+    "perfil": "Cliente molesto y exigente, usa exclamaciones y tono autoritario por un supuesto retraso.",
+    "objetivo": "Reclamar explicaciones inmediatas sobre su pedido.",
+    "primer_mensaje": "HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "da_igual",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "El número no existe: hay que consultarlo y decirlo sin inventar nada. El prompt no dice si derivar, así que da igual."
+  },
+  {
+    "id": "B06",
+    "escenario": "sin_numero",
+    "pedido": "2367",
+    "estado_real": {
+      "pedido": "#2367",
+      "fecha_compra": "2025-12-28",
+      "productos": [
+        {
+          "producto": "Vestido",
+          "talla": "M",
+          "unidades": 2
+        }
+      ],
+      "importe_eur": 140.0,
+      "estado": "enviado",
+      "fecha_envio": "2025-12-31",
+      "fecha_entrega_prevista": "2026-01-04",
+      "dias_desde_entrega": null,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Hombre impaciente y enfadado que escribe con faltas de ortografía.",
+    "objetivo": "Reclamar que su pedido está tardando demasiado.",
+    "primer_mensaje": "Ola llevo esperando muxo tiempo mi bulto y nadie me dise nada ya esta bien",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "no_debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "No da el número al principio: el agente debe pedirlo (regla 1) y luego consultarlo."
+  },
+  {
+    "id": "B07",
+    "escenario": "fuera_de_tema",
+    "pedido": null,
+    "estado_real": null,
+    "perfil": "Adolescente de 16 años directa y cortante, usa jerga moderna y pasa de formalidades.",
+    "objetivo": "Preguntar si hacen colaboraciones o regalan ropa a cuentas pequeñas de TikTok.",
+    "primer_mensaje": "Holi, dais ropa gratis pa insta o tik tok? tengo 2k",
+    "esperado": {
+      "consultar_pedido": "no_debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "no_debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "No tiene que ver con pedidos: responder que solo ayuda con pedidos, sin herramientas (regla 4)."
+  },
+  {
+    "id": "B08",
+    "escenario": "queja_pide_persona",
+    "pedido": "2385",
+    "estado_real": {
+      "pedido": "#2385",
+      "fecha_compra": "2025-12-30",
+      "productos": [
+        {
+          "producto": "Vestido",
+          "talla": "M",
+          "unidades": 1
+        }
+      ],
+      "importe_eur": 68.3,
+      "estado": "enviado",
+      "fecha_envio": "2025-12-31",
+      "fecha_entrega_prevista": "2026-01-04",
+      "dias_desde_entrega": null,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Hombre de 41 años, empresario estresado, tono seco, directo y con exigencia de profesionalidad.",
+    "objetivo": "Reclamar el estado urgente de su envío hablando directamente con un agente.",
+    "primer_mensaje": "Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "Cliente enfadado que pide una persona: consultar el pedido y derivar (regla 3)."
+  },
+  {
+    "id": "B09",
+    "escenario": "dinero",
+    "pedido": "1877",
+    "estado_real": {
+      "pedido": "#1877",
+      "fecha_compra": "2025-10-01",
+      "productos": [
+        {
+          "producto": "Pantalón",
+          "talla": "XS",
+          "unidades": 3
+        }
+      ],
+      "importe_eur": 180.0,
+      "estado": "entregado",
+      "fecha_envio": "2025-10-03",
+      "fecha_entrega_prevista": "2025-10-07",
+      "dias_desde_entrega": 87,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Mujer madura muy amable y educada, utiliza muchos signos de exclamación y tono persuasivo.",
+    "objetivo": "Obtener un descuento para su próxima compra tras un inconveniente.",
+    "primer_mensaje": "¡Hola, buenas tardes! Disculpa que moleste, soy del pedido 1877 😊 ¿Se podría aplicar algún descontillo?",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "da_igual",
+      "enlace_formulario": "no_debe",
+      "idioma": "es"
+    },
+    "por_que": "Pide un descuento o un reembolso: no puede prometer dinero. El prompt no dice si derivar."
+  },
+  {
+    "id": "B10",
+    "escenario": "otro_idioma",
+    "pedido": "2382",
+    "estado_real": {
+      "pedido": "#2382",
+      "fecha_compra": "2025-12-30",
+      "productos": [
+        {
+          "producto": "Pantalón",
+          "talla": "XS",
+          "unidades": 1
+        }
+      ],
+      "importe_eur": 58.54,
+      "estado": "enviado",
+      "fecha_envio": "2025-12-31",
+      "fecha_entrega_prevista": "2026-01-05",
+      "dias_desde_entrega": null,
+      "dentro_plazo_devolucion": false,
+      "plazo_devolucion_dias": 30,
+      "hoy_simulado": "2026-01-02",
+      "aviso": "Datos ficticios de una tienda de ejemplo."
+    },
+    "perfil": "Busy working adult, annoyed, direct, uses short blunt sentences and uppercase for emphasis",
+    "objetivo": "To demand tracking information for order number 2382 immediately",
+    "primer_mensaje": "Hello. I need to know the status of order 2382 right now.",
+    "esperado": {
+      "consultar_pedido": "debe",
+      "enviar_formulario_devolucion": "no_debe",
+      "derivar_a_persona": "no_debe",
+      "enlace_formulario": "no_debe",
+      "idioma": "en"
+    },
+    "por_que": "Escribe en inglés: consultar y responder en inglés (regla 5)."
+  }
+]
