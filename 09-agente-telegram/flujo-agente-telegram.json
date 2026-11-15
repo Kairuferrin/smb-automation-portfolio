@@ -20,6 +20,35 @@
     },
     {
       "parameters": {
+        "httpMethod": "POST",
+        "path": "pruebas-agente",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Entrada de pruebas",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        200
+      ],
+      "webhookId": "a9000000-0000-4000-8000-0000000000cc"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recepcionista: deja el mensaje con el MISMO formato venga de donde venga\n// (Telegram o la entrada de pruebas del examinador, proyecto 11).\nconst j = $input.first().json;\nif (j.message) {\n  return [{ json: {\n    origen: 'telegram',\n    chat_id: String(j.message.chat.id),\n    nombre: j.message.from?.first_name ?? 'cliente',\n    texto: j.message.text ?? '',\n    prompt_prueba: '',\n  } }];\n}\nconst b = j.body ?? {};\nreturn [{ json: {\n  origen: 'prueba',\n  // Prefijo para que la memoria de una prueba nunca se mezcle con un chat real.\n  chat_id: 'prueba-' + String(b.conversacion_id ?? 'sin-id'),\n  nombre: String(b.nombre ?? 'cliente de prueba'),\n  texto: String(b.texto ?? ''),\n  // El examinador puede mandar el prompt que quiere probar; si no, se usa el de Config.\n  prompt_prueba: String(b.prompt ?? ''),\n} }];"
+      },
+      "name": "Normalizar mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        100
+      ]
+    },
+    {
+      "parameters": {
         "mode": "manual",
         "assignments": {
           "assignments": [
@@ -36,6 +65,12 @@
               "value": "PEGA_AQUI_EL_ID_DEL_GRUPO"
             },
             {
+              "id": "c5",
+              "name": "grupo_pruebas_id",
+              "type": "string",
+              "value": "PEGA_AQUI_EL_ID_DEL_GRUPO_DE_PRUEBAS"
+            },
+            {
               "id": "c3",
               "name": "umbral_seguridad",
               "type": "number",
@@ -46,6 +81,12 @@
               "name": "modo_demo",
               "type": "boolean",
               "value": false
+            },
+            {
+              "id": "c6",
+              "name": "prompt_sistema",
+              "type": "string",
+              "value": "Eres el asistente de atención al cliente por Telegram de una pequeña marca de ropa online (los datos son ficticios).\n\nTienes tres herramientas:\n- consultar_pedido: da el contenido, el estado y si un pedido se puede devolver. Úsala SIEMPRE que el cliente hable de un pedido; nunca inventes datos de un pedido.\n- enviar_formulario_devolucion: da el enlace del formulario de devoluciones.\n- derivar_a_persona: avisa al equipo humano para que se encargue del caso.\n\nReglas:\n1. Si el cliente quiere saber algo de un pedido y no te ha dado el número, pídeselo.\n2. Devoluciones: consulta el pedido. Si \"dentro_plazo_devolucion\" es true, usa enviar_formulario_devolucion y dale el enlace. Si es false (más de 30 días desde la entrega, aún no entregado o ya devuelto), explícale el motivo con amabilidad y usa derivar_a_persona.\n3. Usa derivar_a_persona solo para problemas reales de un cliente con la tienda: devoluciones fuera de plazo, quejas, un cliente enfadado o que pide hablar con una persona.\n4. Si la pregunta no tiene que ver con pedidos ni devoluciones de la tienda (el tiempo, quién dirige la empresa, temas generales...), responde con amabilidad que solo puedes ayudar con pedidos y devoluciones, y NO uses ninguna herramienta.\n5. Responde en el idioma del cliente, con un tono cercano y breve (máximo 4 frases).\n\nFormato de salida: responde SOLO con un JSON válido, sin texto antes ni después:\n{\"respuesta\": \"texto para el cliente\", \"motivo\": \"por qué has hecho lo que has hecho, en una frase corta\"}"
             }
           ]
         },
@@ -55,7 +96,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        220,
+        440,
         0
       ],
       "id": "a9000000-0000-4000-8000-000000000002"
@@ -72,7 +113,7 @@
           "conditions": [
             {
               "id": "f1",
-              "leftValue": "={{ String($('Telegram Trigger').item.json.message.chat.id) }}",
+              "leftValue": "={{ $('Normalizar mensaje').item.json.chat_id }}",
               "rightValue": "={{ String($('Config').item.json.grupo_equipo_id) }}",
               "operator": {
                 "type": "string",
@@ -80,8 +121,17 @@
               }
             },
             {
+              "id": "f3",
+              "leftValue": "={{ $('Normalizar mensaje').item.json.chat_id }}",
+              "rightValue": "={{ String($('Config').item.json.grupo_pruebas_id) }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
               "id": "f2",
-              "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "leftValue": "={{ $('Normalizar mensaje').item.json.texto }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -98,7 +148,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        440,
+        660,
         0
       ],
       "id": "a9000000-0000-4000-8000-000000000003"
@@ -106,9 +156,9 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "text": "={{ $('Normalizar mensaje').item.json.texto }}",
         "options": {
-          "systemMessage": "Eres el asistente de atención al cliente por Telegram de una pequeña marca de ropa online (los datos son ficticios).\n\nTienes tres herramientas:\n- consultar_pedido: da el contenido, el estado y si un pedido se puede devolver. Úsala SIEMPRE que el cliente hable de un pedido; nunca inventes datos de un pedido.\n- enviar_formulario_devolucion: da el enlace del formulario de devoluciones.\n- derivar_a_persona: avisa al equipo humano para que se encargue del caso.\n\nReglas:\n1. Si el cliente quiere saber algo de un pedido y no te ha dado el número, pídeselo.\n2. Devoluciones: consulta el pedido. Si \"dentro_plazo_devolucion\" es true, usa enviar_formulario_devolucion y dale el enlace. Si es false (más de 30 días desde la entrega, aún no entregado o ya devuelto), explícale el motivo con amabilidad y usa derivar_a_persona.\n3. Usa derivar_a_persona solo para problemas reales de un cliente con la tienda: devoluciones fuera de plazo, quejas, un cliente enfadado o que pide hablar con una persona.\n4. Si la pregunta no tiene que ver con pedidos ni devoluciones de la tienda (el tiempo, quién dirige la empresa, temas generales...), responde con amabilidad que solo puedes ayudar con pedidos y devoluciones, y NO uses ninguna herramienta.\n5. Responde en el idioma del cliente, con un tono cercano y breve (máximo 4 frases).\n\nFormato de salida: responde SOLO con un JSON válido, sin texto antes ni después:\n{\"respuesta\": \"texto para el cliente\", \"motivo\": \"por qué has hecho lo que has hecho, en una frase corta\"}",
+          "systemMessage": "={{ $('Normalizar mensaje').item.json.prompt_prueba || $('Config').item.json.prompt_sistema }}",
           "maxIterations": 6,
           "returnIntermediateSteps": true
         }
@@ -117,7 +167,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        680,
+        900,
         0
       ],
       "id": "a9000000-0000-4000-8000-000000000004"
@@ -133,7 +183,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        520,
+        740,
         260
       ],
       "id": "a9000000-0000-4000-8000-000000000005"
@@ -141,14 +191,14 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "sessionKey": "={{ $('Normalizar mensaje').item.json.chat_id }}",
         "contextWindowLength": 10
       },
       "name": "Memoria de la conversación",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        660,
+        880,
         260
       ],
       "id": "a9000000-0000-4000-8000-000000000006"
@@ -172,7 +222,7 @@
       "type": "n8n-nodes-base.httpRequestTool",
       "typeVersion": 4.2,
       "position": [
-        800,
+        1020,
         260
       ],
       "id": "a9000000-0000-4000-8000-000000000007"
@@ -187,7 +237,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolCode",
       "typeVersion": 1.3,
       "position": [
-        940,
+        1160,
         260
       ],
       "id": "a9000000-0000-4000-8000-000000000008"
@@ -196,8 +246,8 @@
       "parameters": {
         "descriptionType": "manual",
         "toolDescription": "Avisa al equipo humano para que se encargue del caso. Escribe un resumen corto del caso y el motivo.",
-        "chatId": "={{ $('Config').item.json.grupo_equipo_id }}",
-        "text": "=🙋 Caso derivado por el agente\nCliente: {{ String($('Telegram Trigger').item.json.message.from.first_name).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }} (chat {{ $('Telegram Trigger').item.json.message.chat.id }})\nMensaje: {{ String($('Telegram Trigger').item.json.message.text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}\n\nResumen: {{ $fromAI('resumen', 'Resumen corto del caso y por qué lo pasas a una persona', 'string').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}",
+        "chatId": "={{ $('Normalizar mensaje').item.json.origen === 'prueba' ? $('Config').item.json.grupo_pruebas_id : $('Config').item.json.grupo_equipo_id }}",
+        "text": "={{ $('Normalizar mensaje').item.json.origen === 'prueba' ? '🧪 PRUEBA · ' : '' }}🙋 Caso derivado por el agente\nCliente: {{ String($('Normalizar mensaje').item.json.nombre).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }} (chat {{ $('Normalizar mensaje').item.json.chat_id }})\nMensaje: {{ String($('Normalizar mensaje').item.json.texto).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}\n\nResumen: {{ $fromAI('resumen', 'Resumen corto del caso y por qué lo pasas a una persona', 'string').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }}",
         "additionalFields": {
           "appendAttribution": false,
           "parse_mode": "HTML"
@@ -207,20 +257,20 @@
       "type": "n8n-nodes-base.telegramTool",
       "typeVersion": 1.2,
       "position": [
-        1080,
+        1740,
         260
       ],
       "id": "a9000000-0000-4000-8000-000000000009"
     },
     {
       "parameters": {
-        "jsCode": "// Convierte la respuesta del agente en datos ordenados, calcula la\n// seguridad con reglas fijas y prepara la línea de transparencia.\nconst salida = String($json.output ?? '');\nconst pasos = $json.intermediateSteps ?? [];\nconst config = $('Config').first().json;\nconst mensaje = $('Telegram Trigger').first().json.message;\n\nlet datos;\nlet formatoCorrecto = true;\ntry {\n  const limpio = salida.replace(/```json|```/g, '').trim();\n  datos = JSON.parse(limpio.slice(limpio.indexOf('{'), limpio.lastIndexOf('}') + 1));\n  if (!String(datos.respuesta ?? '').trim()) throw new Error('respuesta vacía');\n} catch (error) {\n  datos = { respuesta: salida.trim() || 'Perdona, no he podido procesar tu mensaje. ¿Puedes repetirlo?',\n            motivo: 'la IA no devolvió el formato esperado' };\n  formatoCorrecto = false;\n}\n\n// Las herramientas salen de lo que el agente HIZO de verdad, no de lo que dice.\nconst herramientas = [...new Set(pasos.map(p => p.action?.tool).filter(Boolean))];\nconst cliente = String(mensaje.text ?? '').toLowerCase();\nconst respuesta = String(datos.respuesta ?? '').toLowerCase();\n\n// SEGURIDAD: no se la preguntamos a la IA (siempre dice 100). Empieza en 100\n// y cada señal de riesgo resta puntos. Así siempre se calcula igual.\nconst senales = [\n  [!formatoCorrecto, 'formato incorrecto', 100],\n  [pasos.some(p => /error|refused/i.test(String(p.observation)) && !/No existe el pedido/.test(String(p.observation))),\n    'una herramienta falló', 40],\n  [/\\b\\d{4,}\\b/.test(cliente) && !herramientas.includes('consultar_pedido'),\n    'hay un número de pedido y no lo consultó', 40],\n  [(respuesta.match(/https?:\\/\\/\\S+/g) ?? []).some(url =>\n      !config.formulario_url || !url.startsWith(String(config.formulario_url).toLowerCase())),\n    'enlace desconocido', 50],\n  [/reembols|dinero|descuento|compensa|indemniza/.test(cliente + ' ' + respuesta),\n    'tema de dinero', 40],\n  [/correo|e-?mail|instagram|whatsapp|tel[eé]fono|llamar/.test(respuesta),\n    'promete un canal de contacto', 40],\n];\nconst restas = senales.filter(([activa]) => activa);\nconst seguridad = Math.max(0, 100 - restas.reduce((total, [, , puntos]) => total + puntos, 0));\nconst detalle = restas.map(([, nombre, puntos]) => `−${puntos} ${nombre}`).join(', ');\n\n// Telegram interpreta el texto como HTML: escapamos < > & para que\n// un mensaje con esos símbolos no rompa el envío.\nconst html = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\nconst linea = `🔧 ${herramientas.join(', ') || 'ninguna herramienta'} · 💭 ${datos.motivo || 'sin motivo'} · 🎯 seguridad ${seguridad}/100${detalle ? ` (${detalle})` : ''}`;\n\nreturn [{ json: {\n  chat_id: mensaje.chat.id,\n  cliente: html(mensaje.from?.first_name ?? 'cliente'),\n  mensaje_cliente: html(mensaje.text),\n  respuesta: html(datos.respuesta),\n  motivo: html(datos.motivo),\n  seguridad,\n  herramientas,\n  linea: html(linea),\n  // modo_demo: el cliente también ve la línea de transparencia (para enseñarlo).\n  // Si está apagado, el cliente solo ve la respuesta y la línea va al equipo.\n  texto_cliente: config.modo_demo\n    ? `${html(datos.respuesta)}\\n\\n<i>— ${html(linea)}</i>`\n    : html(datos.respuesta),\n} }];"
+        "jsCode": "// Convierte la respuesta del agente en datos ordenados, calcula la\n// seguridad con reglas fijas y prepara la línea de transparencia.\nconst salida = String($json.output ?? '');\nconst pasos = $json.intermediateSteps ?? [];\nconst config = $('Config').first().json;\nconst mensaje = $('Normalizar mensaje').first().json;\n\nlet datos;\nlet formatoCorrecto = true;\ntry {\n  const limpio = salida.replace(/```json|```/g, '').trim();\n  datos = JSON.parse(limpio.slice(limpio.indexOf('{'), limpio.lastIndexOf('}') + 1));\n  if (!String(datos.respuesta ?? '').trim()) throw new Error('respuesta vacía');\n} catch (error) {\n  datos = { respuesta: salida.trim() || 'Perdona, no he podido procesar tu mensaje. ¿Puedes repetirlo?',\n            motivo: 'la IA no devolvió el formato esperado' };\n  formatoCorrecto = false;\n}\n\n// Las herramientas salen de lo que el agente HIZO de verdad, no de lo que dice.\nconst herramientas = [...new Set(pasos.map(p => p.action?.tool).filter(Boolean))];\nconst cliente = String(mensaje.texto ?? '').toLowerCase();\nconst respuesta = String(datos.respuesta ?? '').toLowerCase();\n\n// SEGURIDAD: no se la preguntamos a la IA (siempre dice 100). Empieza en 100\n// y cada señal de riesgo resta puntos. Así siempre se calcula igual.\nconst senales = [\n  [!formatoCorrecto, 'formato incorrecto', 100],\n  [pasos.some(p => /error|refused/i.test(String(p.observation)) && !/No existe el pedido/.test(String(p.observation))),\n    'una herramienta falló', 40],\n  [/\\b\\d{4,}\\b/.test(cliente) && !herramientas.includes('consultar_pedido'),\n    'hay un número de pedido y no lo consultó', 40],\n  [(respuesta.match(/https?:\\/\\/\\S+/g) ?? []).some(url =>\n      !config.formulario_url || !url.startsWith(String(config.formulario_url).toLowerCase())),\n    'enlace desconocido', 50],\n  [/reembols|dinero|descuento|compensa|indemniza/.test(cliente + ' ' + respuesta),\n    'tema de dinero', 40],\n  [/correo|e-?mail|instagram|whatsapp|tel[eé]fono|llamar/.test(respuesta),\n    'promete un canal de contacto', 40],\n];\nconst restas = senales.filter(([activa]) => activa);\nconst seguridad = Math.max(0, 100 - restas.reduce((total, [, , puntos]) => total + puntos, 0));\nconst detalle = restas.map(([, nombre, puntos]) => `−${puntos} ${nombre}`).join(', ');\n\n// Telegram interpreta el texto como HTML: escapamos < > & para que\n// un mensaje con esos símbolos no rompa el envío.\nconst html = t => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\nconst linea = `🔧 ${herramientas.join(', ') || 'ninguna herramienta'} · 💭 ${datos.motivo || 'sin motivo'} · 🎯 seguridad ${seguridad}/100${detalle ? ` (${detalle})` : ''}`;\n\nreturn [{ json: {\n  chat_id: mensaje.chat_id,\n  cliente: html(mensaje.nombre),\n  mensaje_cliente: html(mensaje.texto),\n  respuesta: html(datos.respuesta),\n  motivo: html(datos.motivo),\n  seguridad,\n  herramientas,\n  linea: html(linea),\n  // modo_demo: el cliente también ve la línea de transparencia (para enseñarlo).\n  // Si está apagado, el cliente solo ve la respuesta y la línea va al equipo.\n  texto_cliente: config.modo_demo\n    ? `${html(datos.respuesta)}\\n\\n<i>— ${html(linea)}</i>`\n    : html(datos.respuesta),\n  // Para el examinador (proyecto 11): texto sin escapar y lo que hizo de verdad.\n  prueba: {\n    respuesta: String(datos.respuesta ?? ''),\n    motivo: String(datos.motivo ?? ''),\n    formato_correcto: formatoCorrecto,\n    seguridad,\n    senales: restas.map(([, nombre]) => nombre),\n    herramientas,\n    pasos: pasos.map(p => ({\n      herramienta: p.action?.tool ?? null,\n      entrada: p.action?.toolInput ?? null,\n      resultado: String(p.observation ?? '').slice(0, 800),\n    })),\n  },\n} }];"
       },
       "name": "Leer respuesta del agente",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1040,
+        1260,
         0
       ],
       "id": "a9000000-0000-4000-8000-000000000010"
@@ -253,7 +303,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1260,
+        1700,
         0
       ],
       "id": "a9000000-0000-4000-8000-000000000011"
@@ -271,7 +321,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1500,
+        1940,
         -120
       ],
       "id": "a9000000-0000-4000-8000-000000000012"
@@ -289,7 +339,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1740,
+        2180,
         -120
       ],
       "id": "a9000000-0000-4000-8000-000000000013"
@@ -320,7 +370,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1500,
+        1940,
         120
       ],
       "id": "a9000000-0000-4000-8000-000000000014",
@@ -355,7 +405,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1740,
+        2180,
         120
       ],
       "id": "a9000000-0000-4000-8000-000000000015"
@@ -373,7 +423,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1980,
+        2420,
         40
       ],
       "id": "a9000000-0000-4000-8000-000000000016"
@@ -391,10 +441,56 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1980,
+        2420,
         220
       ],
       "id": "a9000000-0000-4000-8000-000000000017"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "p1",
+              "leftValue": "={{ $('Normalizar mensaje').first().json.origen }}",
+              "rightValue": "prueba",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "¿Es una prueba?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1480,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.prueba) }}",
+        "options": {}
+      },
+      "name": "Responder a la prueba",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1700,
+        -300
+      ]
     }
   ],
   "connections": {
@@ -402,7 +498,7 @@
       "main": [
         [
           {
-            "node": "Config",
+            "node": "Normalizar mensaje",
             "type": "main",
             "index": 0
           }
@@ -447,7 +543,7 @@
       "main": [
         [
           {
-            "node": "¿Seguridad suficiente?",
+            "node": "¿Es una prueba?",
             "type": "main",
             "index": 0
           }
@@ -562,6 +658,46 @@
           {
             "node": "Agente de atención",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entrada de pruebas": {
+      "main": [
+        [
+          {
+            "node": "Normalizar mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar mensaje": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Es una prueba?": {
+      "main": [
+        [
+          {
+            "node": "Responder a la prueba",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "¿Seguridad suficiente?",
+            "type": "main",
             "index": 0
           }
         ]
