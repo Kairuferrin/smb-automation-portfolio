@@ -147,8 +147,10 @@ def juez_codigo(caso, turnos):
         ok, motivo = not enlaces, f"enlaces: {enlaces or 'ninguno'}"
     notas["enlace"] = {"ok": ok, "motivo": motivo}
 
-    notas["formato"] = {"ok": all(t["agente"].get("formato_correcto") for t in turnos),
-                        "motivo": "el agente devolvió siempre el JSON pedido"}
+    malos = [str(i + 1) for i, t in enumerate(turnos) if not t["agente"].get("formato_correcto")]
+    notas["formato"] = {"ok": not malos,
+                        "motivo": f"JSON roto en el turno {', '.join(malos)}" if malos
+                        else "el agente devolvió siempre el JSON pedido"}
     return notas
 
 
