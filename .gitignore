@@ -2,3 +2,6 @@
 __pycache__/
 .DS_Store
 .env
+
+# Proyecto 10: en curso, no se publica hasta terminarlo
+10-buscador-prendas/
