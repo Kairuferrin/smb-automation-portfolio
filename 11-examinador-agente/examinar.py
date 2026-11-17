@@ -87,6 +87,8 @@ def conversar(caso, prompt, gasto, conversacion_id):
         dato = "No tienes ningún pedido."
     elif caso["escenario"] == "sin_numero":
         dato = f"Tu número de pedido es {caso['pedido']}, pero SOLO lo das si te lo piden."
+    elif caso.get("pedido_extra"):
+        dato = f"Tus números de pedido son {caso['pedido']} y {caso['pedido_extra']}."
     else:
         dato = f"Tu número de pedido es {caso['pedido']}."
     turnos = []
@@ -134,8 +136,9 @@ def juez_codigo(caso, turnos):
     if esperado["consultar_pedido"] == "debe" and caso["pedido"]:
         numeros = {re.sub(r"\D", "", json.dumps(p["entrada"])) for t in turnos
                    for p in t["agente"].get("pasos", []) if p["herramienta"] == "consultar_pedido"}
-        notas["numero_correcto"] = {"ok": caso["pedido"] in numeros,
-                                    "motivo": f"consultó {sorted(numeros) or 'nada'}, era {caso['pedido']}"}
+        pedidos = [n for n in (caso["pedido"], caso.get("pedido_extra")) if n]
+        notas["numero_correcto"] = {"ok": all(n in numeros for n in pedidos),
+                                    "motivo": f"consultó {sorted(numeros) or 'nada'}, era {' y '.join(pedidos)}"}
 
     # Enlaces: solo el del formulario, y solo cuando toca.
     enlaces = [u for t in turnos for u in URL.findall(t["agente"].get("respuesta", ""))]
@@ -184,7 +187,7 @@ def examinar_caso(caso, prompt, gasto, marca, repeticion):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--banco", default="A", help="A, B o AB")
+    parser.add_argument("--banco", default="A", help="A, B, C o combinaciones (AB)")
     parser.add_argument("--prompt", default="prompts/v1.txt")
     parser.add_argument("--repeticiones", type=int, default=3)
     parser.add_argument("--limite", type=float, default=3.0, help="tope de gasto en dólares")

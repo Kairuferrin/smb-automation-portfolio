@@ -14,6 +14,7 @@ Reparto del trabajo (para que los casos sean a la vez muchos y fiables):
 import json
 import random
 import re
+import sys
 
 from comun import CARPETA, Gasto, consultar_api, llamar_gemini
 
@@ -78,6 +79,40 @@ ESCENARIOS = [
      "cliente": "Escribe en INGLÉS y quiere saber dónde está su pedido."},
 ]
 
+# Banco C: tipos de cliente NUEVOS, que el agente nunca ha visto (ni el mejorador).
+# Qué debe hacer el agente lo decidió Kairu caso por caso.
+ESCENARIOS_NUEVOS = [
+    {"id": "mezcla_idiomas", "C": 2, "pedidos": "enviado",
+     "esperado": esperado("debe", "no_debe", "no_debe", "no_debe", idioma="en"),
+     "porque": "Mezcla español e inglés, con más inglés: consultar y responder en el idioma "
+               "principal; ante la duda o si hay mucho inglés, en inglés.",
+     "cliente": "Escribe mezclando español e inglés (spanglish), con MÁS inglés que español, "
+                "y quiere saber dónde está su pedido."},
+    {"id": "cambio_talla", "C": 2, "pedidos": "dentro",
+     "esperado": esperado("debe", "debe", "no_debe", "debe"),
+     "porque": "No hay herramienta de cambios: consultar y darle el formulario de devolución "
+               "(está en plazo) para que devuelva y compre la otra talla.",
+     "cliente": "Quiere cambiar la talla de lo que le llegó (le queda grande o pequeño)."},
+    {"id": "llego_roto", "C": 2, "pedidos": "dentro",
+     "esperado": esperado("debe", "da_igual", "debe", "da_igual"),
+     "porque": "Producto dañado: es un problema real, así que consultar y avisar al equipo.",
+     "cliente": "Le ha llegado la prenda rota, manchada o con un defecto."},
+    {"id": "pide_descuento", "C": 2, "pedidos": None,
+     "esperado": esperado("no_debe", "no_debe", "no_debe", "no_debe"),
+     "porque": "Pide un descuento o un cupón sin tener un problema con un pedido: no prometer "
+               "nada ni avisar al equipo; decir que solo ayuda con pedidos y devoluciones.",
+     "cliente": "Pide un código de descuento o un cupón para su próxima compra e insiste."},
+    {"id": "dos_pedidos", "C": 2, "pedidos": "enviado", "por_cliente": 2,
+     "esperado": esperado("debe", "no_debe", "no_debe", "no_debe"),
+     "porque": "Da dos números a la vez: consultar los dos y responder sobre los dos.",
+     "cliente": "Pregunta a la vez por DOS pedidos suyos y da los dos números."},
+    {"id": "envio_internacional", "C": 2, "pedidos": None,
+     "esperado": esperado("no_debe", "no_debe", "no_debe", "no_debe"),
+     "porque": "Pregunta si envían a otro país: no inventar; decir que no tiene esa "
+               "información y que solo ayuda con pedidos y devoluciones.",
+     "cliente": "Pregunta si la tienda hace envíos a su país (fuera de España) y cuánto cuestan."},
+]
+
 INSTRUCCIONES_IA = """Inventa {n} clientes DISTINTOS de una pequeña tienda de ropa online que
 escriben al chat de atención al cliente por Telegram. Situación: {cliente}
 {dato_pedido}
@@ -123,31 +158,45 @@ def revisar_numero(cliente, numero, escenario, numeros_escenario=()):
 
 
 def main():
-    azar = random.Random(SEMILLA)
+    nuevos = "--nuevos" in sys.argv
+    escenarios, bancos_usados = (ESCENARIOS_NUEVOS, ("C",)) if nuevos else (ESCENARIOS, ("A", "B"))
+    azar = random.Random(SEMILLA + 1 if nuevos else SEMILLA)
     gasto = Gasto(limite_usd=0.5)
     grupos = clasificar_pedidos()
     usados = set()
-    bancos = {"A": [], "B": []}
+    if nuevos:  # no repetir pedidos que ya salen en los bancos A y B
+        for viejo in ("A", "B"):
+            for c in json.loads((CARPETA / f"casos_{viejo}.json").read_text(encoding="utf-8")):
+                usados.update(n for n in (c["pedido"], c.get("pedido_extra")) if n)
+    bancos = {b: [] for b in bancos_usados}
 
-    for esc in ESCENARIOS:
-        total = esc["A"] + esc["B"]
+    for esc in escenarios:
+        etiquetas = [b for b in bancos_usados for _ in range(esc.get(b, 0))]
+        total, por_cliente = len(etiquetas), esc.get("por_cliente", 1)
         # 1. El código elige los pedidos (los fijos primero, el resto al azar).
         if esc["pedidos"] == "inexistente":
             numeros = [str(n) for n in azar.sample(range(2400, 9999), total)]
         elif esc["pedidos"]:
             numeros = list(esc.get("fijos_A", []))
             libres = [n for n in grupos[esc["pedidos"]] if n not in usados and n not in numeros]
-            numeros += azar.sample(libres, total - len(numeros))
+            numeros += azar.sample(libres, total * por_cliente - len(numeros))
         else:
             numeros = [None] * total
         usados.update(n for n in numeros if n)
+        # Cada cliente se lleva sus números (uno, o dos en «dos_pedidos»).
+        lotes = [numeros[i * por_cliente:(i + 1) * por_cliente] for i in range(total)]
 
         # 2. La IA inventa a los clientes.
-        dato = ("Cada cliente tiene un número de pedido distinto: " + ", ".join(numeros)
-                if numeros[0] else "No tienen ningún pedido pendiente.")
+        if not numeros[0]:
+            dato = "No tienen ningún pedido pendiente."
+        elif por_cliente == 1:
+            dato = "Cada cliente tiene un número de pedido distinto: " + ", ".join(numeros)
+        else:
+            dato = ("Cada cliente tiene DOS números de pedido: "
+                    + "; ".join(" y ".join(l) for l in lotes))
         regla = ("IMPORTANTE: el primer mensaje NO incluye el número de pedido."
                  if esc["id"] == "sin_numero" else
-                 "El primer mensaje incluye su número de pedido." if numeros[0] else "")
+                 "El primer mensaje incluye sus números de pedido." if numeros[0] else "")
         respuesta = llamar_gemini(INSTRUCCIONES_IA.format(
             n=total, cliente=esc["cliente"], dato_pedido=dato, regla_numero=regla),
             gasto, temperatura=0.9)
@@ -156,10 +205,11 @@ def main():
             raise SystemExit(f"La IA ha devuelto menos clientes de los pedidos en {esc['id']}.")
 
         # 3. Se juntan: cliente (IA) + pedido y comportamiento esperado (código).
-        for i, (cliente, numero) in enumerate(zip(clientes, numeros)):
-            revisar_numero(cliente, numero, esc["id"], numeros)
-            banco = "A" if i < esc["A"] else "B"
-            bancos[banco].append({
+        for cliente, lote, banco in zip(clientes, lotes, etiquetas):
+            for numero in lote:
+                revisar_numero(cliente, numero, esc["id"], numeros)
+            numero, extra = lote[0], (lote[1] if len(lote) > 1 else None)
+            caso = {
                 "id": f"{banco}{len(bancos[banco]) + 1:02d}",
                 "escenario": esc["id"],
                 "pedido": numero,
@@ -167,8 +217,12 @@ def main():
                 **cliente,
                 "esperado": esc["esperado"],
                 "por_que": esc["porque"],
-            })
-        print(f"{esc['id']}: {esc['A']} en A, {esc['B']} en B")
+            }
+            if extra:
+                caso["pedido_extra"] = extra
+                caso["estado_real_extra"] = consultar_api(extra)
+            bancos[banco].append(caso)
+        print(f"{esc['id']}: " + ", ".join(f"{etiquetas.count(b)} en {b}" for b in bancos_usados))
 
     for banco, casos in bancos.items():
         ruta = CARPETA / f"casos_{banco}.json"

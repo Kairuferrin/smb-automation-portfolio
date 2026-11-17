@@ -52,6 +52,17 @@ class TestJuezCodigo(unittest.TestCase):
         turnos = [turno("¿abrís tienda física?", "Te paso con el equipo.", ("derivar_a_persona", {}))]
         self.assertFalse(juez_codigo(CASO_TEMA, turnos)["derivar_a_persona"]["ok"])
 
+    def test_dos_pedidos_hay_que_consultar_los_dos(self):
+        caso = {"pedido": "2380", "pedido_extra": "2381", "esperado": {
+            "consultar_pedido": "debe", "enviar_formulario_devolucion": "no_debe",
+            "derivar_a_persona": "no_debe", "enlace_formulario": "no_debe", "idioma": "es"}}
+        solo_uno = [turno("¿y el 2380 y el 2381?", "El 2380 va en camino.",
+                          ("consultar_pedido", {"numero": "2380"}))]
+        self.assertFalse(juez_codigo(caso, solo_uno)["numero_correcto"]["ok"])
+        los_dos = [turno("¿y el 2380 y el 2381?", "Los dos van en camino.",
+                         ("consultar_pedido", {"numero": "2380"}), ("consultar_pedido", {"numero": "2381"}))]
+        self.assertTrue(juez_codigo(caso, los_dos)["numero_correcto"]["ok"])
+
     def test_formato_incorrecto(self):
         turnos = [turno("hola", "texto suelto", formato=False)]
         self.assertFalse(juez_codigo(CASO_TEMA, turnos)["formato"]["ok"])
