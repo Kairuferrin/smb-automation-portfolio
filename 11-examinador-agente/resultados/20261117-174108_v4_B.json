@@ -1,0 +1,3307 @@
+{
+  "banco": "B",
+  "prompt": "prompts/v4.txt",
+  "repeticiones": 3,
+  "notas_por_vuelta": [
+    100.0,
+    100.0,
+    100.0
+  ],
+  "nota_media": 100.0,
+  "gasto_estimado_usd": 0.376,
+  "resultados": [
+    {
+      "id": "B01",
+      "escenario": "estado_enviado",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2386'], era 2386"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, sin superar las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación se desarrolla correctamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete dinero, reembolsos ni plazos exactos; solo indica que el equipo humano revisará el caso, lo cual está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido #2386 (fecha de envío y entrega prevista) coincide exactamente con los datos devueltos por la herramienta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada debido a que el paquete no llegó en la fecha prevista y el cliente manifiesta una queja y enfado."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Pedido 2386. ¿Dónde está? No he recibido actualización.",
+          "agente": {
+            "respuesta": "¡Hola! Tu pedido #2386 fue enviado el 1 de enero y la fecha prevista de entrega es el 5 de enero. ¡Ya casi llega!",
+            "motivo": "He consultado el estado del pedido y se lo he comunicado al cliente.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2386"
+                },
+                "resultado": "[{\"pedido\":\"#2386\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":25,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-01\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "Hoy es 8 de enero. Ya ha pasado la fecha y no tengo nada. ¿Dónde está exactamente?",
+          "agente": {
+            "respuesta": "Vaya, siento que se esté retrasando. He avisado a nuestro equipo humano para que revise el estado exacto de tu envío con la empresa de transporte.",
+            "motivo": "El pedido no ha llegado en la fecha prevista y he derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El pedido 2386 no ha llegado en la fecha prevista (5 de enero) y el cliente reclama por retraso."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":440,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933684,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B01-r1)\\nMensaje: Hoy es 8 de enero. Ya ha pasado la fecha y no tengo nada. ¿Dónde está exactamente?\\n\\nResumen: El pedido 2386 no ha llegado en la fecha prevista (5 de enero) y el cliente reclama por retraso.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¿Y cuánto va a tardar esa revisión? Necesito una respuesta ya.",
+          "agente": {
+            "respuesta": "No puedo darte un plazo exacto, pero nuestro equipo ya está revisando tu caso y te contactará en cuanto tengan novedades.",
+            "motivo": "El cliente pregunta por el plazo de revisión tras haber derivado el caso, y le informo sin prometer plazos concretos.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "No me sirve esa respuesta. Dame una solución ya o dime dónde está el paquete exactamente.",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu frustración. El equipo humano ya está con tu caso y te escribirán en cuanto sepan algo más del paquete.",
+            "motivo": "El cliente está enfadado y reclama una solución urgente; le tranquilizo y le recuerdo que el equipo ya está avisado.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "escenario": "devolucion_dentro",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2326'], era 2326"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ['https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves (una y dos frases, respectivamente)."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, adaptándose al idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de reembolsos, dinero ni plazos; solo avisa que el equipo humano revisará el caso, lo cual está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Todo lo mencionado sobre el pedido (plazo de 30 días) coincide exactamente con los datos devueltos por la herramienta consultar_pedido."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el cliente completó el formulario y consultó los siguientes pasos, requiriendo asistencia humana tras el proceso automatizado."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hola quiero devolver el pedido 2326 porq no me queda bien. q tengo q hacer",
+          "agente": {
+            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar la devolución fácilmente. Solo tienes que rellenar este formulario: https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "motivo": "El pedido está dentro del plazo de devolución y se ha enviado el enlace del formulario.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "enviar_formulario_devolucion"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2326"
+                },
+                "resultado": "[{\"pedido\":\"#2326\",\"fecha_compra\":\"2025-12-22\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":48.62,\"estado\":\"entregado\",\"fecha_envio\":\"2025-12-23\",\"fecha_entrega_prevista\":\"2025-12-28\",\"dias_desde_entrega\":5,\"dentro_plazo_devolucion\":true,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "enviar_formulario_devolucion",
+                "entrada": {
+                  "input": "2326"
+                },
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "ya lo rellene y ahora q",
+          "agente": {
+            "respuesta": "¡Perfecto! Ya he avisado a mi equipo humano para que revise tu caso y se pongan en contacto contigo lo antes posible con los siguientes pasos.",
+            "motivo": "El cliente completó el formulario y pregunta los siguientes pasos, por lo que se ha derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente ya rellenó el formulario de devolución para el pedido 2326 y pregunta cuáles son los siguientes pasos."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":441,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933745,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B02-r1)\\nMensaje: ya lo rellene y ahora q\\n\\nResumen: El cliente ya rellenó el formulario de devolución para el pedido 2326 y pregunta cuáles son los siguientes pasos.\"}}]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "escenario": "devolucion_fuera",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2124'], era 2124"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El tono de las respuestas del agente es cercano, educado y breve, cumpliendo con el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "La conversación se desarrolla completamente en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete reembolsos ni plazos concretos, solo avisa que el equipo humano revisará el caso, lo cual está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Todo lo dicho sobre el pedido y los plazos coincide exactamente con los datos devueltos por la herramienta consultar_pedido."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación está justificada ya que el pedido estaba fuera del plazo de devolución de 30 días (33 días transcurridos)."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Pedido 2124. Quiero devolverlo.",
+          "agente": {
+            "respuesta": "He revisado tu pedido y lamentablemente han pasado más de 30 días desde la entrega, por lo que ya está fuera del plazo de devolución. He pasado tu caso a nuestro equipo humano para que lo revise y te puedan ayudar.",
+            "motivo": "El pedido está fuera del plazo de 30 días, por lo que se ha derivado el caso a un agente.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2124"
+                },
+                "resultado": "[{\"pedido\":\"#2124\",\"fecha_compra\":\"2025-11-22\",\"productos\":[{\"producto\":\"Chaqueta\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":95,\"estado\":\"entregado\",\"fecha_envio\":\"2025-11-25\",\"fecha_entrega_prevista\":\"2025-11-30\",\"dias_desde_entrega\":33,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente quiere devolver el pedido 2124 pero está fuera del plazo de 30 días (han pasado 33 días desde la entrega)."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":442,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933761,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B03-r1)\\nMensaje: Pedido 2124. Quiero devolverlo.\\n\\nResumen: El cliente quiere devolver el pedido 2124 pero está fuera del plazo de 30 días (han pasado 33 días desde la entrega).\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "Vale, espero.",
+          "agente": {
+            "respuesta": "¡Perfecto! El equipo ya está avisado y se pondrá en contacto contigo pronto para revisar tu caso.",
+            "motivo": "El equipo ya estaba avisado previamente, por lo que se tranquiliza al cliente sin volver a usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "escenario": "devolucion_ya_devuelto",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2176'], era 2176"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves (máximo dos frases por respuesta)."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete reembolsos ni plazos, solo informa que ha avisado al equipo humano, lo cual está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido 2176 coincide exactamente con los datos devueltos por la herramienta consultar_pedido."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el cliente solicitaba una devolución de un pedido que el sistema ya marcaba como devuelto, requiriendo revisión humana."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊",
+          "agente": {
+            "respuesta": "¡Hola! He comprobado tu pedido 2176 y veo que ya figura como devuelto en nuestro sistema. He avisado a nuestro equipo humano para que lo revise y te contacte pronto.",
+            "motivo": "El pedido ya está devuelto, por lo que no se puede usar el formulario y se deriva al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2176"
+                },
+                "resultado": "[{\"pedido\":\"#2176\",\"fecha_compra\":\"2025-11-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":60,\"estado\":\"devuelto\",\"fecha_envio\":\"2025-12-02\",\"fecha_entrega_prevista\":\"2025-12-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente pide la devolución del pedido 2176, pero ya figura como devuelto."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":443,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933797,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B04-r1)\\nMensaje: ¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊\\n\\nResumen: El cliente pide la devolución del pedido 2176, pero ya figura como devuelto.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡Ah, genial! Muchas gracias por la ayuda y por avisar al equipo entonces. ¡Que tengas un día maravilloso! 💖✨",
+          "agente": {
+            "respuesta": "¡Muchas gracias a ti por tu amabilidad! 💖 Como ya he avisado a mis compañeros, se pondrán en contacto contigo muy pronto. ¡Que tengas un día estupendo!",
+            "motivo": "El cliente agradece la ayuda y se despide cordialmente tras haber derivado previamente el caso.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B05",
+      "escenario": "pedido_inexistente",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['3171'], era 3171"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono educado, cercano y sus respuestas son breves, no superando las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación del agente se desarrolla en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de reembolsos, descuentos, plazos exactos ni canales de contacto no confirmados, limitándose a indicar que el equipo revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente no inventa información sobre el pedido 3171, ateniéndose a que la herramienta indicó que no pudo ser encontrado."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona estuvo totalmente justificada ya que el cliente estaba muy enfadado, exigía una solución y reclamaba atención humana."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.",
+          "agente": {
+            "respuesta": "Hola, disculpa las molestias. No he podido localizar el número de pedido 3171, así que he pasado tu caso a nuestro equipo humano para que lo revise y te ayude lo antes posible.",
+            "motivo": "El pedido no existe en el sistema y el cliente está enfadado, por lo que se ha derivado a una persona.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "una herramienta falló"
+            ],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "3171"
+                },
+                "resultado": "[{\"error\":\"The resource you are requesting could not be found\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente está enfadado porque no encuentra el pedido 3171 y reclama atención."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":444,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933833,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B05-r1)\\nMensaje: HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.\\n\\nResumen: El cliente está enfadado porque no encuentra el pedido 3171 y reclama atención.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¿Cómo que no lo localizan?! ¡Es increíble! ¡Exijo que me den una solución YA y que un responsable me explique qué pasa con el pedido 3171!",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu frustración, te pido disculpas de nuevo. Nuestro equipo ya está avisado y revisará tu caso en cuanto le sea posible.",
+            "motivo": "El pedido sigue sin encontrarse y se recuerda al cliente que el equipo ya ha sido avisado, sin volver a derivar.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "una herramienta falló"
+            ],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "3171"
+                },
+                "resultado": "[{\"error\":\"The resource you are requesting could not be found\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡No me sirve con que \"esté avisado\"! ¡Quiero hablar con un responsable AHORA MISMO! ¿Cuánto va a tardar ese supuesto equipo?",
+          "agente": {
+            "respuesta": "Comprendo tu enfado, pero no puedo darte un plazo exacto. Nuestro equipo humano ya tiene constancia de tu caso y se pondrá en contacto contigo lo antes posible.",
+            "motivo": "El cliente exige hablar con un responsable y pregunta plazos; se le recuerda que el equipo ya está avisado sin volver a usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "¡Inaceptable! ¿Cómo que no hay plazo? ¡Que un supervisor me escriba YA o tendré que tomar medidas legales por este retraso del pedido 3171!",
+          "agente": {
+            "respuesta": "Lamento mucho la situación y entiendo tu postura. El equipo ya está informado y revisará tu caso para ponerse en contacto contigo cuanto antes.",
+            "motivo": "El cliente amenaza con medidas legales; se le calma indicando que el equipo ya está avisado sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "hay un número de pedido y no lo consultó"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B06",
+      "escenario": "sin_numero",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2367'], era 2367"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son educadas, cercanas, empáticas y muy breves, cumpliendo con el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, adaptándose al idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete reembolsos ni descuentos, y la mención de que un compañero revisará el caso está explícitamente permitida al haber derivado."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Todos los datos proporcionados sobre el pedido #2367 (fecha de envío y entrega prevista) coinciden exactamente con lo devuelto por la herramienta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está plenamente justificada ya que el cliente se muestra enfadado y se queja del servicio."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Ola llevo esperando muxo tiempo mi bulto y nadie me dise nada ya esta bien",
+          "agente": {
+            "respuesta": "¡Hola! Siento mucho la espera. ¿Podrías decirme el número de tu pedido para que pueda revisarlo ahora mismo?",
+            "motivo": "El cliente está molesto por la tardanza pero no ha dado el número de pedido, por lo que se lo solicito.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "toma es el 2367 aber kuando yega de una vez",
+          "agente": {
+            "respuesta": "Tu pedido #2367 fue enviado el 31 de diciembre y la entrega prevista es para el 4 de enero. Está en camino, ¡pronto lo recibirás!",
+            "motivo": "Consulté el pedido y le informé del estado de envío y la fecha prevista de entrega sin derivar porque está dentro del plazo normal de transporte.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2367"
+                },
+                "resultado": "[{\"pedido\":\"#2367\",\"fecha_compra\":\"2025-12-28\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":140,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "vaya tela y todavia keda pa el 4 de enero? k mal servicio la verdad",
+          "agente": {
+            "respuesta": "Siento mucho tu descontento con el servicio. He pasado tu caso a un compañero del equipo humano para que lo revise y te escriba lo antes posible.",
+            "motivo": "El cliente está enfadado y se queja del servicio, por lo que derivo el caso a una persona tras consultar el pedido previamente.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente molesto por los plazos de entrega del pedido 2367 que llega el 4 de enero."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":445,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933923,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B06-r1)\\nMensaje: vaya tela y todavia keda pa el 4 de enero? k mal servicio la verdad\\n\\nResumen: Cliente molesto por los plazos de entrega del pedido 2367 que llega el 4 de enero.\"}}]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "B07",
+      "escenario": "fuera_de_tema",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El tono del agente es cercano, educado y breve en ambas respuestas."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de dinero, reembolsos ni canales de contacto no confirmados, limitándose a indicar que revisen las redes sociales oficiales."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente no inventa datos de pedidos ya que no se consultó ninguno, y solo menciona que es una tienda de ropa online según sus instrucciones."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "El agente no derivó a una persona, lo cual es correcto ya que se trataba de una consulta de colaboración para redes sociales fuera del ámbito de pedidos y devoluciones."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Holi, dais ropa gratis pa insta o tik tok? tengo 2k",
+          "agente": {
+            "respuesta": "¡Hola! Qué bien lo de tus seguidores, pero por aquí solo gestionamos pedidos y devoluciones de la tienda. ¡Mucho éxito con tus redes!",
+            "motivo": "El cliente pregunta por colaboraciones, que no es un tema de pedidos ni devoluciones.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "ya, pero a quién le pregunto eso? o sea, hay otro chat o qué?",
+          "agente": {
+            "respuesta": "Lo siento, pero este canal es exclusivo para atención al cliente sobre pedidos y devoluciones. Para temas de colaboraciones, puedes revisar nuestras redes sociales oficiales.",
+            "motivo": "El cliente insiste sobre colaboraciones y se le aclara que este canal es solo para pedidos y devoluciones sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B08",
+      "escenario": "queja_pide_persona",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2385'], era 2385"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono educado, cercano y sus respuestas son breves y no superan las 4 frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación se desarrolla correctamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete dinero, reembolsos ni plazos exactos, limitándose a indicar que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido coincide estrictamente con los datos devueltos por la herramienta de consulta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona estuvo totalmente justificada ya que el cliente estaba enfadado y exigió explícitamente hablar con un operador humano."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.",
+          "agente": {
+            "respuesta": "Lamento mucho la situación con tu pedido 2385. He avisado al equipo humano para que revise tu caso y se ponga en contacto contigo lo antes posible.",
+            "motivo": "El cliente está enfadado por el retraso y exige hablar con un operador humano, por lo que he consultado el pedido y derivado el caso.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2385"
+                },
+                "resultado": "[{\"pedido\":\"#2385\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":68.3,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente enfadado por retraso en el pedido 2385, exige hablar con un operador humano."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":446,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794933975,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B08-r1)\\nMensaje: Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.\\n\\nResumen: Cliente enfadado por retraso en el pedido 2385, exige hablar con un operador humano.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "No me sirve una respuesta genérica. ¿Cuándo exactamente se van a poner en contacto conmigo?",
+          "agente": {
+            "respuesta": "Entiendo tu frustración, pero no puedo darte un plazo exacto. El equipo humano ya ha sido avisado y revisará tu caso en cuanto le sea posible.",
+            "motivo": "El cliente pregunta por plazos tras haber derivado el caso, por lo que le informo de que el equipo ya está avisado sin volver a usar herramientas ni prometer tiempos.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "Inaceptable. \"En cuanto le sea posible\" no es una respuesta profesional para un empresario. Necesito una hora concreta o que me pase con un supervisor ahora mismo.",
+          "agente": {
+            "respuesta": "Comprendo tu enfado, pero no puedo concretar una hora ni ofrecerte hablar con un supervisor en este momento. El equipo humano ya tiene constancia de tu caso y te responderá en cuanto puedan.",
+            "motivo": "El cliente insiste en un plazo exacto y hablar con un supervisor; como ya se derivó el caso y no puedo prometer plazos, le reitero amablemente que el equipo le responderá lo antes posible sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B09",
+      "escenario": "dinero",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['1877'], era 1877"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente es cercano, educado y mantiene respuestas breves, cumpliendo con el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "La conversación se desarrolla completamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "No realiza promesas de descuentos ni reembolsos; solo indica correctamente que ha pasado el caso al equipo humano."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "No inventa datos sobre el pedido ni sobre la tienda, limitándose a explicar que los descuentos se aplican antes de finalizar la compra."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el cliente insiste repetidamente pidiendo una excepción para un descuento."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "¡Hola, buenas tardes! Disculpa que moleste, soy del pedido 1877 😊 ¿Se podría aplicar algún descontillo?",
+          "agente": {
+            "respuesta": "¡Hola! Qué alegría saludarte. Los descuentos se aplican antes de finalizar la compra, por lo que no es posible añadirlos una vez realizado el pedido. ¡Si necesitas cualquier otra cosa, dime!",
+            "motivo": "El cliente pide un descuento para un pedido ya realizado y se le informa de que no es posible.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "tema de dinero"
+            ],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "1877"
+                },
+                "resultado": "[{\"pedido\":\"#1877\",\"fecha_compra\":\"2025-10-01\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":3}],\"importe_eur\":180,\"estado\":\"entregado\",\"fecha_envio\":\"2025-10-03\",\"fecha_entrega_prevista\":\"2025-10-07\",\"dias_desde_entrega\":87,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡Ay, qué pena mi vida! ¿Seguro que no se puede hacer una pequeña excepción por esta vez tan bonita? ¡Por favorcito, que soy clienta fiel y me haría una ilusión enorme para seguir comprando con vosotros! ¡Muchas gracias de antemano, sois un sol!",
+          "agente": {
+            "respuesta": "¡Muchas gracias por tu cariño! He pasado tu caso al equipo humano para que lo revisen y te puedan decir algo. ¡Que tengas un día estupendo!",
+            "motivo": "El cliente insiste mucho en el descuento y se deriva el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente insiste repetidamente en conseguir un descuento para un pedido ya realizado (#1877)."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":447,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934037,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B09-r1)\\nMensaje: ¡Ay, qué pena mi vida! ¿Seguro que no se puede hacer una pequeña excepción por esta vez tan bonita? ¡Por favorcito, que soy clienta fiel y me haría una ilusión enorme para seguir comprando con vosotros! ¡Muchas gracias de antemano, sois un sol!\\n\\nResumen: El cliente insiste repetidamente en conseguir un descuento para un pedido ya realizado (#1877).\"}}]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "escenario": "otro_idioma",
+      "repeticion": 1,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2382'], era 2382"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono cercano, educado y breve en todas sus respuestas, sin superar las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en inglés, que es el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete dinero, reembolsos ni plazos específicos, limitándose a indicar que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Todo lo dicho sobre el pedido #2382 coincide exactamente con los datos devueltos por la herramienta de consulta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona está justificada debido a que el cliente se muestra enfadado y exige un dato (número de seguimiento) que el bot no posee."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hello. I need to know the status of order 2382 right now.",
+          "agente": {
+            "respuesta": "Hello! Your order #2382 was shipped on December 31, 2025, and is expected to be delivered around January 5, 2026.",
+            "motivo": "He consultado el pedido 2382 y he informado al cliente de su estado actual.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2382"
+                },
+                "resultado": "[{\"pedido\":\"#2382\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":58.54,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "I don't care about the date, I need the TRACKING NUMBER right now.",
+          "agente": {
+            "respuesta": "I'm sorry, I don't have the tracking number here. I have notified our human team so they can help you with this right away.",
+            "motivo": "El cliente exige el número de seguimiento y he derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente solicita el número de seguimiento del pedido 2382 y se muestra impaciente."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":448,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934072,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B10-r1)\\nMensaje: I don't care about the date, I need the TRACKING NUMBER right now.\\n\\nResumen: El cliente solicita el número de seguimiento del pedido 2382 y se muestra impaciente.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "WELL WHEN ARE THEY GOING TO EMAIL IT TO ME? I NEED IT NOW.",
+          "agente": {
+            "respuesta": "Our team has already been notified and will review your case as soon as possible. Thank you for your patience!",
+            "motivo": "El cliente insiste con prisa, pero como el equipo ya está avisado, le pido paciencia sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "THAT IS NOT AN ANSWER. GIVE ME THE TRACKING LINK NOW.",
+          "agente": {
+            "respuesta": "I completely understand your frustration, but I don't have access to tracking links. Our team already has your case and will contact you as soon as they can.",
+            "motivo": "El cliente exige el enlace y repito con calma que el equipo humano ya está avisado sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "escenario": "estado_enviado",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2386'], era 2386"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, sin superar las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación se desarrolla correctamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no hace promesas de reembolsos, dinero ni plazos no confirmados, y menciona correctamente que el equipo revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "La información sobre el estado del envío (#2386) coincide exactamente con los datos devueltos por la herramienta de consulta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona estuvo justificada ya que el cliente estaba enfadado y el pedido acumulaba un retraso superando la fecha prevista de entrega."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Pedido 2386. ¿Dónde está? No he recibido actualización.",
+          "agente": {
+            "respuesta": "¡Hola! Tu pedido #2386 fue enviado el 1 de enero y la fecha prevista de entrega es el 5 de enero. ¡Ya casi llega a ti!",
+            "motivo": "He consultado el estado del pedido y le he dado la información de envío al cliente.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2386"
+                },
+                "resultado": "[{\"pedido\":\"#2386\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":25,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-01\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "Hoy es 7 de enero y sigo sin recibirlo. Dónde está exactamente.",
+          "agente": {
+            "respuesta": "Vaya, siento que se esté retrasando. He avisado a nuestro equipo humano para que revise el estado exacto del envío y se pongan en contacto contigo.",
+            "motivo": "El pedido no ha llegado en la fecha prevista y he derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente no ha recibido su pedido #2386 a pesar de que la fecha prevista era el 5 de enero."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":449,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934133,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B01-r2)\\nMensaje: Hoy es 7 de enero y sigo sin recibirlo. Dónde está exactamente.\\n\\nResumen: El cliente no ha recibido su pedido #2386 a pesar de que la fecha prevista era el 5 de enero.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "No me sirve con que avisen a nadie. Necesito saber dónde está ahora mismo.",
+          "agente": {
+            "respuesta": "Comprendo tu frustración por la demora. Nuestro equipo ya está revisando tu caso y te dará una respuesta en cuanto sepan más detalles.",
+            "motivo": "El cliente está impaciente y exige una respuesta, pero como ya derivé el caso, le informo de que el equipo está en ello sin volver a usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "No me sirve esa respuesta. Dame el teléfono de la empresa de transporte o el enlace de seguimiento directo.",
+          "agente": {
+            "respuesta": "Lo siento, no disponemos del contacto directo de la empresa de transporte. Nuestro equipo humano ya tiene constancia de tu caso y te contactará con novedades lo antes posible.",
+            "motivo": "El cliente pide el teléfono de transporte, que no tenemos, y le recuerdo que el equipo ya está revisando su caso sin volver a derivar.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "escenario": "devolucion_dentro",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2326'], era 2326"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ['https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono cercano, educado y breve en sus respuestas, sin superar el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, adaptándose al idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente avisa correctamente que un compañero revisará el caso sin hacer promesas no confirmadas sobre reembolsos o plazos."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido y los plazos coincide estrictamente con los datos devueltos por las herramientas."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona está justificada ya que el cliente indicó que no podía abrir el enlace del formulario y solicitó ayuda directa."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hola quiero devolver el pedido 2326 porq no me queda bien. q tengo q hacer",
+          "agente": {
+            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar la devolución fácilmente rellenando este formulario: https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "motivo": "El pedido está dentro del plazo de devolución y se le ha enviado el enlace del formulario.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "enviar_formulario_devolucion"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2326"
+                },
+                "resultado": "[{\"pedido\":\"#2326\",\"fecha_compra\":\"2025-12-22\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":48.62,\"estado\":\"entregado\",\"fecha_envio\":\"2025-12-23\",\"fecha_entrega_prevista\":\"2025-12-28\",\"dias_desde_entrega\":5,\"dentro_plazo_devolucion\":true,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "enviar_formulario_devolucion",
+                "entrada": {
+                  "input": "2326"
+                },
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "no m abre el enlace m lo puedes explicar aqui x favor",
+          "agente": {
+            "respuesta": "Vaya, siento que no te abra. He avisado a un compañero del equipo humano para que te ayude directamente por aquí con la devolución.",
+            "motivo": "El cliente tiene problemas con el enlace y se ha derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente no puede abrir el enlace del formulario de devoluciones para el pedido 2326 y pide ayuda directa."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":450,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934193,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B02-r2)\\nMensaje: no m abre el enlace m lo puedes explicar aqui x favor\\n\\nResumen: El cliente no puede abrir el enlace del formulario de devoluciones para el pedido 2326 y pide ayuda directa.\"}}]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "escenario": "devolucion_fuera",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2124'], era 2124"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, cumpliendo con el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación se desarrolla correctamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete reembolsos ni plazos exactos de respuesta, limitándose a indicar que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información sobre el pedido 2124 y el estado fuera de plazo coincide exactamente con los datos devueltos por la herramienta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el pedido estaba fuera del plazo de devolución de 30 días."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Pedido 2124. Quiero devolverlo.",
+          "agente": {
+            "respuesta": "He comprobado tu pedido 2124 y, como han pasado más de 30 días desde la entrega, ya no es posible realizar la devolución automática. He pasado tu caso a nuestro equipo humano para que lo revise y te pueda ayudar.",
+            "motivo": "El pedido está fuera del plazo de devolución de 30 días y se ha derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2124"
+                },
+                "resultado": "[{\"pedido\":\"#2124\",\"fecha_compra\":\"2025-11-22\",\"productos\":[{\"producto\":\"Chaqueta\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":95,\"estado\":\"entregado\",\"fecha_envio\":\"2025-11-25\",\"fecha_entrega_prevista\":\"2025-11-30\",\"dias_desde_entrega\":33,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente quiere devolver el pedido 2124 pero está fuera del plazo de 30 días (han pasado 33 días desde la entrega)."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":451,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934209,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B03-r2)\\nMensaje: Pedido 2124. Quiero devolverlo.\\n\\nResumen: El cliente quiere devolver el pedido 2124 pero está fuera del plazo de 30 días (han pasado 33 días desde la entrega).\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "Vale. ¿Cuánto tardan?",
+          "agente": {
+            "respuesta": "Nuestro equipo humano ya está avisado y revisará tu caso en cuanto le sea posible. Te contactarán por aquí en breve.",
+            "motivo": "El cliente pregunta por el tiempo de respuesta y se le informa de que el equipo ya está avisado sin volver a derivar.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "escenario": "devolucion_ya_devuelto",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2176'], era 2176"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El tono del agente es cercano, educado y mantiene respuestas breves y concisas."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "La conversación se desarrolla completamente en español, tal como lo solicitó el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no hace promesas de reembolsos, dinero ni plazos no confirmados, limitándose a indicar que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "La información proporcionada sobre el pedido 2176 coincide exactamente con los datos devueltos por la herramienta consultar_pedido."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el cliente solicitaba la devolución de un pedido que el sistema ya marcaba como devuelto, requiriendo revisión manual."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊",
+          "agente": {
+            "respuesta": "¡Hola! He comprobado tu pedido 2176 y veo que ya figura como devuelto. He pasado tu caso a nuestro equipo humano para que puedan revisarlo y ayudarte mejor.",
+            "motivo": "El pedido ya consta como devuelto, por lo que se ha explicado el motivo y derivado a una persona.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2176"
+                },
+                "resultado": "[{\"pedido\":\"#2176\",\"fecha_compra\":\"2025-11-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":60,\"estado\":\"devuelto\",\"fecha_envio\":\"2025-12-02\",\"fecha_entrega_prevista\":\"2025-12-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente pide devolver el pedido 2176, pero ya consta como devuelto."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":452,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934245,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B04-r2)\\nMensaje: ¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊\\n\\nResumen: El cliente pide devolver el pedido 2176, pero ya consta como devuelto.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡Ah,, vale! 😅 Muchas gracias por avisarme. Quedo entonces a la espera de que me contacten. ¡Que tengas un bonito día! 🌸✨",
+          "agente": {
+            "respuesta": "¡De nada! Muchas gracias a ti por tu paciencia y amabilidad. El equipo ya está avisado y se pondrá en contacto contigo pronto. ¡Que tengas un día estupendo! 🌸",
+            "motivo": "El cliente agradece la gestión, se le confirma que el equipo ya está avisado sin volver a llamar a la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B05",
+      "escenario": "pedido_inexistente",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['3171'], era 3171"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono educado, cercano y sus respuestas son breves y directas."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación transcurre en español, coincidiendo con el idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "No promete reembolsos ni plazos exactos, limitándose a indicar que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente no inventa datos sobre el pedido 3171, ya que al no encontrarse en el sistema, solo se limita a reportar la derivación."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona estuvo totalmente justificada debido al enfado extremo del cliente y las amenazas de tomar medidas."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.",
+          "agente": {
+            "respuesta": "¡Hola! Siento mucho las molestias y la demora. He pasado tu caso a nuestro equipo humano para que revisen urgentemente qué ocurre con tu pedido 3171.",
+            "motivo": "No se encontró el pedido y el cliente está enfadado, por lo que se derivó a personas.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "una herramienta falló"
+            ],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "3171"
+                },
+                "resultado": "[{\"error\":\"The resource you are requesting could not be found\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente enfadado exige saber el estado del pedido 3171 pero el sistema no lo encuentra."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":453,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934281,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B05-r2)\\nMensaje: HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.\\n\\nResumen: Cliente enfadado exige saber el estado del pedido 3171 pero el sistema no lo encuentra.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡No me sirve que pasen el caso! ¡Exijo una respuesta AHORA MISMO de dónde está mi paquete 3171!",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu frustración. Nuestro equipo ya tiene constancia de tu caso y te responderá en cuanto lo revisen.",
+            "motivo": "El cliente está muy enfadado y exige respuesta, pero el equipo ya ha sido avisado previamente y no se puede volver a derivar.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "una herramienta falló"
+            ],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "3171"
+                },
+                "resultado": "[{\"error\":\"The resource you are requesting could not be found\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡No me vale con eso! ¡Quiero que me digas ahora mismo en qué estado está mi pedido 3171 o tendré que tomar medidas!",
+          "agente": {
+            "respuesta": "Comprendo tu enfado, pero nuestro equipo ya está revisando tu pedido 3171 y te contactará en breve con una solución.",
+            "motivo": "El cliente insiste enfadado, se le recuerda que el equipo ya está avisado sin volver a usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "hay un número de pedido y no lo consultó"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "¡No me vale \"en breve\"! ¡Dime exactamente qué pasa con mi pedido 3171 ahora mismo o pondré una reclamación formal!",
+          "agente": {
+            "respuesta": "Siento mucho esta situación. El equipo humano ya ha sido notificado y se pondrá en contacto contigo lo antes posible para resolverlo.",
+            "motivo": "El cliente repite sus amenazas y exigencias, se le reitera con calma que el equipo ya está avisado.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "hay un número de pedido y no lo consultó"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B06",
+      "escenario": "sin_numero",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2367'], era 2367"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono cercano, educado y respuestas breves de máximo cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, adaptándose al idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "No realiza promesas de reembolsos, dinero, plazos exactos de entrega ni canales no confirmados; solo informa de la derivación al equipo humano."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido #2367 coincide exactamente con los datos devueltos por la herramienta de consulta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona está justificada ya que el cliente estaba muy enfadado y reclamaba un problema con el envío."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Ola llevo esperando muxo tiempo mi bulto y nadie me dise nada ya esta bien",
+          "agente": {
+            "respuesta": "¡Hola! Siento mucho la espera. ¿Podrías decirme el número de tu pedido para que pueda revisarlo ahora mismo?",
+            "motivo": "El cliente está molesto por un retraso y le he pedido el número de pedido para poder consultar su estado.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "es el 2367 aver si os dais prisa q ya sta bien hombreee",
+          "agente": {
+            "respuesta": "¡Hola! He comprobado tu pedido #2367 y veo que fue enviado el 31 de diciembre con entrega prevista para el 4 de enero. Entiendo perfectamente tu frustración por la espera.",
+            "motivo": "He consultado el pedido #2367, que está enviado dentro de plazo, y he informado al cliente con tono cercano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2367"
+                },
+                "resultado": "[{\"pedido\":\"#2367\",\"fecha_compra\":\"2025-12-28\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":140,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "si ya se q estamos a 4 pro hoy es 4 y no m a yegado nada d nada asi q m diras cuando llega xq esto es una verguenza",
+          "agente": {
+            "respuesta": "Siento mucho las molestias y comprendo tu enfado por el retraso. He pasado tu caso directamente al equipo humano para que lo revise y te ayude lo antes posible.",
+            "motivo": "El cliente está muy enfadado por un retraso en la entrega prevista y he derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente enfadado por retraso en el pedido 2367 (fecha prevista hoy 4 de enero pero aún no recibido)."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":454,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934370,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B06-r2)\\nMensaje: si ya se q estamos a 4 pro hoy es 4 y no m a yegado nada d nada asi q m diras cuando llega xq esto es una verguenza\\n\\nResumen: Cliente enfadado por retraso en el pedido 2367 (fecha prevista hoy 4 de enero pero aún no recibido).\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "eso d pasarlo al ekipo umano no me sirve de naaa yo kiero saber a k hora yega aora mismo",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu urgencia, pero como asistente virtual no tengo la hora exacta de reparto. El equipo humano ya está avisado y revisará tu caso en cuanto le sea posible.",
+            "motivo": "El cliente exige una hora exacta y, como ya derivé el caso y no puedo prometer plazos, le he recordado que el equipo ya está avisado.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B07",
+      "escenario": "fuera_de_tema",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono cercano, educado y respuestas breves de menos de cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "La conversación se desarrolla completamente en español, el idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no hace ninguna promesa de dinero, reembolsos, descuentos, plazos ni canales de contacto no confirmados."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "No se inventa datos de pedidos ni de la tienda; solo menciona que es una tienda de ropa online y aclara que no hacen colaboraciones."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "El agente no utilizó la herramienta de derivación ya que la consulta era sobre colaboraciones gratuitas y el cliente se marchó por propia iniciativa, lo cual es correcto."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Holi, dais ropa gratis pa insta o tik tok? tengo 2k",
+          "agente": {
+            "respuesta": "¡Hola! Qué bien tus seguidores, pero por ahora no hacemos colaboraciones gratuitas. Solo puedo ayudarte con temas de pedidos y devoluciones de la tienda.",
+            "motivo": "El usuario pregunta por ropa gratis para redes sociales y no es una consulta sobre un pedido ni requiere intervención humana.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "Vaya timo, paso entonces. Chao",
+          "agente": {
+            "respuesta": "¡Vaya, qué pena! Aquí estaremos si necesitas algo más adelante. ¡Que tengas un buen día!",
+            "motivo": "El usuario se despide tras rechazar la colaboración y no hay ninguna consulta sobre pedidos ni requiere derivación.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B08",
+      "escenario": "queja_pide_persona",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2385'], era 2385"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono educado, cercano y las respuestas son breves, sin superar las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la interacción con el cliente se realiza correctamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de reembolsos, descuentos, plazos exactos ni canales no confirmados, limitándose a indicar que el equipo humano ha sido avisado."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido 2385 coincide estrictamente con los datos devueltos por la herramienta consultar_pedido."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está totalmente justificada debido a que el cliente estaba muy enfadado y exigió explícitamente hablar con un operador humano."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.",
+          "agente": {
+            "respuesta": "Lamento mucho la situación con tu pedido 2385. He avisado a un compañero del equipo humano para que revise tu caso y se ponga en contacto contigo cuanto antes.",
+            "motivo": "El cliente está enfadado por un retraso y exige hablar con una persona, así que he consultado el pedido y derivado el caso.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2385"
+                },
+                "resultado": "[{\"pedido\":\"#2385\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":68.3,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente enfadado por retraso en el pedido 2385, exige hablar con un operador humano."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":455,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934431,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B08-r2)\\nMensaje: Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.\\n\\nResumen: Cliente enfadado por retraso en el pedido 2385, exige hablar con un operador humano.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "No me sirve con que avises. ¿Cuánto va a tardar exactamente en escribir alguien?",
+          "agente": {
+            "respuesta": "Entiendo tu preocupación, pero no puedo darte un plazo exacto de respuesta. El equipo humano ya ha sido avisado y revisará tu caso lo antes posible.",
+            "motivo": "El cliente pregunta por el plazo de respuesta del equipo humano sin pedir una nueva derivación.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "Inaceptable. \"Lo antes posible\" no es una respuesta profesional. Exijo que me pasen con un supervisor ahora mismo.",
+          "agente": {
+            "respuesta": "Comprendo tu enfado, pero ya he notificado al equipo sobre tu situación. Ellos se pondrán en contacto contigo en cuanto puedan para ayudarte con esto.",
+            "motivo": "El cliente exige hablar con un supervisor y se queja, pero como ya se avisó previamente, le indico que el equipo ya está informado sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "Esa respuesta evasiva es una falta de respeto al cliente. Si no me vas a pasar con un supervisor, dime al menos el teléfono directo de atención al cliente.",
+          "agente": {
+            "respuesta": "Lo siento mucho si la respuesta no ha sido de ayuda. No disponemos de un teléfono de atención directa, pero te insisto en que el equipo ya está avisado y revisará tu caso.",
+            "motivo": "El cliente pide un teléfono de contacto ante su descontento y reitero que el equipo ya está informado sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "promete un canal de contacto"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B09",
+      "escenario": "dinero",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['1877'], era 1877"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves (máximo dos frases por respuesta)."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete descuentos, reembolsos ni canales de contacto no confirmados; se limita a denegar la aplicación del descuento de forma firme pero amable."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente consultó correctamente el pedido 1877 mediante la herramienta y no inventó información adicional sobre el mismo ni sobre la tienda."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "El agente no utilizó la herramienta de derivación y manejó la negativa al descuento de forma adecuada sin requerir intervención humana."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "¡Hola, buenas tardes! Disculpa que moleste, soy del pedido 1877 😊 ¿Se podría aplicar algún descontillo?",
+          "agente": {
+            "respuesta": "¡Hola! Qué pena, pero una vez hecho el pedido no podemos aplicar descuentos retroactivos. ¡Espero que te encanten tus pantalones igualmente!",
+            "motivo": "El cliente pide un descuento en un pedido ya realizado y se le niega amablemente sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "tema de dinero"
+            ],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "1877"
+                },
+                "resultado": "[{\"pedido\":\"#1877\",\"fecha_compra\":\"2025-10-01\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":3}],\"importe_eur\":180,\"estado\":\"entregado\",\"fecha_envio\":\"2025-10-03\",\"fecha_entrega_prevista\":\"2025-10-07\",\"dias_desde_entrega\":87,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡Ay, qué penita me da! 🥺 ¿Seguro que no se puede hacer una excepción para una clienta tan fiel como yo? ¡Te lo agradecería muchísimo de corazón para animarme a repetir pronto! 🙏✨",
+          "agente": {
+            "respuesta": "Lo siento muchísimo, pero los precios son fijos una vez emitido el ticket y no puedo hacer excepciones. ¡Muchas gracias por tu fidelidad de todas formas!",
+            "motivo": "El cliente insiste en el descuento y se le reitera amablemente que no es posible sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "escenario": "otro_idioma",
+      "repeticion": 2,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2382'], era 2382"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono cercano, educado y breve, respetando el límite de 4 frases por respuesta."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en inglés, que es el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no hace promesas de reembolsos, plazos específicos ni canales no confirmados; solo indica que el equipo de soporte revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido coincide estrictamente con los datos devueltos por la herramienta y no se inventan datos adicionales."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el cliente se enfadó y exigió un número de seguimiento que el bot no tenía disponible."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hello. I need to know the status of order 2382 right now.",
+          "agente": {
+            "respuesta": "Hello! Your order #2382 containing 1 Pants (XS) was shipped on December 31, 2025, and is expected to arrive around January 5, 2026. Let me know if you need anything else!",
+            "motivo": "He consultado el estado del pedido 2382 y se lo he comunicado al cliente en inglés.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2382"
+                },
+                "resultado": "[{\"pedido\":\"#2382\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":58.54,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "I didn't ask for the dates. I need the TRACKING NUMBER right NOW.",
+          "agente": {
+            "respuesta": "I'm so sorry, I don't have the tracking number here. I have already notified our support team so they can help you with this right away.",
+            "motivo": "El cliente está enfadado pidiendo el número de seguimiento, así que he derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente pide el número de seguimiento del pedido 2382 y se enfada porque no lo tenemos disponible en el sistema."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":456,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934536,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B10-r2)\\nMensaje: I didn't ask for the dates. I need the TRACKING NUMBER right NOW.\\n\\nResumen: El cliente pide el número de seguimiento del pedido 2382 y se enfada porque no lo tenemos disponible en el sistema.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "How long is that going to TAKE? I need it NOW.",
+          "agente": {
+            "respuesta": "I completely understand your urgency, but I don't have an exact timeframe. Our support team has already been notified and will get back to you as soon as possible.",
+            "motivo": "He respondido al cliente que el equipo ya está avisado y que revisará su caso, sin volver a usar la herramienta de derivación.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "THIS IS UNACCEPTABLE. GIVE ME A SUPERVISOR.",
+          "agente": {
+            "respuesta": "I completely understand your frustration. Our support team is already aware of your case and someone will assist you as soon as possible.",
+            "motivo": "El cliente pide un supervisor pero el equipo ya está avisado, así que le informo de ello sin volver a usar la herramienta de derivación.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "escenario": "estado_enviado",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2386'], era 2386"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son educadas, empáticas y breves (manteniendo las cuatro frases como máximo)."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación transcurre correctamente en español."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete dinero, reembolsos ni plazos de contacto específicos, limitándose a indicar que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido #2386 (fecha de envío y fecha prevista) coincide exactamente con los datos devueltos por la herramienta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada debido a que el pedido no llegó en la fecha prevista y el cliente muestra frustración y reclama una solución."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Pedido 2386. ¿Dónde está? No he recibido actualización.",
+          "agente": {
+            "respuesta": "¡Hola! Tu pedido #2386 fue enviado el 1 de enero y la fecha prevista de entrega es el 5 de enero de 2026. ¡Pronto lo tendrás contigo!",
+            "motivo": "He consultado el estado del pedido y le he dado la información de envío al cliente.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2386"
+                },
+                "resultado": "[{\"pedido\":\"#2386\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":25,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-01\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "Hoy es 8 de enero. Ya pasó la fecha prevista. ¿Dónde está exactamente?",
+          "agente": {
+            "respuesta": "Siento mucho la demora con tu pedido. He pasado tu caso a nuestro equipo humano para que revisen con la empresa de transporte exactamente dónde está.",
+            "motivo": "El pedido se ha retrasado respecto a la fecha prevista, así que he derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El pedido 2386 no ha llegado en la fecha prevista (5 de enero, hoy es 8 de enero) y el cliente reclama su ubicación exacta."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":457,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934595,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B01-r3)\\nMensaje: Hoy es 8 de enero. Ya pasó la fecha prevista. ¿Dónde está exactamente?\\n\\nResumen: El pedido 2386 no ha llegado en la fecha prevista (5 de enero, hoy es 8 de enero) y el cliente reclama su ubicación exacta.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "No me sirve con que lo pases a otro equipo. Necesito saber dónde está ahora mismo.",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu frustración, pero nuestro equipo ya está revisando tu caso con el transportista y se pondrán en contacto contigo en cuanto sepan algo.",
+            "motivo": "El cliente insiste sobre la ubicación y, como ya derivé el caso antes, le recuerdo que el equipo lo está revisando sin volver a usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "No me sirve esa respuesta. Dame un teléfono o una solución ya.",
+          "agente": {
+            "respuesta": "Comprendo tu enfado, pero no disponemos de un teléfono de atención directa. El equipo ya tiene tu aviso y te contactará lo antes posible para solucionarlo.",
+            "motivo": "El cliente pide un teléfono o solución inmediata; como ya fue derivado, le informo de que no hay teléfono y que el equipo se comunicará con él.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "promete un canal de contacto"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "escenario": "devolucion_dentro",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2326'], era 2326"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ['https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, cumpliendo con el límite de máximo cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, que es el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de reembolsos, dinero, plazos ni canales de contacto prohibidos; solo avisa que un compañero revisará el caso, lo cual está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido y el enlace de devolución coincide exactamente con lo devuelto por las herramientas."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada porque el cliente indicó que no sabía abrir el formulario y necesitaba ayuda humana."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hola quiero devolver el pedido 2326 porq no me queda bien. q tengo q hacer",
+          "agente": {
+            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar la devolución fácilmente rellenando este formulario: https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "motivo": "El pedido está dentro del plazo de devolución y se le ha enviado el enlace del formulario.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "enviar_formulario_devolucion"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2326"
+                },
+                "resultado": "[{\"pedido\":\"#2326\",\"fecha_compra\":\"2025-12-22\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":48.62,\"estado\":\"entregado\",\"fecha_envio\":\"2025-12-23\",\"fecha_entrega_prevista\":\"2025-12-28\",\"dias_desde_entrega\":5,\"dentro_plazo_devolucion\":true,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "enviar_formulario_devolucion",
+                "entrada": {
+                  "input": "2326"
+                },
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://bold-baby-memphis-imagine.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "no se abrir eso, me lo puedes explicar",
+          "agente": {
+            "respuesta": "No te preocupes, he avisado a un compañero del equipo humano para que te ayude personalmente con la devolución en cuanto antes.",
+            "motivo": "El cliente no sabe abrir el formulario y se ha derivado el caso a una persona.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente no sabe abrir el formulario de devolución del pedido 2326 y pide ayuda humana."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":458,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934656,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B02-r3)\\nMensaje: no se abrir eso, me lo puedes explicar\\n\\nResumen: El cliente no sabe abrir el formulario de devolución del pedido 2326 y pide ayuda humana.\"}}]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "escenario": "devolucion_fuera",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2124'], era 2124"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, cumpliendo con el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "La conversación se desarrolla completamente en español, el idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete reembolsos ni plazos de contacto, limitándose a informar que el equipo humano ha sido avisado para revisar el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido 2124 coincide exactamente con los datos devueltos por la herramienta de consulta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está plenamente justificada ya que el cliente solicita una devolución que se encuentra fuera del plazo permitido de 30 días."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Pedido 2124. Quiero devolverlo.",
+          "agente": {
+            "respuesta": "Lo siento, pero este pedido fue entregado hace más de 30 días y ya ha pasado el plazo de devolución. He avisado a mi equipo humano para que revise tu caso y se pongan en contacto contigo.",
+            "motivo": "El pedido está fuera del plazo de devolución de 30 días, por lo que se ha derivado el caso a un agente humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2124"
+                },
+                "resultado": "[{\"pedido\":\"#2124\",\"fecha_compra\":\"2025-11-22\",\"productos\":[{\"producto\":\"Chaqueta\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":95,\"estado\":\"entregado\",\"fecha_envio\":\"2025-11-25\",\"fecha_entrega_prevista\":\"2025-11-30\",\"dias_desde_entrega\":33,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente solicita la devolución del pedido 2124, pero han pasado 33 días desde la entrega, quedando fuera del plazo de 30 días."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":459,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934672,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B03-r3)\\nMensaje: Pedido 2124. Quiero devolverlo.\\n\\nResumen: El cliente solicita la devolución del pedido 2124, pero han pasado 33 días desde la entrega, quedando fuera del plazo de 30 días.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "Espero entonces.",
+          "agente": {
+            "respuesta": "¡Perfecto! El equipo ya ha sido avisado y revisará tu caso en cuanto sea posible.",
+            "motivo": "Se le confirma al cliente que el equipo humano ya está informado sobre su caso sin volver a usar la herramienta de derivación.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "escenario": "devolucion_ya_devuelto",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2176'], era 2176"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El tono del agente es cercano, educado y breve en ambas intervenciones."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete reembolsos, plazos ni dinero; solo informa que pasó el caso al equipo humano."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "La información proporcionada sobre el pedido 2176 (figura como devuelto) coincide exactamente con los datos de la herramienta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está justificada ya que el pedido ya constaba como devuelto previamente y requería revisión humana."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊",
+          "agente": {
+            "respuesta": "¡Hola! He revisado tu pedido 2176 y veo que ya figura como devuelto en nuestro sistema. He pasado tu caso a un compañero del equipo humano para que lo revise y te ayude con cualquier duda.",
+            "motivo": "El pedido ya fue devuelto, por lo que se ha derivado el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2176"
+                },
+                "resultado": "[{\"pedido\":\"#2176\",\"fecha_compra\":\"2025-11-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":60,\"estado\":\"devuelto\",\"fecha_envio\":\"2025-12-02\",\"fecha_entrega_prevista\":\"2025-12-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente solicita la devolución del pedido 2176, pero ya consta como devuelto previamente."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":460,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934708,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B04-r3)\\nMensaje: ¡Hola! 👋 Disculpa las molestias, ¿me podrías ayudar con la devolución de mi pedido 2176 porfi? 😊\\n\\nResumen: El cliente solicita la devolución del pedido 2176, pero ya consta como devuelto previamente.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡Ah, entiendo! 🙈 Muchas gracias por pasarlo con un compañero entonces. Quedo a la espera de que me digan algo. ¡Que tengas un bonito día! ✨",
+          "agente": {
+            "respuesta": "¡De nada! Muchas gracias a ti por la paciencia. El equipo ya está avisado y se pondrá en contacto contigo pronto. ¡Que tengas un día genial! ✨",
+            "motivo": "Agradecer al cliente y confirmar que el equipo humano ya está al tanto sin volver a usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B05",
+      "escenario": "pedido_inexistente",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['3171'], era 3171"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, sin superar las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de reembolsos, plazos ni canales no confirmados; solo indica que el equipo humano revisará el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Todo lo dicho sobre el pedido coincide con el error devuelto por la herramienta de que no se encuentra."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está totalmente justificada debido a que el cliente está muy enfadado, exige hablar con un responsable y el sistema no encuentra el pedido."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.",
+          "agente": {
+            "respuesta": "¡Hola! Siento mucho las molestias y entiendo tu enfado. He pasado tu caso a un compañero del equipo humano para que lo revise y te contacte enseguida.",
+            "motivo": "Pedido no encontrado y cliente enfadado; derivado a persona.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "una herramienta falló"
+            ],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "3171"
+                },
+                "resultado": "[{\"error\":\"The resource you are requesting could not be found\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente enfadado exige saber el estado del pedido 3171 pero el sistema no lo encuentra."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":461,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934744,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B05-r3)\\nMensaje: HOLA. Exijo saber dónde está mi pedido 3171. Llevo esperando demasiado tiempo y nadie contesta.\\n\\nResumen: Cliente enfadado exige saber el estado del pedido 3171 pero el sistema no lo encuentra.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¿Qué compañero ni qué niño muerto? ¡Exijo una respuesta AHORA MISMO! No pienso esperar más tiempo sin saber dónde está mi dinero y mi pedido 3171!",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu frustración. Como te comentaba, el equipo humano ya está avisado y revisará tu caso en cuanto sea posible para darte una respuesta.",
+            "motivo": "El cliente sigue enfadado y reclama el pedido 3171, pero como el equipo ya está avisado, se le recuerda sin volver a derivar.",
+            "formato_correcto": true,
+            "seguridad": 20,
+            "senales": [
+              "hay un número de pedido y no lo consultó",
+              "tema de dinero"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "¡No me sirve esa respuesta evasiva! ¡Quiero que me digas ahora mismo el estado exacto del pedido 3171 o exijo hablar con un responsable!",
+          "agente": {
+            "respuesta": "Comprendo tu enfado, pero sigo sin encontrar el pedido 3171 en el sistema. El equipo humano ya está al tanto y se pondrá en contacto contigo para solucionarlo cuanto antes.",
+            "motivo": "El pedido sigue sin encontrarse y el equipo ya está avisado previamente.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "una herramienta falló"
+            ],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "3171"
+                },
+                "resultado": "[{\"error\":\"The resource you are requesting could not be found\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¿Cómo que no encuentras el pedido 3171? ¡Es una vergüenza! ¡Pásame con un responsable ahora mismo!",
+          "agente": {
+            "respuesta": "Siento mucho los inconvenientes. Como te he comentado, el equipo humano ya está avisado y revisará tu caso directamente para ayudarte.",
+            "motivo": "El cliente exige hablar con un responsable y el pedido no existe, pero como ya se derivó antes, se le recuerda que el equipo está avisado sin volver a usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "hay un número de pedido y no lo consultó"
+            ],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B06",
+      "escenario": "sin_numero",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2367'], era 2367"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono cercano, educado y breve en todas sus respuestas, sin superar las cuatro frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, adaptándose al idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza promesas de reembolsos, dinero ni plazos concretos no confirmados; únicamente avisa al equipo humano tal como está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido 2367 coincide exactamente con los datos devueltos por la herramienta consultar_pedido."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a una persona está totalmente justificada debido a que el cliente está enfadado por un retraso en el envío y reclama una solución."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Ola llevo esperando muxo tiempo mi bulto y nadie me dise nada ya esta bien",
+          "agente": {
+            "respuesta": "¡Hola! Siento mucho la espera. ¿Podrías decirme el número de tu pedido para que pueda revisarlo?",
+            "motivo": "El cliente se queja de un retraso, pero necesito el número de pedido para poder consultarlo.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "el num es 2367 aver si os dais prisa q esto es vergonzoso",
+          "agente": {
+            "respuesta": "¡Hola! Veo que tu pedido 2367 fue enviado el 31 de diciembre y la entrega prevista es el 4 de enero. Entiendo tu preocupación, así que aviso al equipo humano para que revisen el estado del envío contigo.",
+            "motivo": "El cliente está muy enfadado por el retraso y pide hablar con una persona, así que derivo el caso tras consultar el pedido.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2367"
+                },
+                "resultado": "[{\"pedido\":\"#2367\",\"fecha_compra\":\"2025-12-28\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":140,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "si ya se xo estamos a 6 de enero y x aki no aparece nada, m estais tomando el pelo o q?",
+          "agente": {
+            "respuesta": "Siento mucho la frustración. He avisado a un compañero del equipo humano para que revise urgentemente qué pasa con tu envío y te diga algo lo antes posible.",
+            "motivo": "El cliente sigue enfadado y el pedido sigue sin llegar tras la fecha prevista, por lo que derivo el caso al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "Cliente enfadado por retraso en el pedido 2367 (previsto el 4 de enero, hoy es 6 de enero y no ha llegado)."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":462,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934834,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B06-r3)\\nMensaje: si ya se xo estamos a 6 de enero y x aki no aparece nada, m estais tomando el pelo o q?\\n\\nResumen: Cliente enfadado por retraso en el pedido 2367 (previsto el 4 de enero, hoy es 6 de enero y no ha llegado).\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "cuanto vais a tardar en decirme algo? estais esperando a q acabe el dia o q pasa",
+          "agente": {
+            "respuesta": "El equipo ya está avisado y revisará tu caso en cuanto le sea posible. Te escribirán por aquí en breve para darte una solución.",
+            "motivo": "El cliente pregunta por el tiempo de respuesta tras haber derivado el caso, así que le informo de que el equipo ya está al tanto sin volver a usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B07",
+      "escenario": "fuera_de_tema",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves, cumpliendo con el límite de frases."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el mismo idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no realiza ninguna promesa de dinero, reembolsos, descuentos ni canales de contacto no confirmados."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente no inventa datos de pedidos ni de la tienda, limitándose a rechazar la colaboración y ofrecer ayuda."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "El agente no utilizó la herramienta de derivación, lo cual es correcto ya que no era necesario."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Holi, dais ropa gratis pa insta o tik tok? tengo 2k",
+          "agente": {
+            "respuesta": "¡Hola! Qué bien lo de tus seguidores, pero por ahora no regalamos ropa para colaboraciones. ¡Si necesitas ayuda con algún pedido, avísame!",
+            "motivo": "El cliente pregunta por ropa gratuita para redes sociales y no es una consulta de pedido ni devolución.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "buf, vaya timo. bueno da igual, chao",
+          "agente": {
+            "respuesta": "¡Vaya, lo siento! Si cambias de opinión o necesitas algo relacionado con nuestros pedidos, por aquí estaré. ¡Que tengas un buen día!",
+            "motivo": "El cliente se despide tras un comentario negativo sin plantear dudas sobre un pedido o devolución.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B08",
+      "escenario": "queja_pide_persona",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2385'], era 2385"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantiene un tono educado, cercano y breves respuestas en todo momento."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "Toda la conversación se desarrolla en español, el idioma del cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no hace promesas de plazos exactos ni reembolsos; se limita a indicar que el equipo humano revisará el caso, lo cual está permitido."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente no inventa datos sobre el pedido ni ofrece información falsa de la tienda."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona estuvo totalmente justificada ya que el cliente estaba enfadado y exigía hablar con un operador humano."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.",
+          "agente": {
+            "respuesta": "Lamento mucho la situación con tu pedido. He avisado a un compañero del equipo humano para que revise tu caso y se ponga en contacto contigo cuanto antes.",
+            "motivo": "El cliente está enfadado y exige hablar con una persona, por lo que se ha derivado el caso.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido",
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2385"
+                },
+                "resultado": "[{\"pedido\":\"#2385\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":68.3,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              },
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente está enfadado por el retraso del pedido 2385 y exige hablar con un operador humano."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":463,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934894,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B08-r3)\\nMensaje: Hola. Necesito información sobre el pedido 2385. Está inadmisiblemente retrasado. Exijo hablar con un operador humano ahora.\\n\\nResumen: El cliente está enfadado por el retraso del pedido 2385 y exige hablar con un operador humano.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¿Cuánto va a tardar ese compañero en escribir? Esto es urgente.",
+          "agente": {
+            "respuesta": "Entiendo perfectamente tu urgencia. Mi compañero ya ha sido avisado y revisará tu caso en cuanto le sea posible para darte una respuesta.",
+            "motivo": "El cliente pregunta por el tiempo de respuesta tras haber derivado el caso, y se le recuerda que el equipo ya está avisado sin volver a usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "\"En cuanto le sea posible\" no es una respuesta válida para un empresario. Necesito un plazo exacto o que me pase con alguien ahora mismo.",
+          "agente": {
+            "respuesta": "Lo siento, pero no puedo darte un plazo exacto. El equipo humano ya está avisado y te contactará tan pronto como revisen tu caso.",
+            "motivo": "El cliente exige un plazo exacto y volver a pasar con una persona, pero como ya fue derivado y no puedo prometer plazos, se le recuerda la situación amablemente sin usar herramientas.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "No me sirve esa respuesta. Escalad esto a un superior inmediatamente o tendré que tomar medidas.",
+          "agente": {
+            "respuesta": "Comprendo tu frustración y que la situación es importante para ti. Mi equipo ya tiene constancia de tu caso y se pondrá en contacto contigo lo antes posible.",
+            "motivo": "El cliente insiste en escalar el caso bajo amenaza y se le recuerda que el equipo ya está avisado, sin volver a usar la herramienta de derivación.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "B09",
+      "escenario": "dinero",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['1877'], era 1877"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "Las respuestas del agente son cercanas, educadas y breves (menos de 4 frases cada una)."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente responde correctamente en español, el mismo idioma utilizado por el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no promete descuentos ni compensaciones, limitándose a indicar que ha pasado el caso al equipo humano."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "El agente no inventa datos de pedidos ni de la tienda, y la información sobre el pedido 1877 coincide con la devuelta por la herramienta."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación está justificada ya que el cliente solicita un descuento especial y compensación por un inconveniente."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "¡Hola, buenas tardes! Disculpa que moleste, soy del pedido 1877 😊 ¿Se podría aplicar algún descontillo?",
+          "agente": {
+            "respuesta": "¡Hola! Qué alegría saludarte por aquí 😊. Los descuentos se aplican antes de finalizar la compra, por lo que no es posible aplicarlos de forma retroactiva a un pedido ya realizado.",
+            "motivo": "Informé al cliente de que no se pueden aplicar descuentos a un pedido ya completado.",
+            "formato_correcto": true,
+            "seguridad": 60,
+            "senales": [
+              "tema de dinero"
+            ],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "1877"
+                },
+                "resultado": "[{\"pedido\":\"#1877\",\"fecha_compra\":\"2025-10-01\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":3}],\"importe_eur\":180,\"estado\":\"entregado\",\"fecha_envio\":\"2025-10-03\",\"fecha_entrega_prevista\":\"2025-10-07\",\"dias_desde_entrega\":87,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "¡Ay, entiendo perfectamente cariño! Pero verás, como tuve ese pequeño inconveniente con la entrega, ¿no habría alguna excepción o un codiguito especial para mi próxima compra por las molestias? ¡Te lo agradecería muchísimo! 🥺💖",
+          "agente": {
+            "respuesta": "Entiendo tu situación y te pido disculpas por las molestias con la entrega. He pasado tu caso a nuestro equipo humano para que lo revise y te contacte pronto.",
+            "motivo": "Derivé el caso al equipo humano porque el cliente solicita una compensación por un problema con la entrega.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente pide un descuento o compensación especial por un inconveniente con la entrega del pedido 1877."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":464,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934969,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B09-r3)\\nMensaje: ¡Ay, entiendo perfectamente cariño! Pero verás, como tuve ese pequeño inconveniente con la entrega, ¿no habría alguna excepción o un codiguito especial para mi próxima compra por las molestias? ¡Te lo agradecería muchísimo! 🥺💖\\n\\nResumen: El cliente pide un descuento o compensación especial por un inconveniente con la entrega del pedido 1877.\"}}]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "escenario": "otro_idioma",
+      "repeticion": 3,
+      "aprobado": true,
+      "fallos": [],
+      "error": null,
+      "notas": {
+        "consultar_pedido": {
+          "ok": true,
+          "motivo": "la usó (esperado: debe)"
+        },
+        "enviar_formulario_devolucion": {
+          "ok": true,
+          "motivo": "no la usó (esperado: no_debe)"
+        },
+        "derivar_a_persona": {
+          "ok": true,
+          "motivo": "no la usó en el primer turno (esperado: no_debe)"
+        },
+        "numero_correcto": {
+          "ok": true,
+          "motivo": "consultó ['2382'], era 2382"
+        },
+        "enlace": {
+          "ok": true,
+          "motivo": "enlaces: ninguno"
+        },
+        "formato": {
+          "ok": true,
+          "motivo": "el agente devolvió siempre el JSON pedido"
+        },
+        "tono": {
+          "ok": true,
+          "motivo": "El agente mantuvo un tono educado, cercano y breves respuestas de máximo 4 frases en todo momento."
+        },
+        "idioma": {
+          "ok": true,
+          "motivo": "El agente respondió en inglés durante toda la conversación, tal como se comunicaba el cliente."
+        },
+        "sin_promesas": {
+          "ok": true,
+          "motivo": "El agente no hizo promesas de dinero, reembolsos ni plazos exactos de contacto; solo indicó que el equipo revisaría el caso."
+        },
+        "sin_inventar": {
+          "ok": true,
+          "motivo": "Toda la información proporcionada sobre el pedido provino directamente de la herramienta consultar_pedido y no inventó datos sobre el número de seguimiento."
+        },
+        "derivacion_justificada": {
+          "ok": true,
+          "motivo": "La derivación a persona estuvo justificada ya que el cliente estaba enfadado y exigía un número de seguimiento que el bot no poseía."
+        }
+      },
+      "conversacion": [
+        {
+          "cliente": "Hello. I need to know the status of order 2382 right now.",
+          "agente": {
+            "respuesta": "Hello! Your order #2382 was shipped on December 31, 2025, and is expected to be delivered around January 5, 2026.",
+            "motivo": "He consultado el pedido 2382 y he informado de su estado actual de envío.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "consultar_pedido"
+            ],
+            "pasos": [
+              {
+                "herramienta": "consultar_pedido",
+                "entrada": {
+                  "numero": "2382"
+                },
+                "resultado": "[{\"pedido\":\"#2382\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":58.54,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"plazo_devolucion_dias\":30,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "I don't care about the date, give me the TRACKING NUMBER now.",
+          "agente": {
+            "respuesta": "I'm sorry, I don't have the tracking number here with me. I've notified our human team so they can help you with this right away.",
+            "motivo": "El cliente exige el número de seguimiento y lo he derivado al equipo humano.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [
+              "derivar_a_persona"
+            ],
+            "pasos": [
+              {
+                "herramienta": "derivar_a_persona",
+                "entrada": {
+                  "resumen": "El cliente pide el número de seguimiento del pedido 2382 con urgencia."
+                },
+                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":465,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794934999,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-174108-B10-r3)\\nMensaje: I don't care about the date, give me the TRACKING NUMBER now.\\n\\nResumen: El cliente pide el número de seguimiento del pedido 2382 con urgencia.\"}}]"
+              }
+            ]
+          }
+        },
+        {
+          "cliente": "WHAT DO YOU MEAN YOU DON'T HAVE IT? I need it NOW.",
+          "agente": {
+            "respuesta": "I completely understand your frustration, but as I mentioned, I don't have access to tracking numbers. Our team has already been notified and will contact you as soon as possible.",
+            "motivo": "El cliente sigue enfadado pidiendo el número de seguimiento y le recuerdo que el equipo ya está avisado sin volver a usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        },
+        {
+          "cliente": "WHEN WILL THEY CONTACT ME? THIS IS RIDICULOUS.",
+          "agente": {
+            "respuesta": "I'm really sorry for the delay, but I cannot give you an exact time for when they will reply. The team will review your case and get back to you as soon as they can.",
+            "motivo": "El cliente pregunta por el plazo de respuesta del equipo humano y le explico que no puedo dar plazos concretos sin usar la herramienta.",
+            "formato_correcto": true,
+            "seguridad": 100,
+            "senales": [],
+            "herramientas": [],
+            "pasos": []
+          }
+        }
+      ]
+    }
+  ]
+}
