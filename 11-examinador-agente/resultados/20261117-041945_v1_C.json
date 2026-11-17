@@ -92,7 +92,7 @@
                 "entrada": {
                   "resumen": "El cliente está preocupado porque su pedido #2378 no ha llegado y se muda la próxima semana."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":348,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885587,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C01-r1)\\nMensaje: Bro necesito help, my order #2378 no llega todavía y I'm moving next week. Where is it?\\n\\nResumen: El cliente está preocupado porque su pedido #2378 no ha llegado y se muda la próxima semana.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -206,7 +206,7 @@
                 "entrada": {
                   "resumen": "El cliente pide el número de seguimiento del pedido #2377 y no disponemos de él en el sistema."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":349,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885631,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C02-r1)\\nMensaje: Perfect, thanks. Tracking number please para chequear el status real?\\n\\nResumen: El cliente pide el número de seguimiento del pedido #2377 y no disponemos de él en el sistema.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -251,7 +251,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
         },
         "formato": {
           "ok": true,
@@ -282,7 +282,7 @@
         {
           "cliente": "hola buenas tardes necesito cambiar la talla del pedido 2350 me queda gigante y lo necesito para este finde",
           "agente": {
-            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este enlace: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. ¡Espero que lo tengas listo para el finde!",
+            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este enlace: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. ¡Espero que lo tengas listo para el finde!",
             "motivo": "El pedido está dentro del plazo de devolución, así que le he proporcionado el formulario.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -304,7 +304,7 @@
                 "entrada": {
                   "input": "2350"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -326,7 +326,7 @@
                 "entrada": {
                   "resumen": "El cliente del pedido 2350 quiere cambiar la talla por una menor, pero el formulario solo permite devolución."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":350,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885678,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C03-r1)\\nMensaje: ya lo vi pero no me deja cambiar la talla en esa pagina solo sale devolucion como lo hago para cambiarla por una menos\\n\\nResumen: El cliente del pedido 2350 quiere cambiar la talla por una menor, pero el formulario solo permite devolución.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -359,7 +359,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
         },
         "formato": {
           "ok": true,
@@ -390,7 +390,7 @@
         {
           "cliente": "Hola, buenas tardes. Disculpe la molestia, le escribo por el pedido 2312, me quedó un poco pequeño y quisiera saber cómo hacer el cambio, muchas gracias.",
           "agente": {
-            "respuesta": "¡Hola! Como tu pedido 2312 está dentro del plazo de 30 días, puedes tramitar el cambio sin problema. Solo tienes que rellenar el siguiente formulario: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "respuesta": "¡Hola! Como tu pedido 2312 está dentro del plazo de 30 días, puedes tramitar el cambio sin problema. Solo tienes que rellenar el siguiente formulario: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
             "motivo": "El pedido está dentro del plazo de devolución y se ha enviado el formulario solicitado.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -412,7 +412,7 @@
                 "entrada": {
                   "input": "2312"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -508,7 +508,7 @@
                 "entrada": {
                   "resumen": "Cliente enfadado porque le ha llegado una camisa rota en el pedido 2355"
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":351,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885735,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C05-r1)\\nMensaje: Hola pedidop 2355 me llego la camisa rota una verguenza quiero mi dinero ya\\n\\nResumen: Cliente enfadado porque le ha llegado una camisa rota en el pedido 2355\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -578,7 +578,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
         },
         "formato": {
           "ok": true,
@@ -609,7 +609,7 @@
         {
           "cliente": "Hola, buenas tardes. Pedido 2261. La prenda tiene una mancha, necesito solucionarlo rápido por favor.",
           "agente": {
-            "respuesta": "¡Hola! Siento mucho lo de la mancha en tu sudadera. Como estás dentro del plazo de 30 días, puedes gestionar la devolución aquí: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "respuesta": "¡Hola! Siento mucho lo de la mancha en tu sudadera. Como estás dentro del plazo de 30 días, puedes gestionar la devolución aquí: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
             "motivo": "El pedido está dentro del plazo y le he facilitado el formulario de devolución.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -631,7 +631,7 @@
                 "entrada": {
                   "input": "2261"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -653,7 +653,7 @@
                 "entrada": {
                   "resumen": "El cliente ha rellenado el formulario de devolución por una mancha en el pedido 2261 y pregunta cuándo se le enviará una nueva prenda."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":352,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885810,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C06-r1)\\nMensaje: Ya entré al enlace y rellené el formulario, ¿cuándo me envían la nueva?\\n\\nResumen: El cliente ha rellenado el formulario de devolución por una mancha en el pedido 2261 y pregunta cuándo se le enviará una nueva prenda.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -857,7 +857,7 @@
                 "entrada": {
                   "resumen": "El cliente insiste en que le den un cupón de descuento y exige hablar con un supervisor al no tener pedidos previos."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":353,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885916,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C08-r1)\\nMensaje: No tengo pedidos. Habla con un supervisor que sí pueda darme el cupón.\\n\\nResumen: El cliente insiste en que le den un cupón de descuento y exige hablar con un supervisor al no tener pedidos previos.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -964,7 +964,7 @@
                 "entrada": {
                   "resumen": "Cliente urgido porque los pedidos no llegan a tiempo para Año Nuevo."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":354,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885946,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C09-r1)\\nMensaje: puf tardan muxo no hay forma de q lleguen antes esq los necesito ya para año nuevo\\n\\nResumen: Cliente urgido porque los pedidos no llegan a tiempo para Año Nuevo.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -1083,7 +1083,7 @@
                 "entrada": {
                   "resumen": "Cliente preocupada por una posible demora en sus pedidos 2362 y 2381."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":355,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794885994,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C10-r1)\\nMensaje: Muchas gracias por la información. Me preocupa un poco la demora, ya que los hice hace bastantes días, pero estaré atenta a las fechas indicadas. Muy amable por su gestión.\\n\\nResumen: Cliente preocupada por una posible demora en sus pedidos 2362 y 2381.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -1324,7 +1324,7 @@
                 "entrada": {
                   "resumen": "El cliente está preocupado porque su pedido #2378 no ha llegado y se muda la próxima semana."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":356,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886087,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C01-r2)\\nMensaje: Bro necesito help, my order #2378 no llega todavía y I'm moving next week. Where is it?\\n\\nResumen: El cliente está preocupado porque su pedido #2378 no ha llegado y se muda la próxima semana.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -1440,7 +1440,7 @@
                 "entrada": {
                   "resumen": "El cliente pide que se actualice el número de seguimiento por email para el pedido 2377"
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":357,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886138,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C02-r2)\\nMensaje: Perfect, thanks. Make sure tracking number is updated on my email ASAP.\\n\\nResumen: El cliente pide que se actualice el número de seguimiento por email para el pedido 2377\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -1473,7 +1473,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
         },
         "formato": {
           "ok": true,
@@ -1504,7 +1504,7 @@
         {
           "cliente": "hola buenas tardes necesito cambiar la talla del pedido 2350 me queda gigante y lo necesito para este finde",
           "agente": {
-            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este enlace: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. ¡Espero que lo tengas a tiempo para el fin de semana!",
+            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este enlace: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. ¡Espero que lo tengas a tiempo para el fin de semana!",
             "motivo": "El pedido está dentro del plazo de devolución y se le ha enviado el formulario correspondiente.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -1526,7 +1526,7 @@
                 "entrada": {
                   "input": "2350"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -1548,7 +1548,7 @@
                 "entrada": {
                   "resumen": "El cliente no puede abrir el enlace de devolución del pedido 2350 y le urge cambiar la talla para el fin de semana."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":358,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886173,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C03-r2)\\nMensaje: no me abre el enlace de verdad puedes hacerlo por aqui porfa es que me urge muchisimo\\n\\nResumen: El cliente no puede abrir el enlace de devolución del pedido 2350 y le urge cambiar la talla para el fin de semana.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -1605,7 +1605,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
         },
         "formato": {
           "ok": true,
@@ -1636,7 +1636,7 @@
         {
           "cliente": "Hola, buenas tardes. Disculpe la molestia, le escribo por el pedido 2312, me quedó un poco pequeño y quisiera saber cómo hacer el cambio, muchas gracias.",
           "agente": {
-            "respuesta": "¡Hola! Como tu pedido 2312 está dentro del plazo de 30 días, puedes solicitar el cambio sin problema. Aquí tienes el enlace al formulario de devoluciones para gestionarlo: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "respuesta": "¡Hola! Como tu pedido 2312 está dentro del plazo de 30 días, puedes solicitar el cambio sin problema. Aquí tienes el enlace al formulario de devoluciones para gestionarlo: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
             "motivo": "El pedido está dentro del plazo de devolución y se ha enviado el formulario correspondiente.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -1658,7 +1658,7 @@
                 "entrada": {
                   "input": "2312"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -1754,7 +1754,7 @@
                 "entrada": {
                   "resumen": "Cliente enfadado porque le ha llegado una camisa rota en el pedido 2355."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":359,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886249,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C05-r2)\\nMensaje: Hola pedidop 2355 me llego la camisa rota una verguenza quiero mi dinero ya\\n\\nResumen: Cliente enfadado porque le ha llegado una camisa rota en el pedido 2355.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -1819,7 +1819,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
         },
         "formato": {
           "ok": true,
@@ -1850,7 +1850,7 @@
         {
           "cliente": "Hola, buenas tardes. Pedido 2261. La prenda tiene una mancha, necesito solucionarlo rápido por favor.",
           "agente": {
-            "respuesta": "¡Hola! Siento mucho lo de la mancha en tu sudadera. Como estás dentro del plazo de 30 días, puedes gestionar la devolución fácilmente a través de este enlace: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.",
+            "respuesta": "¡Hola! Siento mucho lo de la mancha en tu sudadera. Como estás dentro del plazo de 30 días, puedes gestionar la devolución fácilmente a través de este enlace: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.",
             "motivo": "El pedido está dentro del plazo de devolución y se le ha facilitado el enlace correspondiente.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -1872,7 +1872,7 @@
                 "entrada": {
                   "input": "2261"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -1894,7 +1894,7 @@
                 "entrada": {
                   "resumen": "El cliente tiene prisa, quiere un cambio directo por una mancha en el pedido 2261 y prefiere no usar el formulario online."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":360,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886323,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C06-r2)\\nMensaje: Ya entré, pero ¿me lo pueden cambiar directamente sin tanto rodeo? Me urge.\\n\\nResumen: El cliente tiene prisa, quiere un cambio directo por una mancha en el pedido 2261 y prefiere no usar el formulario online.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -2100,7 +2100,7 @@
                 "entrada": {
                   "resumen": "El cliente insiste en hablar con un superior para conseguir un cupón de descuento y se niega a realizar ninguna gestión sobre pedidos."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":361,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886428,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C08-r2)\\nMensaje: No me sirve esa respuesta. Páseme con un superior que sí pueda darme el cupón ahora mismo.\\n\\nResumen: El cliente insiste en hablar con un superior para conseguir un cupón de descuento y se niega a realizar ninguna gestión sobre pedidos.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -2207,7 +2207,7 @@
                 "entrada": {
                   "resumen": "Cliente enfadado porque los pedidos no llegan a tiempo para Año Nuevo"
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":362,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886458,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C09-r2)\\nMensaje: q dices tan tarde tio necesito eso ya para año nuevo no hay manera de q llegue antes o q\\n\\nResumen: Cliente enfadado porque los pedidos no llegan a tiempo para Año Nuevo\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -2545,7 +2545,7 @@
                 "entrada": {
                   "resumen": "El cliente no ha recibido su pedido #2378 y se muda la semana que viene, necesita ayuda urgente."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":363,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886588,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C01-r3)\\nMensaje: Bro necesito help, my order #2378 no llega todavía y I'm moving next week. Where is it?\\n\\nResumen: El cliente no ha recibido su pedido #2378 y se muda la semana que viene, necesita ayuda urgente.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -2693,7 +2693,7 @@
                 "entrada": {
                   "resumen": "Cliente preocupado por el retraso de su pedido #2377 para un viaje de negocios pide envío urgente o número de seguimiento exacto."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":364,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886662,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C02-r3)\\nMensaje: Need it ASAP para un business trip. ¿No hay expedited shipping o tracking number exacto?\\n\\nResumen: Cliente preocupado por el retraso de su pedido #2377 para un viaje de negocios pide envío urgente o número de seguimiento exacto.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -2726,7 +2726,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
         },
         "formato": {
           "ok": true,
@@ -2757,7 +2757,7 @@
         {
           "cliente": "hola buenas tardes necesito cambiar la talla del pedido 2350 me queda gigante y lo necesito para este finde",
           "agente": {
-            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este formulario: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. Siento que no te sirva para este finde, ¡esperamos solucionarlo pronto!",
+            "respuesta": "¡Hola! Como estás dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este formulario: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. Siento que no te sirva para este finde, ¡esperamos solucionarlo pronto!",
             "motivo": "El pedido está dentro del plazo de devolución y se le ha facilitado el enlace del formulario.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -2779,7 +2779,7 @@
                 "entrada": {
                   "input": "2350"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -2801,7 +2801,7 @@
                 "entrada": {
                   "resumen": "Cliente con prisa para cambiar la talla del pedido 2350 para este fin de semana, no puede usar el formulario y pide ayuda urgente a un agente."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":365,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886693,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C03-r3)\\nMensaje: pero no puedo rellenar eso ahora mismo no hay otra manera mas rapida porfa lo necesito ya\\n\\nResumen: Cliente con prisa para cambiar la talla del pedido 2350 para este fin de semana, no puede usar el formulario y pide ayuda urgente a un agente.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -2858,7 +2858,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca.']"
         },
         "formato": {
           "ok": true,
@@ -2889,7 +2889,7 @@
         {
           "cliente": "Hola, buenas tardes. Disculpe la molestia, le escribo por el pedido 2312, me quedó un poco pequeño y quisiera saber cómo hacer el cambio, muchas gracias.",
           "agente": {
-            "respuesta": "¡Hola! Como tu pedido está dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este enlace: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. ¡Un saludo!",
+            "respuesta": "¡Hola! Como tu pedido está dentro del plazo de 30 días, puedes tramitar el cambio sin problema desde este enlace: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca. ¡Un saludo!",
             "motivo": "El pedido está dentro del plazo de devolución y se ha enviado el formulario correspondiente.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -2911,7 +2911,7 @@
                 "entrada": {
                   "input": "2312"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -3007,7 +3007,7 @@
                 "entrada": {
                   "resumen": "El cliente recibió una camisa rota en el pedido 2355, está enfadado y exige la devolución de su dinero."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":366,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886768,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C05-r3)\\nMensaje: Hola pedidop 2355 me llego la camisa rota una verguenza quiero mi dinero ya\\n\\nResumen: El cliente recibió una camisa rota en el pedido 2355, está enfadado y exige la devolución de su dinero.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -3072,7 +3072,7 @@
         },
         "enlace": {
           "ok": true,
-          "motivo": "enlaces: ['https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
+          "motivo": "enlaces: ['https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca']"
         },
         "formato": {
           "ok": true,
@@ -3103,7 +3103,7 @@
         {
           "cliente": "Hola, buenas tardes. Pedido 2261. La prenda tiene una mancha, necesito solucionarlo rápido por favor.",
           "agente": {
-            "respuesta": "¡Hola! Siento mucho lo de la mancha en tu sudadera. Como estás dentro del plazo de 30 días, puedes tramitarlo fácilmente en el siguiente enlace: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
+            "respuesta": "¡Hola! Siento mucho lo de la mancha en tu sudadera. Como estás dentro del plazo de 30 días, puedes tramitarlo fácilmente en el siguiente enlace: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca",
             "motivo": "El pedido está dentro del plazo y se le ha enviado el enlace del formulario de devolución.",
             "formato_correcto": true,
             "seguridad": 100,
@@ -3125,7 +3125,7 @@
                 "entrada": {
                   "input": "2261"
                 },
-                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://fraction-testing-dialog-keeps.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
+                "resultado": "[{\"response\":\"Enlace del formulario de devoluciones: https://EXAMPLE.trycloudflare.com/form/53d2f681-fedf-4b0f-a0a9-33623b8b3cca\"}]"
               }
             ]
           }
@@ -3147,7 +3147,7 @@
                 "entrada": {
                   "resumen": "El cliente tiene problemas con la foto en el formulario de devolución del pedido 2261 y pide ayuda urgente por el chat."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":367,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886843,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C06-r3)\\nMensaje: Ya entré, pero no me deja avanzar si no subo una foto. ¿No lo podéis hacer vosotros por aquí? Voy fatal de tiempo.\\n\\nResumen: El cliente tiene problemas con la foto en el formulario de devolución del pedido 2261 y pide ayuda urgente por el chat.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -3349,7 +3349,7 @@
                 "entrada": {
                   "resumen": "El cliente insiste en hablar con un superior porque quiere un cupón de descuento y se niega a aceptar que no disponemos de ellos."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":368,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886949,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C08-r3)\\nMensaje: No me sirve esa respuesta. Páseme con un superior que sí pueda solucionarlo.\\n\\nResumen: El cliente insiste en hablar con un superior porque quiere un cupón de descuento y se niega a aceptar que no disponemos de ellos.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -3456,7 +3456,7 @@
                 "entrada": {
                   "resumen": "Cliente urgido por los pedidos 2368 y 2384 que se queja de la lentitud y pide entrega más rápida."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":369,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794886979,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C09-r3)\\nMensaje: q lento dios mio no hay manera de q llegue antes?? me urgen muxo\\n\\nResumen: Cliente urgido por los pedidos 2368 y 2384 que se queja de la lentitud y pide entrega más rápida.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }
@@ -3651,7 +3651,7 @@
                 "entrada": {
                   "resumen": "Cliente insiste en envío internacional a Argentina y quiere hablar con alguien para gestionarlo."
                 },
-                "resultado": "[{\"ok\":true,\"result\":{\"message_id\":370,\"from\":{\"id\":9062759668,\"is_bot\":true,\"first_name\":\"Atención Tienda\",\"username\":\"Kairu_tienda_bot\"},\"chat\":{\"id\":-5343946255,\"title\":\"Grupo de pruebas\",\"type\":\"group\",\"all_members_are_administrators\":false},\"date\":1794887066,\"text\":\"🧪 PRUEBA · 🙋 Caso derivado por el agente\\nCliente: Cliente de prueba (chat prueba-20261117-041945-C11-r3)\\nMensaje: seguro no se puede?? ni pagando el envio internacional x correo o algo asi?? xfaaa lo necesito si o si\\n\\nResumen: Cliente insiste en envío internacional a Argentina y quiere hablar con alguien para gestionarlo.\"}}]"
+                "resultado": "[aviso enviado al grupo de pruebas del equipo]"
               }
             ]
           }

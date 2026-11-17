@@ -194,7 +194,8 @@ def main():
     parser.add_argument("--prompt", default="prompts/v1.txt")
     parser.add_argument("--repeticiones", type=int, default=3)
     parser.add_argument("--limite", type=float, default=3.0, help="tope de gasto en dólares")
-    parser.add_argument("--hilos", type=int, default=4, help="casos a la vez")
+    parser.add_argument("--hilos", type=int, default=1,
+                        help="casos a la vez (1: la agenda del flujo 9 no admite varios a la vez)")
     parser.add_argument("--casos", default="", help="solo estos ids, separados por comas")
     args = parser.parse_args()
 
