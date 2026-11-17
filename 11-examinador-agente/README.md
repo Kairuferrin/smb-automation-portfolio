@@ -94,3 +94,6 @@ Before each exam I predicted the result.
 - **Why I fixed all the failures of an exam in one version:** we leave it right and save resources. In this option it's very important not to break what was already fixed, so every version is tested on both banks B and C.
 - **Why I paid €5 instead of only using the free tier:** so I didn't have to wait days and days for each exam.
 - **Why I didn't train a local model:** in the end I'm focused on the job market and automating SMEs. If I want to train a local model, I can do it in its own project.
+
+## What I learned
+- How to get better results from an AI model focused on what I need. I customised the experience by applying my own knowledge, as if it were a request from a company.
