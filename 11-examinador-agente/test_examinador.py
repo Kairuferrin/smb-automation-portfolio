@@ -63,6 +63,14 @@ class TestJuezCodigo(unittest.TestCase):
                          ("consultar_pedido", {"numero": "2380"}), ("consultar_pedido", {"numero": "2381"}))]
         self.assertTrue(juez_codigo(caso, los_dos)["numero_correcto"]["ok"])
 
+    def test_enlace_da_igual_acepta_el_formulario(self):
+        caso = {"pedido": "2261", "esperado": {
+            "consultar_pedido": "debe", "enviar_formulario_devolucion": "da_igual",
+            "derivar_a_persona": "debe", "enlace_formulario": "da_igual", "idioma": "es"}}
+        turnos = [turno("pedido 2261 tiene una mancha", "Devuélvelo aquí: https://x/form/a",
+                        ("consultar_pedido", {"numero": "2261"}), ("derivar_a_persona", {}))]
+        self.assertTrue(juez_codigo(caso, turnos)["enlace"]["ok"])
+
     def test_formato_incorrecto(self):
         turnos = [turno("hola", "texto suelto", formato=False)]
         self.assertFalse(juez_codigo(CASO_TEMA, turnos)["formato"]["ok"])

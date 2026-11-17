@@ -117,6 +117,11 @@ def llamar_gemini(prompt, gasto, temperatura=0.0):
                 continue
             detalle = error.read().decode("utf-8", "replace")[:300]
             raise ErrorExamen(f"Gemini ha devuelto el error {error.code}: {detalle}") from error
+        except OSError as error:  # se corta la conexión o tarda demasiado
+            if intento < 2:
+                time.sleep(20 * (intento + 1))
+                continue
+            raise ErrorExamen(f"No se ha podido hablar con Gemini: {error}") from error
     uso = datos.get("usageMetadata", {})
     gasto.sumar(uso.get("promptTokenCount", 0),
                 uso.get("candidatesTokenCount", 0) + uso.get("thoughtsTokenCount", 0))

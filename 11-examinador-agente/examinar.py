@@ -146,6 +146,9 @@ def juez_codigo(caso, turnos):
     otros = [u for u in enlaces if "/form/" not in u]
     if esperado["enlace_formulario"] == "debe":
         ok, motivo = bool(formulario) and not otros, f"enlaces: {enlaces or 'ninguno'}"
+    elif esperado["enlace_formulario"] == "da_igual":
+        # Puede dar el formulario o no, pero nunca un enlace que no sea el del formulario.
+        ok, motivo = not otros, f"enlaces: {enlaces or 'ninguno'}"
     else:
         ok, motivo = not enlaces, f"enlaces: {enlaces or 'ninguno'}"
     notas["enlace"] = {"ok": ok, "motivo": motivo}
