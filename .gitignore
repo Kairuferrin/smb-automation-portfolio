@@ -8,3 +8,7 @@ __pycache__/
 
 # Proyecto 12: cancelado, no se publica
 12-marketing-ops-zapier-hubspot/
+
+# Node: libraries are downloaded, not published
+node_modules/
+dist/
