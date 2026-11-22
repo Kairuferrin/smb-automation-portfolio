@@ -3,15 +3,18 @@ __pycache__/
 .DS_Store
 .env
 
-# Proyecto 10: en curso, no se publica hasta terminarlo
-10-buscador-prendas/
+# Buscador de prendas: en curso, no se publica hasta terminarlo
+buscador-prendas/
 
-# Proyecto 12: cancelado, no se publica
-12-marketing-ops-zapier-hubspot/
+# Marketing ops: cancelado, no se publica
+marketing-ops-zapier-hubspot/
 
-# Proyecto 13: no se publica
-13-web-3d-threejs/
+# Web 3D: no se publica
+web-3d-threejs/
 
 # Node: libraries are downloaded, not published
 node_modules/
 dist/
+
+# MCP de la tienda: en curso, no se publica hasta terminarlo
+mcp-tienda/

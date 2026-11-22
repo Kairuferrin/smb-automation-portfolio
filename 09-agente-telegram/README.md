@@ -51,8 +51,8 @@ The team always sees (and, with `modo_demo` on, the customer too) a line saying 
 ### The business rules live in code
 The **30-day return rule** is calculated by `api_pedidos.py`, not decided by the AI, so it's always applied the same way. The AI only reads the result (`dentro_plazo_devolucion: true/false`).
 
-### Improved with project 11
-[Project 11](../11-examinador-agente/) tests this agent automatically with simulated customers. Its results changed this workflow:
+### Improved with project 10
+[Project 10](../10-examinador-agente/) tests this agent automatically with simulated customers. Its results changed this workflow:
 - **A test entrance** (`Entrada de pruebas`, a webhook protected with a password header). The examiner talks to the *real* agent through it, without Telegram. Test conversations use their own memory, and handovers go to a separate test group (`grupo_pruebas_id`), marked 🧪.
 - **The instructions (prompt) now live in `Config`** (`prompt_sistema`), so they can be changed without touching the agent node. This is version **v4**, the one that passed the exams.
 - **Line breaks no longer break the reply.** Gemini sometimes put a raw line break inside the JSON it returns, which broke 7 out of 8 failed tests. The code now replaces line breaks with spaces before reading it.
@@ -80,7 +80,7 @@ WEBHOOK_URL=https://YOUR-ADDRESS.trycloudflare.com/ npx -y n8n@2.47.5
 Then, in n8n:
 1. Import `flujo-agente-telegram.json`. Choose your Telegram credential (the bot token) in every Telegram node and your Gemini credential in the `Gemini` node.
 2. Create a Telegram group for the team and add the bot. To get its ID: open `Telegram Trigger` → *Listen for test event*, write `/start@your_bot` in the group and copy `message.chat.id`.
-3. In `Config`, fill in `formulario_url` (`https://YOUR-ADDRESS.trycloudflare.com/form/<id of the project 3 form>`) and `grupo_equipo_id`, and switch on `modo_demo` if you want to show the transparency line. If you will use [project 11](../11-examinador-agente/), also create a second group for tests (add the bot and get its ID as in step 2), fill in `grupo_pruebas_id`, and choose a *Header Auth* credential in `Entrada de pruebas` (header `X-Clave-Pruebas`, with the same password as `CLAVE_PRUEBAS` in project 11's `.env`).
+3. In `Config`, fill in `formulario_url` (`https://YOUR-ADDRESS.trycloudflare.com/form/<id of the project 3 form>`) and `grupo_equipo_id`, and switch on `modo_demo` if you want to show the transparency line. If you will use [project 10](../10-examinador-agente/), also create a second group for tests (add the bot and get its ID as in step 2), fill in `grupo_pruebas_id`, and choose a *Header Auth* credential in `Entrada de pruebas` (header `X-Clave-Pruebas`, with the same password as `CLAVE_PRUEBAS` in project 10's `.env`).
 4. **Publish** this workflow and the project 3 workflow (so the form link works).
 
 **Security:** while the tunnel is open, your n8n login page is reachable from the internet. Close it (Ctrl+C) when you're done. The quick tunnel address changes every time, so steps 3-4 have to be repeated.

@@ -25,7 +25,7 @@ flowchart LR
     P4 --> P9[9 · AI agent on Telegram]
     P3 --> P9
     P6 --> P9
-    P9 --> P11[11 · Automatic examiner for the agent]
+    P9 --> P10[10 · Automatic examiner for the agent]
 ```
 
 **Tools:** n8n · Make · Google Sheets · Gmail · Google Gemini · Telegram · Python · SQL (SQLite) · REST APIs · Git and GitHub
@@ -42,6 +42,6 @@ flowchart LR
 | 7 | [The returns workflow in Make, compared with n8n](07-make-devoluciones/) | Make | ✅ Done |
 | 8 | [Ask your data with AI: question → SQL → result (fictional data)](08-ia-preguntas-datos/) | AI + SQL + Python | ✅ Done |
 | 9 | [AI agent on Telegram that uses tools, with human approval (fictional data)](09-agente-telegram/) | AI agents, tools, webhooks, human-in-the-loop | ✅ Done |
-| 11 | [Automatic examiner that tests the AI agent and improves its prompt: 90 % → 100 % on the final exam (fictional data)](11-examinador-agente/) | AI evaluation, prompt engineering, regression testing | ✅ Done |
+| 10 | [Automatic examiner that tests the AI agent and improves its prompt: 90 % → 100 % on the final exam (fictional data)](10-examinador-agente/) | AI evaluation, prompt engineering, regression testing | ✅ Done |
 
-Each project has its own folder with a README: the problem, the solution, how to use it and what I learned. Projects 3, 4, 8, 9 and 11 also explain **why I built them the way I did**. Projects 5, 6, 8, 9 and 11 use **fictional sales data**, generated for practice.
+Each project has its own folder with a README: the problem, the solution, how to use it and what I learned. Projects 3, 4, 8, 9 and 10 also explain **why I built them the way I did**. Projects 5, 6, 8, 9 and 10 use **fictional sales data**, generated for practice.

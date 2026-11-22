@@ -1,4 +1,4 @@
-# Project 11 · An automatic examiner that tests and improves the AI agent
+# Project 10 · An automatic examiner that tests and improves the AI agent
 
 > ⚠️ **Fictional data.** The customers are simulated by AI and the orders are the made-up ones from [project 9](../09-agente-telegram/).
 
