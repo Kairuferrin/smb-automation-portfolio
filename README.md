@@ -5,7 +5,7 @@ Learning automation for SMEs. I have already built websites (my first one in HTM
 > **About the language:** Spanish is my native language, so I wrote the code (comments, messages and data) in Spanish, which is more comfortable for me. I publish the documentation in English to reach a wider audience and so more people can understand it.
 
 ## About me
-I'm Kairu, an economics student at the University of Barcelona focused on automation and websites for small and medium-sized businesses (SMEs). My first real-world project, which I worked on for months, went far beyond a website: I helped a baby-care consultant turn her expertise into a complete business, from positioning and branding to a bilingual Shopify site, legal pages and a WhatsApp-based contact flow, and planned an affiliate revenue stream (launching soon). This portfolio shows automation projects built with n8n, Make, Google Sheets, Gmail, Google Gemini (AI), Telegram, Python, SQL (SQLite), REST APIs and Git/GitHub. I work with AI as a development partner: I plan the work, direct the build and review every change before it goes live. I work in English, Spanish and Catalan.
+I'm Kairu, an economics student at the University of Barcelona focused on automation and websites for small and medium-sized businesses (SMEs). My first real-world project, which I worked on for months, went far beyond a website: I helped a baby-care consultant turn her expertise into a complete business, from positioning and branding to a bilingual Shopify site, legal pages and a WhatsApp-based contact flow, and planned an affiliate revenue stream (launching soon). This portfolio shows automation projects built with n8n, Make, Google Sheets, Gmail, Google Gemini (AI), Telegram, Python, SQL (SQLite), REST APIs, TypeScript, MCP (Model Context Protocol), Claude Code and Git/GitHub. I work with AI as a development partner: I plan the work, direct the build and review every change before it goes live. I work in English, Spanish and Catalan.
 
 ## The story
 All the projects revolve around **a small clothing brand that sells online with Shopify** (fictional) and automate its two sides:
@@ -26,9 +26,11 @@ flowchart LR
     P3 --> P9
     P6 --> P9
     P9 --> P10[10 · Automatic examiner for the agent]
+    P9 --> P11[11 · MCP server and multi-agent test]
+    P10 --> P11
 ```
 
-**Tools:** n8n · Make · Google Sheets · Gmail · Google Gemini · Telegram · Python · SQL (SQLite) · REST APIs · Git and GitHub
+**Tools:** n8n · Make · Google Sheets · Gmail · Google Gemini · Telegram · Python · SQL (SQLite) · REST APIs · TypeScript · MCP · Claude Code · Git and GitHub
 
 ## Projects
 | # | Project | What I learn | Status |
@@ -43,5 +45,6 @@ flowchart LR
 | 8 | [Ask your data with AI: question → SQL → result (fictional data)](08-ia-preguntas-datos/) | AI + SQL + Python | ✅ Done |
 | 9 | [AI agent on Telegram that uses tools, with human approval (fictional data)](09-agente-telegram/) | AI agents, tools, webhooks, human-in-the-loop | ✅ Done |
 | 10 | [Automatic examiner that tests the AI agent and improves its prompt: 90 % → 100 % on the final exam (fictional data)](10-examinador-agente/) | AI evaluation, prompt engineering, regression testing | ✅ Done |
+| 11 | [MCP server for the shop, and a fair test: orchestrator + workers + external reviewer vs. a single agent (fictional data)](11-mcp-tienda/) | MCP, TypeScript, multi-agent systems, context engineering, AI evaluation | ✅ Done |
 
-Each project has its own folder with a README: the problem, the solution, how to use it and what I learned. Projects 3, 4, 8, 9 and 10 also explain **why I built them the way I did**. Projects 5, 6, 8, 9 and 10 use **fictional sales data**, generated for practice.
+Each project has its own folder with a README: the problem, the solution, how to use it and what I learned. Projects 3, 4, 8, 9, 10 and 11 also explain **why I built them the way I did**. Projects 5, 6, 8, 9, 10 and 11 use **fictional sales data**, generated for practice.

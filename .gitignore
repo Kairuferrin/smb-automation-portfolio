@@ -16,5 +16,3 @@ web-3d-threejs/
 node_modules/
 dist/
 
-# MCP de la tienda: en curso, no se publica hasta terminarlo
-mcp-tienda/

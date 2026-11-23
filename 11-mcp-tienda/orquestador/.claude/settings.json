@@ -1,0 +1,32 @@
+{
+  "enabledMcpjsonServers": ["tienda"],
+  "permissions": {
+    "allow": [
+      "mcp__tienda__consultar_pedido",
+      "mcp__tienda__buscar_ventas",
+      "Bash(node revisor/revisar.ts:*)",
+      "Edit(./trabajadores/**)",
+      "Edit(./registro/tareas/**)",
+      "Edit(./propuestas/*.md)"
+    ],
+    "ask": [
+      "mcp__tienda__iniciar_devolucion"
+    ],
+    "deny": [
+      "Edit(**/lecciones.md)",
+      "Edit(**/lecciones-retiradas.md)",
+      "Edit(./trabajadores/_plantilla/**)",
+      "Edit(./propuestas/revisadas/**)",
+      "Edit(./revisor/**)",
+      "Edit(**/revisiones.jsonl)",
+      "Edit(**/puestos-aprobados.json)",
+      "Edit(./.claude/**)",
+      "Edit(./CLAUDE.md)",
+      "Edit(./.mcp.json)",
+      "Read(**/.env)",
+      "Bash(git push:*)",
+      "WebFetch",
+      "WebSearch"
+    ]
+  }
+}

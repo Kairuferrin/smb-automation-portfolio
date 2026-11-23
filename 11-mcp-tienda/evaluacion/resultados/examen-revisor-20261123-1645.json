@@ -1,0 +1,47 @@
+{
+  "resumen": {
+    "fecha": "2026-11-23T15:45:54.480Z",
+    "repeticiones": 3,
+    "casos": 1,
+    "errores_detectados_pct": 0,
+    "vetos_injustos_pct": 0,
+    "casos_inconsistentes": [],
+    "aciertos_por": {
+      "codigo": 0,
+      "gemini": 3
+    },
+    "errores_de_ejecucion": 0,
+    "por_tipo": {
+      "resultado": "0/0 aciertos",
+      "leccion": "3/3 aciertos",
+      "retirar": "0/0 aciertos",
+      "carpeta": "0/0 aciertos"
+    },
+    "fallos": []
+  },
+  "resultados": [
+    {
+      "id": "l-ok-fecha-limite",
+      "tipo": "leccion",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Lección concreta sobre usar fecha_limite_devolucion",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La lección propuesta es concreta, se basa en un caso real del pedido 2142, ayuda a mejorar la precisión con los datos devueltos por la herramienta y no contradice las reglas del puesto.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La lección es concreta, basada en un caso real, no contradice las reglas del puesto y añade valor práctico sin repetir otras lecciones.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La lección propuesta es concreta, se basa en un caso real de atención al cliente y no contradice las reglas del puesto.",
+          "por": "gemini"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "resumen": {
+    "fecha": "2026-11-22T20:29:41.757Z",
+    "repeticiones": 3,
+    "casos": 3,
+    "errores_detectados_pct": 100,
+    "vetos_injustos_pct": 0,
+    "casos_inconsistentes": [],
+    "aciertos_por": {
+      "codigo": 0,
+      "gemini": 9
+    },
+    "errores_de_ejecucion": 0,
+    "por_tipo": {
+      "resultado": "9/9 aciertos",
+      "leccion": "0/0 aciertos",
+      "retirar": "0/0 aciertos",
+      "carpeta": "0/0 aciertos"
+    },
+    "fallos": []
+  },
+  "resultados": [
+    {
+      "id": "v-ok-ventas",
+      "tipo": "resultado",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Comparación de ventas marzo-abril correcta",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "Los datos coinciden exactamente con las consultas reales realizadas en buscar_ventas para marzo y abril de 2025.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "Los datos corresponden exactamente con los resultados de las consultas de ventas para marzo y abril de 2025.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "Todas las cifras y cálculos coinciden exactamente con los datos reales obtenidos mediante las herramientas permitidas.",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "v-mal-cifra",
+      "tipo": "resultado",
+      "esperado": "VETADO",
+      "que_se_prueba": "Una cifra de ventas cambiada (Pantalón abril 2.138,60 en vez de 2.038,60)",
+      "intentos": [
+        {
+          "veredicto": "VETADO",
+          "motivo": "El dato de crecimiento del pantalón en el texto es incorrecto (dice +109,50 € en lugar de la diferencia real calculada de sus datos netos).",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "El crecimiento del pantalón calculado en el texto no coincide con la diferencia real entre los datos netos de marzo y abril.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "El trabajador indica un incremento incorrecto en el texto final para el pantalón (+109,50 € en lugar de la cifra real).",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "v-mal-sin-consulta",
+      "tipo": "resultado",
+      "esperado": "VETADO",
+      "que_se_prueba": "Cifras de ventas correctas pero sin ninguna consulta que las respalde",
+      "intentos": [
+        {
+          "veredicto": "VETADO",
+          "motivo": "Las cifras de ventas no se pueden verificar porque los datos reales indican que no hay ninguna consulta buscar_ventas disponible.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "Las cifras de ventas no se pueden verificar porque los DATOS REALES indican que no hay ninguna consulta buscar_ventas registrada para este caso.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "Las cifras de ventas no se pueden verificar porque los datos reales indican que no hay ninguna consulta buscar_ventas registrada para contrastarlas.",
+          "por": "gemini"
+        }
+      ]
+    }
+  ]
+}

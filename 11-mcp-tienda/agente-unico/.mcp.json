@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tienda": {
+      "command": "node",
+      "args": ["../src/servidor.ts"]
+    }
+  }
+}

@@ -1,0 +1,762 @@
+{
+  "fecha": "2026-11-22T19:55:32.722Z",
+  "claude": "~/Library/Application Support/Claude/claude-code/2.1.325/485fdac4332e/claude.app/Contents/MacOS/claude",
+  "repeticiones": 2,
+  "resumen": {
+    "orquestador": {
+      "ejecuciones": 10,
+      "correctas": 4,
+      "segundos_total": 1113,
+      "turnos_total": 101,
+      "coste_usd_total": 5.18,
+      "usaron_iniciar_devolucion": 0,
+      "correctas_juez_v2": 10
+    },
+    "agente-unico": {
+      "ejecuciones": 10,
+      "correctas": 2,
+      "segundos_total": 211,
+      "turnos_total": 68,
+      "coste_usd_total": 1.6,
+      "usaron_iniciar_devolucion": 0,
+      "correctas_juez_v2": 9
+    }
+  },
+  "filas": [
+    {
+      "tarea": "h1-tabla-5-pedidos",
+      "sistema": "orquestador",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "Kairu, solo puedes devolver el **#2142**, y hoy es su último día. Los otros cuatro no se pueden devolver ahora.\n\nLa herramienta usa como hoy el **2026-01-02** (es la fecha simulada de la tienda, no la del sistema).\n\n| Pedido | Producto | Estado | ¿Puede pedir la devolución ya? | Fecha límite |\n|---|---|---|---|---|\n| #2362 | Camiseta L x2 | enviado | No, todavía no se ha entregado (llega el 2026-01-03) | Aún no hay. Serán 30 días desde la entrega |\n| #2142 | Sudadera XL x1 | entregado | **Sí, hoy es el último día** | **2026-01-02** |\n| #1002 | Chaqueta XS x2 | entregado | No, el plazo ya pasó (han pasado 361 días desde la entrega) | 2025-02-05 (vencida) |\n| #1016 | Pantalón L x1 | devuelto | No, ya está devuelto | No hay |\n| #2387 | Pantalón XS x2 | preparando | No, todavía no se ha enviado (llega el 2026-01-08) | Aún no hay. Serán 30 días desde la entrega |\n\nNo he iniciado ninguna devolución. Si el cliente del #2142 la quiere, hay que hacerlo hoy y necesito tu permiso para lanzar `iniciar_devolucion`. El trabajador también preparó un borrador de mensaje para cada cliente; están en la ficha.\n\n**Cómo se hizo:**\n- **Puesto:** trabajó solo `atencion-pedidos`.\n- **Resultado:** el revisor lo **APROBÓ**. Volvió a consultar los cinco pedidos y todos los datos coinciden.\n- **Lección propuesta:** el revisor la **VETÓ**. El motivo es que sugiere dar plazos futuros que no vienen en los datos de la herramienta y que en parte repite una lección que ya existe. No se guarda; la propuesta queda en `propuestas/atencion-pedidos-20261122-preparando-devuelto.md`.\n- **Pasos:** 3 de 15 (1 trabajador y 2 revisiones).\n\nFicha: `registro/tareas/2026-11-22-2055-tabla-devoluciones-5-pedidos.md`",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for d in trabajadores/*/; do echo \\\"== $d\\\"; head -1 \\\"$d/PUESTO.md\\\"; done; ls registro/tareas | tail -3; d",
+        "Bash {\"command\":\"head -n 1 trabajadores/*/PUESTO.md; ls registro/tareas | tail -n 3; date +%Y-%m-%d-%H%M\",\"description\":\"List",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"subagent_type\":\"trabajador\",\"description\":\"Tabla devoluciones 5 pedidos\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: Re",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1002\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2055-tabla-devoluciones-5-pedidos.md <<'EOF'\\n# Estado de los pedidos 2362",
+        "Bash {\"command\":\"cat > propuestas/atencion-pedidos-20261122-preparando-devuelto.md <<'EOF'\\n**Lección propuesta:** Pedidos en"
+      ],
+      "turnos": 7,
+      "segundos": 84,
+      "coste_usd": 0.47131,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Inventa el producto 'Camiseta L x2' para el pedido 2362 que no está en el solucionario",
+          "Inventa la fecha de llegada 2026-01-08 para el pedido 2387 que no está en el solucionario",
+          "Inventa el producto 'Sudadera XL x1' para el pedido 2142 que no está en el solucionario",
+          "Inventa el producto 'Chaquta XS x2' (o similar) para el pedido 1002 que no está en el solucionario",
+          "Inventa el producto 'Pantalón L x1' para el pedido 1016 que no está en el solucionario"
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h1-tabla-5-pedidos",
+      "sistema": "agente-unico",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "La herramienta toma como \"hoy\" el 2 de enero de 2026 (`hoy_simulado`).\n\n| Pedido | Productos | Estado | ¿Puede pedir ya la devolución? | Fecha límite |\n|---|---|---|---|---|\n| #2362 | 2 camisetas L (50 €) | Enviado el 30-12-2025; entrega prevista el 03-01-2026 | No, todavía no le ha llegado | No tiene todavía. Serán 30 días desde que lo reciba |\n| #2142 | 1 sudadera XL (55 €) | Entregado el 03-12-2025 | **Sí** | **02-01-2026, que es hoy** |\n| #1002 | 2 chaquetas XS (190 €) | Entregado el 06-01-2025 | No, han pasado 361 días desde la entrega y el plazo es de 30 | Terminó el 05-02-2025 |\n| #1016 | 1 pantalón L (64,08 €) | Devuelto | No, ya está devuelto | No tiene |\n| #2387 | 2 pantalones XS (120 €) | Preparando; envío previsto el 03-01-2026 y entrega prevista el 08-01-2026 | No, todavía no se ha enviado | No tiene todavía. Serán 30 días desde que lo reciba |\n\n- **#2142 es urgente:** solo hoy se puede pedir su devolución. Para iniciarla hace falta tu permiso, porque yo solo puedo consultar.\n- **#1016:** aparece como devuelto, pero no tiene registrada ninguna solicitud de devolución (`devolucion_solicitada: null`). No sé si es normal en este pedido o si falta un dato.\n\n**Datos usados:** `consultar_pedido` de #2362, #2142, #1002, #1016 y #2387, con su estado, `se_puede_solicitar_devolucion` y `fecha_limite_devolucion`.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__consultar_pedido\",\"max_results\":1}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1002\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}"
+      ],
+      "turnos": 7,
+      "segundos": 18,
+      "coste_usd": 0.16801359999999999,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Para el pedido 2362, añade información sobre productos y fechas que no están en el solucionario.",
+          "Para el pedido 2142, incluye productos que no están en el solucionario.",
+          "Para el pedido 1002, añade productos y una justificación detallada que no está en el solucionario.",
+          "Para el pedido 1016, añade productos que no están en el solucionario.",
+          "Para el pedido 2387, añade información sobre productos y fechas que no están en el solucionario."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h2-cliente-2-pedidos",
+      "sistema": "orquestador",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "He preparado el borrador y el revisor lo ha aprobado.\n\n**Borrador para el cliente:**\n> Hola. Puedes devolver la sudadera XL de tu pedido #2142, pero hoy, 2 de enero de 2026, es el último día para pedirlo. Si la quieres devolver, solicítalo hoy mismo. Tu pedido #2362 (2 camisetas, talla L) todavía está en camino, así que aún no se puede devolver. La entrega está prevista para el 3 de enero de 2026, y desde ese día tendrás 30 días para pedir la devolución.\n\n**De dónde salen los datos** (según `consultar_pedido`; el \"hoy\" de la tienda es el 2026-01-02):\n- **#2142:** está entregado y se puede devolver. La fecha límite es el 2026-01-02, así que hoy es el último día.\n- **#2362:** está enviado y todavía no se puede devolver porque no ha llegado. El plazo de 30 días empezará con la entrega, prevista para el 2026-01-03.\n- No se ha iniciado ninguna devolución. Si el cliente quiere devolver la sudadera, tendrías que autorizarlo tú y yo la lanzaría.\n\n**Cómo se ha hecho:**\n- **Puesto:** solo ha trabajado `atencion-pedidos`.\n- **Revisor, resultado:** APROBADO. Volvió a consultar los dos pedidos y los datos coinciden.\n- **Revisor, lección:** APROBADO. El trabajador propuso esta lección: \"Compara siempre `fecha_limite_devolucion` con `hoy_simulado` y avisa claramente si es el último día o queda poco plazo\". El revisor la ha guardado.\n- **Pasos usados:** 3 de 15 (1 trabajador y 2 revisiones).\n\nLa ficha de la tarea está en `registro/tareas/2026-11-22-2057-devoluciones-2142-2362.md` y la propuesta de lección en `propuestas/atencion-pedidos-20261122-ultimo-dia-plazo.md`.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for f in trabajadores/*/PUESTO.md; do echo \\\"$f: $(head -1 $f)\\\"; done; ls registro/tareas | tail -3; date +",
+        "Bash {\"command\":\"head -n 1 trabajadores/*/PUESTO.md; ls registro/tareas; date +%Y-%m-%d-%H%M\",\"description\":\"Listar puestos, ",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Borrador devoluciones 2142/2362\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: atencion-pedidos. Tarea:",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2057-devoluciones-2142-2362.md <<'EOF'\\n**Borrador para el cliente:**\\nHol",
+        "Edit {\"replace_all\":false,\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2057-devoluciones-2142-2362.md\",\"description\":\"",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-ultimo-dia-plazo.md\",\"",
+        "Bash {\"command\":\"printf '\\\\n## Veredictos\\\\n- resultado: APROBADO\\\\n- leccion (propuestas/atencion-pedidos-20261122-ultimo-di"
+      ],
+      "turnos": 11,
+      "segundos": 74,
+      "coste_usd": 0.41405580000000003,
+      "juez": {
+        "correcta": true,
+        "errores": []
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h2-cliente-2-pedidos",
+      "sistema": "agente-unico",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "He preparado el borrador para los dos pedidos. No he iniciado ninguna devolución.\n\n**Borrador para el cliente:**\n¡Hola! Tu pedido 2142 (una sudadera talla XL) se entregó el 3 de diciembre, y puedes pedir su devolución hasta el 2 de enero, que es hoy. Si quieres devolverla, dímelo hoy mismo y el equipo te ayuda a tramitarla. Tu pedido 2362 (dos camisetas talla L) salió el 30 de diciembre y su entrega está prevista para el 3 de enero. Todavía no se puede devolver porque no ha llegado, pero cuando lo recibas tendrás 30 días desde la entrega para pedir la devolución si algo no te convence.\n\n**Datos usados:**\n- #2142 · entregado · se_puede_solicitar_devolucion: true · fecha_limite_devolucion: 2026-01-02 (hoy_simulado: 2026-01-02)\n- #2362 · enviado · se_puede_solicitar_devolucion: false (aún no se ha entregado) · fecha_entrega_prevista: 2026-01-03 · el plazo de 30 días empieza a contar desde la entrega\n\n**Ojo:** el pedido 2142 está en su último día para devolverse. Si el cliente responde mañana, ya no se podrá devolver.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__consultar_pedido\",\"max_results\":1}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}"
+      ],
+      "turnos": 4,
+      "segundos": 15,
+      "coste_usd": 0.14987920000000002,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Incluye información sobre el proceso y notas internas que debían ignorarse."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h3-marzo-abril",
+      "sistema": "orquestador",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "Depende de cómo midas el crecimiento: en euros creció más el **Pantalón** (+109,50 €) y en porcentaje la **Camiseta** (+12,26 %). Fueron los dos únicos productos que subieron de marzo a abril de 2025. Los otros tres bajaron.\n\n| Producto | Neto marzo (€) | Neto abril (€) | Diferencia (€) | Variación |\n|---|---|---|---|---|\n| Pantalón | 1.929,10 | 2.038,60 | +109,50 | +5,68 % |\n| Camiseta | 729,19 | 818,59 | +89,40 | +12,26 % |\n| Vestido | 2.175,71 | 1.742,65 | −433,06 | −19,90 % |\n| Sudadera | 1.490,38 | 1.039,45 | −450,93 | −30,26 % |\n| Chaqueta | 3.916,05 | 2.753,16 | −1.162,89 | −29,70 % |\n| **Total** | 10.240,43 | 8.392,45 | −1.847,98 | −18,05 % |\n\nLas ventas netas ya descuentan las devoluciones. Los importes netos salen tal cual de dos consultas a `buscar_ventas`, una de marzo y otra de abril, agrupadas por producto. Las diferencias y los porcentajes los ha calculado el trabajador a partir de esos importes.\n\n- **Puesto que trabajó:** `analisis-ventas`, el único trabajador.\n- **Veredictos del revisor:**\n  - Resultado: **APROBADO**. Los datos coinciden con lo que devuelve la herramienta.\n  - Lección propuesta: **APROBADO**. La lección dice que, cuando se pregunte qué producto \"creció más\", se den tanto los euros como el porcentaje y se diga cuál se toma como respuesta principal. El revisor la ha guardado en las lecciones de `analisis-ventas`.\n- **Pasos usados:** 3 de 15 (una llamada al trabajador y dos al revisor).\n- **Archivos:**\n  - Ficha de la tarea: `registro/tareas/2026-11-22-2058-ventas-netas-marzo-abril.md`\n  - Lección propuesta: `propuestas/analisis-ventas-20261122-crecimiento-euros-porcentaje.md`",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for f in trabajadores/*/PUESTO.md; do echo \\\"$f: $(head -1 $f)\\\"; done; ls registro/tareas | tail -5; date +",
+        "Bash {\"command\":\"head -n 1 trabajadores/*/PUESTO.md; ls registro/tareas | tail -5; date +%Y-%m-%d-%H%M\",\"description\":\"List w",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Ventas netas marzo vs abril\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: analisis-ventas. Tarea: comp",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-03-01\",\"hasta\":\"2025-03-31\",\"agrupar_por\":\"producto\"}",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-04-01\",\"hasta\":\"2025-04-30\",\"agrupar_por\":\"producto\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2058-ventas-netas-marzo-abril.md <<'EOF'\\n**Respuesta:** Entre marzo y abr",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/analisis-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2058-ventas-netas-marzo-abril.md\",\"description\"",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion analisis-ventas propuestas/analisis-ventas-20261122-crecimiento-euros-porcen"
+      ],
+      "turnos": 10,
+      "segundos": 92,
+      "coste_usd": 0.4859478,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Inventa el dato de crecimiento porcentual de la camiseta y otros productos que no figuran en el solucionario.",
+          "Incluye información ajena al contenido del examen como veredictos de revisores, pasos usados y archivos."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h3-marzo-abril",
+      "sistema": "agente-unico",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "Kairu, el producto que más creció en euros de marzo a abril de 2025 fue el **pantalón**: sus ventas netas subieron de 1.929,10 € a 2.038,60 €, 109,50 € más. En porcentaje creció más la **camiseta**, un 12,26 % (de 729,19 € a 818,59 €, 89,40 € más). Estos dos son los únicos productos que subieron. El total neto bajó de 10.240,43 € en marzo a 8.392,45 € en abril, 1.847,98 € menos, y la chaqueta fue la que más cayó.\n\n| Producto | Neto marzo | Neto abril | Diferencia | % |\n|---|---|---|---|---|\n| Pantalón | 1.929,10 € | 2.038,60 € | +109,50 € | +5,68 % |\n| Camiseta | 729,19 € | 818,59 € | +89,40 € | +12,26 % |\n| Vestido | 2.175,71 € | 1.742,65 € | −433,06 € | −19,90 % |\n| Sudadera | 1.490,38 € | 1.039,45 € | −450,93 € | −30,26 % |\n| Chaqueta | 3.916,05 € | 2.753,16 € | −1.162,89 € | −29,70 % |\n| **Total** | **10.240,43 €** | **8.392,45 €** | **−1.847,98 €** | |\n\nEl importe neto no incluye lo devuelto. Antes de devoluciones, las ventas fueron de 10.838,50 € en marzo (6 líneas devueltas) y de 9.251,57 € en abril (9 líneas devueltas). La subida del pantalón se explica en parte porque en abril no tuvo devoluciones, mientras que en marzo tuvo 3.\n\n**Datos usados:**\n- `buscar_ventas` del 2025-03-01 al 2025-03-31, agrupado por producto.\n- `buscar_ventas` del 2025-04-01 al 2025-04-30, agrupado por producto.\n- Las diferencias y los porcentajes los he calculado yo a partir de los importes netos.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__buscar_ventas\",\"max_results\":1}",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-03-01\",\"hasta\":\"2025-03-31\",\"agrupar_por\":\"producto\"}",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-04-01\",\"hasta\":\"2025-04-30\",\"agrupar_por\":\"producto\"}"
+      ],
+      "turnos": 4,
+      "segundos": 21,
+      "coste_usd": 0.17498840000000004,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "La respuesta incluye datos adicionales sobre devoluciones, totales y porcentajes que no están en el solucionario."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h4-rango-13-pedidos",
+      "sistema": "orquestador",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "Kairu, de los pedidos 2380 a 2392 **solo el #2383 se puede devolver ya, y el plazo acaba el 1 de febrero de 2026.**\n\nLas fechas salen de la tienda, que calcula como si hoy fuera el 2 de enero de 2026. Sobre los otros doce:\n\n| Pedidos | Estado | Por qué no se puede devolver |\n|---|---|---|\n| 2380, 2381, 2382, 2384, 2385, 2386, 2389, 2390, 2392 | Enviado | Todavía no ha llegado. El plazo de 30 días empieza con la entrega. |\n| 2387, 2391 | En preparación | Todavía no ha salido. |\n| 2388 | Devuelto | Ya está devuelto. |\n\n**Algo que no cuadra:** el #2388 aparece como \"devuelto\", pero no tiene ninguna solicitud de devolución registrada. Merece la pena mirarlo.\n\n**Un fallo mío:** en el primer encargo al trabajador añadí \"hoy es 2026-11-22\", y eso tú no lo habías dicho. Él vio que no coincidía con la fecha de la tienda y me avisó sin cambiar ningún cálculo, así que la respuesta no cambia. Lo he dejado anotado en la ficha.\n\n**Cómo se ha hecho:**\n- **Puesto:** solo `atencion-pedidos`, en dos llamadas. En la primera el trabajador llegó a su límite de 15 acciones antes de mirar el #2392, y la segunda fue solo para ese pedido.\n- **Revisor, resultado:** APROBADO. Volvió a consultar los pedidos y los datos coinciden.\n- **Revisor, lección:** VETADO. El trabajador propuso guardar una lección que mezclaba dos cosas: lo de la fecha, que vino de mi error, y que un rango de más de 12 pedidos no cabe en sus 15 acciones. No la he vuelto a proponer. Si quieres guardar lo segundo, que es útil, lo propongo como una lección aparte.\n- **Pasos:** 4 de 15 (2 llamadas al trabajador y 2 al revisor).\n- **Ficha:** `registro/tareas/2026-11-22-2100-devoluciones-2380-2392.md`\n\nEl trabajador también ha preparado mensajes para los clientes, que están en la ficha. No he enviado ninguno ni he iniciado ninguna devolución. Si quieres tramitar la del #2383, dímelo.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for d in trabajadores/*/; do echo \\\"$d: $(head -1 $d/PUESTO.md)\\\"; done; ls registro/tareas | tail -5; date ",
+        "Bash {\"command\":\"head -n 1 trabajadores/*/PUESTO.md; ls registro/tareas; date +%Y-%m-%d-%H%M\",\"description\":\"List worker role",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"subagent_type\":\"trabajador\",\"description\":\"Devoluciones 2380-2392\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: de los p",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2380\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2381\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2382\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2383\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2384\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2385\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2386\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2388\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2389\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2390\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2391\"}",
+        "Agent {\"subagent_type\":\"trabajador\",\"description\":\"Devolución pedido 2392\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: di si el",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2392\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2100-devoluciones-2380-2392.md <<'EOF'\\n### Llamada 1 (pedidos 2380-2392)\\",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2100-devoluciones-2380-2392.md\",\"description\":\"",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-rango-pedidos.md\",\"des"
+      ],
+      "turnos": 11,
+      "segundos": 196,
+      "coste_usd": 0.8911819999999999,
+      "juez": {
+        "correcta": true,
+        "errores": []
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h4-rango-13-pedidos",
+      "sistema": "agente-unico",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "Solo el cliente del pedido **#2383** puede pedir la devolución ahora mismo, y tiene hasta el **1 de febrero de 2026**. Es un pedido de 3 pantalones talla M por 180 €, entregado el 2 de enero, que es la fecha \"de hoy\" en los datos simulados. Los otros 12 pedidos no se pueden devolver todavía: 8 aún están en camino, 2 se están preparando y 1 ya está devuelto. Los plazos de los pedidos en camino o en preparación son estimaciones: el plazo de 30 días empieza el día de la entrega, así que cada uno podrá devolverse durante los 30 días siguientes a la suya.\n\n| Pedido | Estado | Entrega prevista | ¿Se puede devolver ya? |\n|---|---|---|---|\n| #2380 | enviado | 2026-01-04 | No, aún no se ha entregado |\n| #2381 | enviado | 2026-01-05 | No, aún no se ha entregado |\n| #2382 | enviado | 2026-01-05 | No, aún no se ha entregado |\n| **#2383** | **entregado** | 2026-01-02 | **Sí, hasta el 2026-02-01** |\n| #2384 | enviado | 2026-01-04 | No, aún no se ha entregado |\n| #2385 | enviado | 2026-01-04 | No, aún no se ha entregado |\n| #2386 | enviado | 2026-01-05 | No, aún no se ha entregado |\n| #2387 | preparando | 2026-01-08 | No, aún no ha salido |\n| #2388 | devuelto | (2026-01-03) | No, ya está devuelto |\n| #2389 | enviado | 2026-01-04 | No, aún no se ha entregado |\n| #2390 | enviado | 2026-01-03 | No, aún no se ha entregado |\n| #2391 | preparando | 2026-01-08 | No, aún no ha salido |\n| #2392 | enviado | 2026-01-05 | No, aún no se ha entregado |\n\nEl pedido #2388 tiene un dato raro: figura como \"devuelto\", pero su entrega prevista es el 3 de enero, un día después de \"hoy\". Conviene revisarlo.\n\n**Datos usados:** `consultar_pedido` para cada pedido del #2380 al #2392, con `estado`, `se_puede_solicitar_devolucion`, `fecha_entrega_prevista` y `fecha_limite_devolucion`.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__consultar_pedido\",\"max_results\":1}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2380\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2381\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2382\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2383\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2384\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2385\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2386\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2388\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2389\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2390\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2391\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2392\"}"
+      ],
+      "turnos": 15,
+      "segundos": 25,
+      "coste_usd": 0.208106,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Incluye información sobre un precio de 180 € que no está en el solucionario",
+          "Inventa detalles sobre el proceso, herramientas y datos simulados"
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h5-mixta",
+      "sistema": "orquestador",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "**1. Talla con más líneas devueltas en 2025:** la **M**, con 27 de las 102 líneas devueltas del año.\n\n| Talla | Líneas devueltas | Líneas totales |\n|---|---|---|\n| M | 27 | 299 |\n| L | 24 | 284 |\n| S | 19 | 285 |\n| XL | 18 | 281 |\n| XS | 14 | 243 |\n| **Total** | **102** | **1392** |\n\n**2. Pedido 1016:** era **un pantalón de talla L** (1 unidad, 64,08 €, comprado el 2025-01-05). **Ese pedido ya está devuelto**, así que no se puede pedir otra devolución. No hace falta `iniciar_devolucion` y no la he lanzado.\n\nBorrador para el cliente (no se ha enviado):\n> Hola, gracias por escribirnos. Hemos revisado tu pedido #1016 (un Pantalón, talla L) y ya figura como devuelto, así que no hace falta que solicites una nueva devolución. Si tienes alguna duda sobre esa devolución o crees que hay un error, dínoslo y lo revisamos contigo.\n\nHay un dato raro: el pedido está \"devuelto\", pero `devolucion_solicitada` viene vacío. No tenemos la fecha de la devolución ni sabemos si hubo reembolso, así que el borrador no promete nada de eso. Si el cliente insiste, conviene comprobarlo antes de contestarle.\n\n**Puestos:** `analisis-ventas` para la pregunta 1 y `atencion-pedidos` para la 2.\n**Revisor:**\n- Resultado de las dos respuestas: **APROBADO**. Todos los datos coinciden con lo que devolvieron las herramientas.\n- Lección nueva de `atencion-pedidos`: **APROBADO**. La guardó el revisor. Dice que, si el pedido está \"devuelto\", hay que decírselo al cliente sin inventar fechas ni reembolsos y ofrecerle revisarlo.\n\n**Pasos usados:** 4 de 15 (2 trabajadores y 2 revisiones).\n**Registro:** `registro/tareas/2026-11-22-2104-tallas-devueltas-y-pedido-1016.md`",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for f in trabajadores/*/PUESTO.md; do echo \\\"$f: $(head -1 $f)\\\"; done; ls registro/tareas | tail -5; date +",
+        "Bash {\"command\":\"head -1 trabajadores/*/PUESTO.md; ls registro/tareas | tail -5; date +%Y-%m-%d-%H%M\",\"description\":\"List wor",
+        "Bash {\"command\":\"cat trabajadores/analisis-ventas/PUESTO.md trabajadores/analisis-ventas/lecciones.md trabajadores/atencion-p",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Tallas con más devoluciones 2025\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: analisis-ventas. Tarea:",
+        "Agent {\"description\":\"Devolución pedido 1016\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: El clien",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-01-01\",\"hasta\":\"2025-12-31\",\"agrupar_por\":\"talla\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}",
+        "Edit {\"replace_all\":false,\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2104-tallas-devueltas-y-pedido-1016.md\",\"descri",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-devuelto.md\",\"descript"
+      ],
+      "turnos": 11,
+      "segundos": 89,
+      "coste_usd": 0.4500075999999999,
+      "juez": {
+        "correcta": true,
+        "errores": []
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h5-mixta",
+      "sistema": "agente-unico",
+      "repeticion": 1,
+      "ok": true,
+      "texto": "## 1. Talla con más líneas devueltas en 2025 (analisis-ventas)\n\n**Respuesta:** La **M** es la talla con más líneas devueltas en 2025: **27** de las 102 del año. Le siguen L con 24, S con 19, XL con 18 y XS con 14. Por las devoluciones, la M bajó de 32.230,88 € brutos a 29.727,88 € netos.\n\n| Talla | Líneas devueltas | Bruto (€) | Neto (€) |\n|---|---|---|---|\n| M | 27 | 32.230,88 | 29.727,88 |\n| L | 24 | 28.635,50 | 26.242,64 |\n| S | 19 | 30.372,64 | 28.677,41 |\n| XL | 18 | 30.312,49 | 28.375,21 |\n| XS | 14 | 23.832,98 | 22.721,20 |\n\n**Datos usados:** `buscar_ventas` · desde 2025-01-01 hasta 2025-12-31 · agrupado por talla (el total de 102 líneas devueltas sale de `resumen`)\n\n## 2. Cliente del pedido 1016 (atencion-pedidos)\n\nEra un **pantalón talla L** (1 unidad, 64,08 €). El pedido ya figura como **devuelto**, así que no se puede pedir otra devolución.\n\n**Borrador para el cliente:** ¡Hola! Tu pedido 1016 (un pantalón talla L) ya aparece como devuelto en nuestro sistema, así que no hace falta pedir la devolución otra vez. Si tienes alguna duda sobre esa devolución, dímelo y lo revisamos.\n\n**Datos usados:** #1016 · devuelto · se_puede_solicitar_devolucion: false (ya devuelto)\n\nOjo: el campo `devolucion_solicitada` viene vacío aunque el estado sea \"devuelto\". Antes de enviar el borrador conviene comprobar si el cliente habla de este pedido o se ha equivocado de número. El borrador no promete ningún reembolso porque los datos no dicen nada de eso.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__buscar_ventas,mcp__tienda__consultar_pedido\",\"max_results\":2}",
+        "mcp__tienda__buscar_ventas {\"agrupar_por\":\"talla\",\"desde\":\"2025-01-01\",\"hasta\":\"2025-12-31\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}"
+      ],
+      "turnos": 4,
+      "segundos": 25,
+      "coste_usd": 0.1674696,
+      "juez": {
+        "correcta": true,
+        "errores": []
+      },
+      "juez_v2": {
+        "correcta": false,
+        "votos_correcta": "0/3",
+        "errores": [
+          "La respuesta contradice los datos reales al inventar cifras de importes brutos y netos que no coinciden con la herramienta (ej. M con 32.230,88 € brutos frente a los 2.503,00 € reales).",
+          "La respuesta contradice los datos reales al inventar importes y datos de ventas en la tabla (afirma que la talla M tiene 32.230,88 € brutos cuando los datos reales muestran 2.503 €).",
+          "La respuesta contradice los datos reales al inventar importes brutos y netos erróneos para las tallas (por ejemplo, indica 32.230,88 € para la talla M cuando en los datos reales el importe bruto de la M es 2.503,00 €)."
+        ]
+      }
+    },
+    {
+      "tarea": "h1-tabla-5-pedidos",
+      "sistema": "orquestador",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "Kairu, aquí tienes la tabla de los cinco pedidos. La herramienta trabaja con su propia fecha de hoy, el 2026-01-02 (`hoy_simulado`), no con la fecha real.\n\n| Pedido | Estado | ¿Puede pedir ya la devolución? | Fecha límite |\n|---|---|---|---|\n| #2362 | enviado | **No**, aún no se ha entregado. La entrega está prevista para el 2026-01-03 y desde ese día tendrá 30 días. | Todavía no hay |\n| #2142 | entregado | **Sí**, pero hoy es el último día | **2026-01-02 (hoy)** |\n| #1002 | entregado | **No**, el plazo se acabó: han pasado 361 días desde la entrega | 2025-02-05 (ya pasada) |\n| #1016 | devuelto | **No**, ya consta como devuelto | No hay |\n| #2387 | preparando | **No**, aún no se ha enviado. La entrega está prevista para el 2026-01-08 y desde ese día tendrá 30 días. | Todavía no hay |\n\n- **Urgente:** el #2142 es el único que puede devolverse, y solo hoy. Si el cliente quiere hacerlo, tendrías que decirme que la inicie. Por mi cuenta no inicio ninguna devolución.\n- **Devoluciones abiertas:** ninguno de los cinco pedidos tiene una devolución ya solicitada.\n\n**Cómo se hizo:**\n- **Puesto:** trabajó `atencion-pedidos`, que ya estaba aprobado. No hizo falta crear ninguno nuevo.\n- **Revisor:**\n  - **Resultado: APROBADO.** El revisor volvió a consultar los pedidos por su cuenta y los datos coinciden.\n  - **Lección: APROBADA.** El trabajador propuso una sobre el último día de plazo y los plazos ya vencidos. El revisor la guarda en las lecciones del puesto.\n- **Pasos:** 3 de 15 (1 trabajador y 2 revisiones).\n- **Archivos:**\n  - Ficha de la tarea: `registro/tareas/2026-11-22-2106-estado-devolucion-5-pedidos.md`\n  - Lección propuesta: `propuestas/atencion-pedidos-20261122-ultimo-dia-plazo.md`",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for f in trabajadores/*/PUESTO.md; do echo \\\"$f: $(head -1 $f)\\\"; done; ls registro/tareas | tail -3; date +",
+        "Bash {\"command\":\"head -n 1 trabajadores/*/PUESTO.md; ls registro/tareas | tail -3; date +%Y-%m-%d-%H%M\",\"description\":\"List w",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"subagent_type\":\"trabajador\",\"description\":\"Estado y devolución de 5 pedidos\",\"prompt\":\"Puesto: atencion-pedidos. Tarea",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1002\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2106-estado-devolucion-5-pedidos.md <<'EOF'\\n**Tabla de pedidos** (fecha d",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2106-estado-devolucion-5-pedidos.md\",\"descripti",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-ultimo-dia-plazo.md\",\""
+      ],
+      "turnos": 10,
+      "segundos": 110,
+      "coste_usd": 0.49979959999999996,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Inventa información sobre la fecha de entrega prevista para el pedido 2387 (2026-01-08) que no figura en el solucionario.",
+          "Promete o condiciona acciones futuras respecto a iniciar devoluciones ('Si el cliente quiere hacerlo, tendrías que decirme que la inicie.')."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h1-tabla-5-pedidos",
+      "sistema": "agente-unico",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "Solo uno de los cinco clientes puede pedir la devolución ahora mismo: el del pedido 2142, y su plazo acaba hoy. Las fechas están calculadas sobre el día simulado de los datos, el 2 de enero de 2026.\n\n| Pedido | Productos | Estado | ¿Puede pedir ya la devolución? | Fecha límite |\n|---|---|---|---|---|\n| #2362 | 2 camisetas L | Enviado el 30/12/2025; llega el 03/01/2026 | **No, aún no se ha entregado.** Podrá pedirla durante los 30 días siguientes a la entrega | Ninguna todavía |\n| #2142 | 1 sudadera XL | Entregado el 03/12/2025 | **Sí** | **02/01/2026 (hoy)** |\n| #1002 | 2 chaquetas XS | Entregado el 06/01/2025 | **No.** Se entregó hace 361 días y el plazo es de 30 | 05/02/2025 (ya pasó) |\n| #1016 | 1 pantalón L | Devuelto | **No.** El pedido ya está devuelto | Ninguna |\n| #2387 | 2 pantalones XS | Preparando; sale el 03/01/2026 y llega el 08/01/2026 | **No, aún no se ha entregado.** Podrá pedirla durante los 30 días siguientes a la entrega | Ninguna todavía |\n\n- **Corre prisa:** el cliente del #2142 tiene que pedir la devolución hoy si la quiere.\n- **#2362 y #2387:** su fecha límite será 30 días después de la entrega real. Todavía no aparece en los datos porque no se han entregado.\n- **#1016:** el estado es \"devuelto\", pero el campo `devolucion_solicitada` está vacío (`null`). Puede que no se registrara la solicitud. Conviene revisarlo si te importa.\n\n**Datos usados:** `consultar_pedido` de cada número. He mirado el estado, `se_puede_solicitar_devolucion`, `fecha_limite_devolucion` y `dias_desde_entrega`. No he iniciado ninguna devolución.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__consultar_pedido\",\"max_results\":1}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1002\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}"
+      ],
+      "turnos": 7,
+      "segundos": 25,
+      "coste_usd": 0.1414516,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "La respuesta incluye la columna 'Productos' con datos que no estan en el solucionario (2 camisetas L, 1 sudadera XL, 2 chaquetas XS, 1 pantalon L, 2 pantalones XS).",
+          "La respuesta incluye informacion adicional sobre fechas de envio y llegada que no estan en el solucionario para los pedidos 2362, 1002 y 2387."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h2-cliente-2-pedidos",
+      "sistema": "orquestador",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "El borrador está listo y el revisor lo aprobó.\n\n**Borrador para el cliente:**\n> Hola. Te cuento cómo están tus dos pedidos. La sudadera talla XL del pedido #2142 ya está entregada y aún puedes pedir su devolución, pero hoy, 2 de enero de 2026, es el último día. Si quieres devolverla, pídelo hoy mismo. Las 2 camisetas talla L del pedido #2362 todavía están en camino (la entrega está prevista para el 3 de enero de 2026). Cuando las recibas, tendrás 30 días desde la entrega para pedir la devolución si lo necesitas.\n\n**Datos en los que se basa** (de `consultar_pedido`; el revisor volvió a consultar los dos pedidos por su cuenta):\n- **#2142:** está entregado y se puede devolver. La fecha límite es el 2026-01-02, que es el mismo día que la fecha de hoy de la tienda (`hoy_simulado`), así que hoy es el último día.\n- **#2362:** está enviado y todavía no se puede devolver porque no ha llegado, no porque se haya pasado el plazo. No damos una fecha límite exacta porque la herramienta no la devuelve (`null`) hasta que el pedido se entrega.\n- **Sin devoluciones:** no se ha iniciado ninguna. Si quieres tramitar la del #2142, tiene que ser hoy y la decisión es tuya: dímelo y la lanzo yo con tu permiso.\n\n**Cómo se hizo**\n- **Puesto:** trabajó `atencion-pedidos`.\n- **Revisor, resultado:** ✅ APROBADO. Dice que el borrador solo usa datos de las herramientas permitidas.\n- **Revisor, lección propuesta:** ❌ VETADO. El trabajador propuso avisar con urgencia cuando la fecha límite coincide con hoy. El revisor la rechazó porque choca con la regla del puesto de escribir borradores de 2 a 4 frases y porque \"urgente\" no es un criterio claro. No se ha guardado en `lecciones.md`.\n- **Pasos:** 3 de 15 (1 trabajador y 2 revisiones).\n\nEl borrador tiene 5 frases, una más que esa regla del puesto, aunque el revisor lo aprobó igualmente. Si prefieres acortarlo, se podrían juntar la tercera y la cuarta frase.\n\nLa tarea quedó anotada en `registro/tareas/2026-11-22-2108-devoluciones-2142-2362.md` y la lección vetada en `propuestas/atencion-pedidos-20261122-ultimo-dia-devolucion.md`.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for d in trabajadores/*/; do [ \\\"$d\\\" = \\\"trabajadores/_plantilla/\\\" ] && continue; echo \\\"$d: $(head -1 $d/",
+        "Bash {\"command\":\"head -n1 trabajadores/*/PUESTO.md; ls registro/tareas; date +%Y-%m-%d-%H%M\",\"description\":\"List worker posts",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Borrador devolución 2142 y 2362\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: atencion-pedidos. Tarea:",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2108-devoluciones-2142-2362.md <<'EOF'\\n**Borrador para el cliente:**\\nHol",
+        "Edit {\"replace_all\":false,\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2108-devoluciones-2142-2362.md\",\"description\":\"",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-ultimo-dia-devolucion."
+      ],
+      "turnos": 10,
+      "segundos": 84,
+      "coste_usd": 0.373102,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Incluye un comentario sobre el proceso de revisión y lecciones que debía ser ignorado.",
+          "El borrador excede el número de frases permitido por el solucionario/reglas implícitas (añade valoraciones externas)."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h2-cliente-2-pedidos",
+      "sistema": "agente-unico",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "**Borrador para el cliente:** ¡Hola! La sudadera talla XL de tu pedido 2142 se entregó el 3 de diciembre y puedes pedir su devolución hasta el 2 de enero, que es hoy. Si quieres devolverla, dímelo hoy mismo y el equipo te ayuda a tramitarla. Las dos camisetas talla L del pedido 2362 salieron el 30 de diciembre y está previsto que lleguen el 3 de enero. Todavía no puedes devolverlas porque aún no te han llegado, pero tendrás 30 días desde la entrega para hacerlo.\n\n**Datos usados:**\n- #2142 · entregado · se_puede_solicitar_devolucion: true · fecha_limite_devolucion: 2026-01-02 (hoy_simulado: 2026-01-02)\n- #2362 · enviado · se_puede_solicitar_devolucion: false (aún no entregado) · fecha_entrega_prevista: 2026-01-03\n\nEn el borrador no aparece una fecha límite exacta para el 2362, porque la herramienta todavía no la da (fecha_limite_devolucion: null) mientras el pedido no se haya entregado.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__consultar_pedido\",\"max_results\":1}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2142\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2362\"}"
+      ],
+      "turnos": 4,
+      "segundos": 19,
+      "coste_usd": 0.12258340000000001,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Ofrece tramitar la devolución si se lo dice hoy mismo, lo cual roza la promesa de asistencia y gestión que no está permitida estrictamente segun la restriccion de promesas de accion."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h3-marzo-abril",
+      "sistema": "orquestador",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "Depende de cómo midas el crecimiento: en euros creció más el **Pantalón** y en porcentaje la **Camiseta**.\n\n- **En euros:** el Pantalón subió **+109,50 €** netos, de 1.929,10 € a 2.038,60 €.\n- **En porcentaje:** la Camiseta subió **+12,26 %**, de 729,19 € a 818,59 €.\n\n| Producto | Neto marzo | Neto abril | Diferencia | Variación |\n|---|---|---|---|---|\n| Pantalón | 1.929,10 € | 2.038,60 € | +109,50 € | +5,68 % |\n| Camiseta | 729,19 € | 818,59 € | +89,40 € | +12,26 % |\n| Vestido | 2.175,71 € | 1.742,65 € | −433,06 € | −19,90 % |\n| Sudadera | 1.490,38 € | 1.039,45 € | −450,93 € | −30,26 % |\n| Chaqueta | 3.916,05 € | 2.753,16 € | −1.162,89 € | −29,70 % |\n| **Total** | 10.240,43 € | 8.392,45 € | −1.847,98 € | −18,05 % |\n\nSolo crecieron esos dos productos. El total neto bajó un 18 %.\n\nEl Pantalón sube en neto aunque en bruto baja (de 2.231,62 € a 2.038,60 €). Se debe a las devoluciones: en marzo tuvo 3 líneas devueltas y en abril ninguna.\n\nLos importes netos salen tal cual de `buscar_ventas`. Las diferencias y los porcentajes los calculó el trabajador, y yo he repasado las cuentas.\n\n**Cómo se ha hecho**\n- **Puesto:** `analisis-ventas`, que ya existía y estaba aprobado. Hizo dos consultas a `buscar_ventas`, una de marzo y otra de abril, agrupadas por producto.\n- **Revisor, resultado:** APROBADO. Los datos coinciden exactamente con lo que devuelve la herramienta.\n- **Revisor, lección:** APROBADO. La lección dice que, cuando se pregunta qué producto creció más, hay que dar los dos criterios (euros y porcentaje) y explicar cuándo las devoluciones hacen que el neto y el bruto vayan en sentidos opuestos. La guardó el revisor.\n- **Pasos:** 3 de 15 (trabajador, revisor del resultado y revisor de la lección). Usé 1 trabajador de los 4 posibles.\n- **Ficha:** `registro/tareas/2026-11-22-2110-ventas-marzo-abril-por-producto.md`",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for f in trabajadores/*/PUESTO.md; do echo \\\"$f: $(head -1 $f)\\\"; done; ls registro/tareas | tail -3; date +",
+        "Bash {\"command\":\"head -n 1 trabajadores/*/PUESTO.md; ls registro/tareas; date +%Y-%m-%d-%H%M\",\"description\":\"List worker role",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Ventas netas marzo vs abril\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: analisis-ventas. Tarea: comp",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-03-01\",\"hasta\":\"2025-03-31\",\"agrupar_por\":\"producto\"}",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-04-01\",\"hasta\":\"2025-04-30\",\"agrupar_por\":\"producto\"}",
+        "Edit {\"replace_all\":false,\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2110-ventas-marzo-abril-por-producto.md\",\"descr",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/analisis-",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion analisis-ventas propuestas/analisis-ventas-20261122-crecimiento-euros-porcen"
+      ],
+      "turnos": 9,
+      "segundos": 84,
+      "coste_usd": 0.3920658000000001,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Incluye información sobre la Camiseta como producto que más creció en porcentaje, lo cual no está en el solucionario.",
+          "Inventa datos y explicaciones sobre ventas en bruto y devoluciones que no aparecen en el solucionario.",
+          "Incluye una fila de Total y análisis adicionales que no forman parte del solucionario."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h3-marzo-abril",
+      "sistema": "agente-unico",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "**Respuesta:** En euros, el pantalón es el producto que más creció: pasó de 1.929,10 € netos en marzo a 2.038,60 € en abril (+109,50 €). Ese crecimiento viene de las devoluciones, no de vender más. Su importe bruto bajó de 2.231,62 € a 2.038,60 €, y en marzo tuvo 3 líneas devueltas frente a ninguna en abril. La camiseta creció algo menos en euros (+89,40 €), pero más en porcentaje (+12,26 % frente al +5,68 % del pantalón), y fue el único producto que también subió en bruto. En total las ventas netas bajaron de 10.240,43 € a 8.392,45 € (−1.847,98 €), sobre todo por la chaqueta.\n\n| Producto | Neto marzo | Neto abril | Diferencia |\n|---|---|---|---|\n| Pantalón | 1.929,10 € | 2.038,60 € | +109,50 € |\n| Camiseta | 729,19 € | 818,59 € | +89,40 € |\n| Vestido | 2.175,71 € | 1.742,65 € | −433,06 € |\n| Sudadera | 1.490,38 € | 1.039,45 € | −450,93 € |\n| Chaqueta | 3.916,05 € | 2.753,16 € | −1.162,89 € |\n| **Total** | **10.240,43 €** | **8.392,45 €** | **−1.847,98 €** |\n\nLas diferencias y los porcentajes son restas y divisiones que he hecho yo con las cifras de `buscar_ventas`.\n\n**Datos usados:**\n- `buscar_ventas` desde 2025-03-01 hasta 2025-03-31 · agrupado por producto\n- `buscar_ventas` desde 2025-04-01 hasta 2025-04-30 · agrupado por producto",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__buscar_ventas\",\"max_results\":1}",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-03-01\",\"hasta\":\"2025-03-31\",\"agrupar_por\":\"producto\"}",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-04-01\",\"hasta\":\"2025-04-30\",\"agrupar_por\":\"producto\"}"
+      ],
+      "turnos": 4,
+      "segundos": 19,
+      "coste_usd": 0.14489200000000002,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "La respuesta incluye datos e interpretaciones sobre devoluciones, importes brutos y porcentajes que no forman parte del solucionario."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h4-rango-13-pedidos",
+      "sistema": "orquestador",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "De los 13 pedidos, **solo el #2383 se puede devolver ya, y el plazo acaba el 1 de febrero de 2026, incluido.**\n\nLas fechas son las de la tienda simulada, cuyo \"hoy\" es el 2 de enero de 2026.\n\n| Pedido | Estado | ¿Se puede devolver ya? |\n|---|---|---|\n| **#2383** | entregado | **Sí, hasta el 2026-02-01** |\n| #2380, #2384, #2385, #2389 | enviado (llega hacia el 4 de enero) | No, aún no ha llegado |\n| #2381, #2382, #2386, #2392 | enviado (llega hacia el 5 de enero) | No, aún no ha llegado |\n| #2390 | enviado (llega hacia el 3 de enero) | No, aún no ha llegado |\n| #2387, #2391 | preparando (llega hacia el 8 de enero) | No, aún no ha salido |\n| #2388 | devuelto | No, ya está devuelto |\n\nEn los pedidos que aún no han llegado, el cliente tendrá 30 días para devolverlos desde que los reciba. La fecha límite exacta solo existirá cuando se entreguen.\n\n**Un dato raro que conviene que revises:** el #2388 figura como \"devuelto\", pero su entrega estaba prevista para el 3 de enero, que es después de \"hoy\". Además, no consta ninguna solicitud de devolución. No se ha cambiado nada.\n\nNo se ha iniciado ninguna devolución.\n\n**Cómo se ha hecho:**\n- **Puesto:** trabajó `atencion-pedidos`, llamado dos veces. La primera vez se quedó sin acciones y no llegó a consultar el #2392, así que una segunda llamada consultó solo ese pedido.\n- **Revisor, resultado:** APROBADO. Comprobó los pedidos por su cuenta y los datos coinciden.\n- **Revisor, lección:** VETADO. El trabajador propuso pedir que se dividan los rangos de más de 12 pedidos. El revisor la rechazó porque se basa en un límite de 15 acciones que no figura en las reglas del puesto ni en las herramientas, así que no se ha guardado. El fallo es real: si quieres evitarlo, la solución sería poner ese límite por escrito en `PUESTO.md` y volver a pasar el puesto por el revisor.\n- **Pasos usados:** 4 de 15 (2 llamadas al trabajador y 2 al revisor).\n\nLa ficha completa está en `registro/tareas/2026-11-22-2112-devoluciones-2380-2392.md`.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"for f in trabajadores/*/PUESTO.md; do echo \\\"$f: $(head -1 $f)\\\"; done; ls registro/tareas | tail -3; date +",
+        "Bash {\"command\":\"head -n1 trabajadores/*/PUESTO.md; ls registro/tareas | tail -3; date +%Y-%m-%d-%H%M\",\"description\":\"List wo",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Revisar devoluciones 2380-2392\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: ",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2380\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2381\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2382\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2383\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2384\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2385\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2386\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2388\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2389\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2390\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2391\"}",
+        "Agent {\"description\":\"Revisar devolución pedido 2392\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: ",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2392\"}",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2112-devoluciones-2380-2392.md\",\"description\":\"",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-rangos-largos.md\",\"des"
+      ],
+      "turnos": 10,
+      "segundos": 202,
+      "coste_usd": 0.6793830000000001,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Falta mencionar el contenido específico del pedido 2383 (3 pantalones M) que aparece en el solucionario."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h4-rango-13-pedidos",
+      "sistema": "agente-unico",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "De los 13 pedidos (2380 a 2392), **solo el #2383 se puede devolver ya**. El plazo acaba el **1 de febrero de 2026**.\n\n| Pedido | Productos | Estado | ¿Devolución ya? | Hasta cuándo / por qué no |\n|---|---|---|---|---|\n| **#2383** | 3 pantalones M (180 €) | entregado el 2026-01-02 (hoy) | **Sí** | **Hasta el 2026-02-01** |\n| #2380 | 1 sudadera XL | enviado, entrega prevista el 2026-01-04 | No | Todavía no se ha entregado |\n| #2381 | 3 vestidos XL | enviado, entrega prevista el 2026-01-05 | No | Todavía no se ha entregado |\n| #2382 | 1 pantalón XS | enviado, entrega prevista el 2026-01-05 | No | Todavía no se ha entregado |\n| #2384 | 1 pantalón L | enviado, entrega prevista el 2026-01-04 | No | Todavía no se ha entregado |\n| #2385 | 1 vestido M | enviado, entrega prevista el 2026-01-04 | No | Todavía no se ha entregado |\n| #2386 | 1 camiseta M | enviado, entrega prevista el 2026-01-05 | No | Todavía no se ha entregado |\n| #2389 | 2 camisetas M | enviado, entrega prevista el 2026-01-04 | No | Todavía no se ha entregado |\n| #2390 | 1 camiseta L | enviado, entrega prevista el 2026-01-03 | No | Todavía no se ha entregado |\n| #2392 | 1 pantalón L | enviado, entrega prevista el 2026-01-05 | No | Todavía no se ha entregado |\n| #2387 | 2 pantalones XS | preparando, envío el 2026-01-03 | No | Todavía no ha salido |\n| #2391 | 3 vestidos XL | preparando, envío el 2026-01-03 | No | Todavía no ha salido |\n| #2388 | 1 chaqueta L | devuelto | No | Ya está devuelto |\n\nEn los 10 pedidos enviados o en preparación, el \"no\" es solo porque aún no han llegado; ninguno ha perdido el plazo. Cada cliente tendrá 30 días para pedir la devolución desde la entrega. La fecha límite exacta saldrá cuando el pedido conste como entregado.\n\nHay un dato raro en el #2388: consta como devuelto, pero su entrega prevista es el 2026-01-03, después de hoy. La herramienta no da más detalles. Si importa, conviene revisarlo.\n\n**Datos usados:** `consultar_pedido` de los pedidos #2380 a #2392 (estado y `se_puede_solicitar_devolucion` de cada uno). El campo `hoy_simulado` de la herramienta da como hoy el 2026-01-02.",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__consultar_pedido\",\"max_results\":1}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2380\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2381\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2382\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2383\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2384\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2385\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2386\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2387\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2388\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2389\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2390\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2391\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"2392\"}"
+      ],
+      "turnos": 15,
+      "segundos": 26,
+      "coste_usd": 0.1833758,
+      "juez": {
+        "correcta": false,
+        "errores": [
+          "Incluye información y fechas de entrega prevista que no figuran en el solucionario.",
+          "Añade precios (180 €) que no están en el solucionario.",
+          "Inventa detalles sobre los estados que no están en el solucionario."
+        ]
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h5-mixta",
+      "sistema": "orquestador",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "**1. Talla con más líneas devueltas en 2025: la M, con 27 líneas.** En total se devolvieron 102 líneas.\n\n| Talla | Líneas devueltas | Unidades | Importe (EUR) |\n|---|---|---|---|\n| M | 27 | 45 | 2.503,00 |\n| L | 24 | 38 | 2.392,86 |\n| S | 19 | 30 | 1.695,23 |\n| XL | 18 | 29 | 1.937,28 |\n| XS | 14 | 22 | 1.111,78 |\n\nContando por importe en vez de por líneas, XL queda por encima de S.\n\n**2. Pedido #1016: era un pantalón en talla L (64,08 €).** Ese pedido ya figura como devuelto, así que no se puede pedir otra devolución. No he iniciado ninguna.\n\nBorrador para el cliente:\n> Hola, gracias por escribirnos. Hemos revisado tu pedido #1016, un pantalón en talla L, y en nuestro sistema ya aparece como devuelto, así que no hace falta que solicites otra devolución. Si crees que hay algún error o tienes cualquier duda sobre esa devolución, dímelo y lo revisamos contigo.\n\n⚠️ **Hay un dato que no cuadra.** El pedido está como \"devuelto\", pero no hay ningún registro de cuándo ni cómo se pidió esa devolución, y los datos tampoco dicen nada del reembolso. Por eso el borrador no promete nada sobre el reembolso. Si el cliente insiste, conviene que alguien lo revise a mano.\n\n**Cómo se hizo**\n- **Puestos:** `analisis-ventas` respondió la pregunta 1 y `atencion-pedidos` la 2.\n- **Revisor:**\n  - Resultado de las dos respuestas: APROBADO.\n  - Lección nueva de `atencion-pedidos`: APROBADO. Dice que, cuando un pedido ya está devuelto, al cliente se le explica eso sin hablar de plazos ni de reembolsos, y que si falta el registro de la devolución se avisa en vez de inventar una explicación.\n- **Pasos:** 4 de 15 (2 trabajadores y 2 revisiones).\n- **Ficha:** `registro/tareas/2026-11-22-2116-tallas-devueltas-y-pedido-1016.md`",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "Bash {\"command\":\"ls trabajadores/ && for f in trabajadores/*/PUESTO.md; do echo \\\"== $f\\\"; head -1 \\\"$f\\\"; done; ls registro/",
+        "Bash {\"command\":\"ls trabajadores/ && head -1 trabajadores/*/PUESTO.md; ls registro/tareas | tail -5; date +%Y-%m-%d-%H%M\",\"de",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/registro/tareas/2026",
+        "Agent {\"description\":\"Tallas devueltas 2025\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: analisis-ventas. Tarea: ¿Qué talla",
+        "Agent {\"description\":\"Pedido 1016 devolución\",\"subagent_type\":\"trabajador\",\"prompt\":\"Puesto: atencion-pedidos. Tarea: El clien",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/analisi",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "Read {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/trabajadores/atencio",
+        "mcp__tienda__buscar_ventas {\"desde\":\"2025-01-01\",\"hasta\":\"2025-12-31\",\"devuelto\":true,\"agrupar_por\":\"talla\"}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}",
+        "Bash {\"command\":\"cat >> registro/tareas/2026-11-22-2116-tallas-devueltas-y-pedido-1016.md <<'EOF'\\n\\n### analisis-ventas\\n**R",
+        "Edit {\"replace_all\":false,\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/",
+        "Write {\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/propuestas/atencion-",
+        "Bash {\"command\":\"node revisor/revisar.ts resultado registro/tareas/2026-11-22-2116-tallas-devueltas-y-pedido-1016.md\",\"descri",
+        "Bash {\"command\":\"node revisor/revisar.ts leccion atencion-pedidos propuestas/atencion-pedidos-20261122-pedido-ya-devuelto.md\"",
+        "Edit {\"replace_all\":false,\"file_path\":\"~/Documents/portfolio-automatizacion/mcp-tienda/.sandbox-orquestador/"
+      ],
+      "turnos": 12,
+      "segundos": 98,
+      "coste_usd": 0.5196080000000001,
+      "juez": {
+        "correcta": true,
+        "errores": []
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    },
+    {
+      "tarea": "h5-mixta",
+      "sistema": "agente-unico",
+      "repeticion": 2,
+      "ok": true,
+      "texto": "## 1. Talla con más líneas devueltas en 2025 (analisis-ventas)\n\n**Respuesta:** La talla con más líneas devueltas en 2025 es la **M**, con 27 líneas (45 unidades y 2.503,00 € brutos). Le sigue la L con 24 líneas (2.392,86 €). En todas las tallas hubo 102 líneas devueltas, que suman 9.640,15 € brutos.\n\n| Talla | Líneas devueltas | Unidades | Importe bruto |\n|---|---|---|---|\n| M | 27 | 45 | 2.503,00 € |\n| L | 24 | 38 | 2.392,86 € |\n| S | 19 | 30 | 1.695,23 € |\n| XL | 18 | 29 | 1.937,28 € |\n| XS | 14 | 22 | 1.111,78 € |\n\nLa S tiene más líneas devueltas que la XL, pero la XL suma más importe devuelto.\n\n**Datos usados:** `buscar_ventas` · filtro devuelto: true · agrupado por talla\n\n## 2. Pedido 1016 (atencion-pedidos)\n\nEra **un pantalón talla L** (64,08 €). El pedido **ya figura como devuelto**, así que no se puede pedir otra devolución. La herramienta no dice si el reembolso ya se hizo ni cuándo, así que el borrador no lo menciona.\n\n**Borrador para el cliente:** ¡Hola! Tu pedido 1016 (un pantalón talla L) ya aparece como devuelto en nuestro sistema, así que no hace falta que vuelvas a solicitar la devolución. Si tienes alguna duda sobre esa devolución, dímelo y el equipo lo revisa contigo.\n\n**Datos usados:** #1016 · devuelto · se_puede_solicitar_devolucion: false (ya devuelto)",
+      "modelo": "claude-opus-5-5",
+      "herramientas": [
+        "ToolSearch {\"query\":\"select:mcp__tienda__buscar_ventas,mcp__tienda__consultar_pedido\",\"max_results\":2}",
+        "mcp__tienda__buscar_ventas {\"agrupar_por\":\"talla\",\"devuelto\":true}",
+        "mcp__tienda__consultar_pedido {\"numero\":\"1016\"}"
+      ],
+      "turnos": 4,
+      "segundos": 18,
+      "coste_usd": 0.1354286,
+      "juez": {
+        "correcta": true,
+        "errores": []
+      },
+      "juez_v2": {
+        "correcta": true,
+        "votos_correcta": "3/3",
+        "errores": []
+      }
+    }
+  ],
+  "datos_reales_juez_v2": {
+    "h1-tabla-5-pedidos": "consultar_pedido {\"numero\":\"2362\"} → {\"pedido\":\"#2362\",\"fecha_compra\":\"2025-12-27\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"L\",\"unidades\":2}],\"importe_eur\":50,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-30\",\"fecha_entrega_prevista\":\"2026-01-03\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2142\"} → {\"pedido\":\"#2142\",\"fecha_compra\":\"2025-11-25\",\"productos\":[{\"producto\":\"Sudadera\",\"talla\":\"XL\",\"unidades\":1}],\"importe_eur\":55,\"estado\":\"entregado\",\"fecha_envio\":\"2025-11-28\",\"fecha_entrega_prevista\":\"2025-12-03\",\"dias_desde_entrega\":30,\"dentro_plazo_devolucion\":true,\"se_puede_solicitar_devolucion\":true,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":\"2026-01-02\",\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"1002\"} → {\"pedido\":\"#1002\",\"fecha_compra\":\"2025-01-01\",\"productos\":[{\"producto\":\"Chaqueta\",\"talla\":\"XS\",\"unidades\":2}],\"importe_eur\":190,\"estado\":\"entregado\",\"fecha_envio\":\"2025-01-03\",\"fecha_entrega_prevista\":\"2025-01-06\",\"dias_desde_entrega\":361,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":\"2025-02-05\",\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"1016\"} → {\"pedido\":\"#1016\",\"fecha_compra\":\"2025-01-05\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"L\",\"unidades\":1}],\"importe_eur\":64.08,\"estado\":\"devuelto\",\"fecha_envio\":\"2025-01-07\",\"fecha_entrega_prevista\":\"2025-01-10\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2387\"} → {\"pedido\":\"#2387\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":2}],\"importe_eur\":120,\"estado\":\"preparando\",\"fecha_envio\":\"2026-01-03\",\"fecha_entrega_prevista\":\"2026-01-08\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}",
+    "h2-cliente-2-pedidos": "consultar_pedido {\"numero\":\"2142\"} → {\"pedido\":\"#2142\",\"fecha_compra\":\"2025-11-25\",\"productos\":[{\"producto\":\"Sudadera\",\"talla\":\"XL\",\"unidades\":1}],\"importe_eur\":55,\"estado\":\"entregado\",\"fecha_envio\":\"2025-11-28\",\"fecha_entrega_prevista\":\"2025-12-03\",\"dias_desde_entrega\":30,\"dentro_plazo_devolucion\":true,\"se_puede_solicitar_devolucion\":true,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":\"2026-01-02\",\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2362\"} → {\"pedido\":\"#2362\",\"fecha_compra\":\"2025-12-27\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"L\",\"unidades\":2}],\"importe_eur\":50,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-30\",\"fecha_entrega_prevista\":\"2026-01-03\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}",
+    "h3-marzo-abril": "buscar_ventas {\"desde\":\"2025-03-01\",\"hasta\":\"2025-03-31\",\"agrupar_por\":\"producto\"} → {\"filtros\":{\"desde\":\"2025-03-01\",\"hasta\":\"2025-03-31\"},\"agrupado_por\":\"producto\",\"resumen\":{\"pedidos\":96,\"lineas\":96,\"unidades\":170,\"importe_bruto_eur\":10838.5,\"importe_neto_eur\":10240.43,\"lineas_devueltas\":6},\"grupos\":[{\"grupo\":\"Chaqueta\",\"pedidos\":22,\"lineas\":22,\"unidades\":43,\"importe_bruto_eur\":4106.05,\"importe_neto_eur\":3916.05,\"lineas_devueltas\":1},{\"grupo\":\"Vestido\",\"pedidos\":17,\"lineas\":17,\"unidades\":31,\"importe_bruto_eur\":2175.71,\"importe_neto_eur\":2175.71,\"lineas_devueltas\":0},{\"grupo\":\"Pantalón\",\"pedidos\":22,\"lineas\":22,\"unidades\":37,\"importe_bruto_eur\":2231.62,\"importe_neto_eur\":1929.1,\"lineas_devueltas\":3},{\"grupo\":\"Sudadera\",\"pedidos\":17,\"lineas\":17,\"unidades\":28,\"importe_bruto_eur\":1545.38,\"importe_neto_eur\":1490.38,\"lineas_devueltas\":1},{\"grupo\":\"Camiseta\",\"pedidos\":18,\"lineas\":18,\"unidades\":31,\"importe_bruto_eur\":779.74,\"importe_neto_eur\":729.19,\"lineas_devueltas\":1}],\"nota\":\"Importes en euros. importe_neto_eur descuenta lo devuelto; importe_bruto_eur no. Una línea es un producto dentro de un pedido. Para el total de pedidos usa resumen.pedidos: un pedido con varios productos o tallas cuenta en varios grupos. Cada grupo se redondea aparte (la suma puede diferir en algún céntimo).\",\"aviso\":\"Datos ficticios de una tienda de ejemplo (año 2025).\"}\nbuscar_ventas {\"desde\":\"2025-04-01\",\"hasta\":\"2025-04-30\",\"agrupar_por\":\"producto\"} → {\"filtros\":{\"desde\":\"2025-04-01\",\"hasta\":\"2025-04-30\"},\"agrupado_por\":\"producto\",\"resumen\":{\"pedidos\":93,\"lineas\":93,\"unidades\":153,\"importe_bruto_eur\":9251.57,\"importe_neto_eur\":8392.45,\"lineas_devueltas\":9},\"grupos\":[{\"grupo\":\"Chaqueta\",\"pedidos\":18,\"lineas\":18,\"unidades\":33,\"importe_bruto_eur\":3132.28,\"importe_neto_eur\":2753.16,\"lineas_devueltas\":3},{\"grupo\":\"Pantalón\",\"pedidos\":18,\"lineas\":18,\"unidades\":34,\"importe_bruto_eur\":2038.6,\"importe_neto_eur\":2038.6,\"lineas_devueltas\":0},{\"grupo\":\"Vestido\",\"pedidos\":20,\"lineas\":20,\"unidades\":30,\"importe_bruto_eur\":2092.65,\"importe_neto_eur\":1742.65,\"lineas_devueltas\":3},{\"grupo\":\"Sudadera\",\"pedidos\":14,\"lineas\":14,\"unidades\":20,\"importe_bruto_eur\":1094.45,\"importe_neto_eur\":1039.45,\"lineas_devueltas\":1},{\"grupo\":\"Camiseta\",\"pedidos\":23,\"lineas\":23,\"unidades\":36,\"importe_bruto_eur\":893.59,\"importe_neto_eur\":818.59,\"lineas_devueltas\":2}],\"nota\":\"Importes en euros. importe_neto_eur descuenta lo devuelto; importe_bruto_eur no. Una línea es un producto dentro de un pedido. Para el total de pedidos usa resumen.pedidos: un pedido con varios productos o tallas cuenta en varios grupos. Cada grupo se redondea aparte (la suma puede diferir en algún céntimo).\",\"aviso\":\"Datos ficticios de una tienda de ejemplo (año 2025).\"}",
+    "h4-rango-13-pedidos": "consultar_pedido {\"numero\":\"2380\"} → {\"pedido\":\"#2380\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Sudadera\",\"talla\":\"XL\",\"unidades\":1}],\"importe_eur\":55,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2381\"} → {\"pedido\":\"#2381\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"XL\",\"unidades\":3}],\"importe_eur\":210,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2382\"} → {\"pedido\":\"#2382\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":1}],\"importe_eur\":58.54,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2383\"} → {\"pedido\":\"#2383\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"M\",\"unidades\":3}],\"importe_eur\":180,\"estado\":\"entregado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-02\",\"dias_desde_entrega\":0,\"dentro_plazo_devolucion\":true,\"se_puede_solicitar_devolucion\":true,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":\"2026-02-01\",\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2384\"} → {\"pedido\":\"#2384\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"L\",\"unidades\":1}],\"importe_eur\":60,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-02\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2385\"} → {\"pedido\":\"#2385\",\"fecha_compra\":\"2025-12-30\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":68.3,\"estado\":\"enviado\",\"fecha_envio\":\"2025-12-31\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2386\"} → {\"pedido\":\"#2386\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":1}],\"importe_eur\":25,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-01\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2387\"} → {\"pedido\":\"#2387\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"XS\",\"unidades\":2}],\"importe_eur\":120,\"estado\":\"preparando\",\"fecha_envio\":\"2026-01-03\",\"fecha_entrega_prevista\":\"2026-01-08\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2388\"} → {\"pedido\":\"#2388\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Chaqueta\",\"talla\":\"L\",\"unidades\":1}],\"importe_eur\":95,\"estado\":\"devuelto\",\"fecha_envio\":\"2026-01-01\",\"fecha_entrega_prevista\":\"2026-01-03\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2389\"} → {\"pedido\":\"#2389\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"M\",\"unidades\":2}],\"importe_eur\":50,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-02\",\"fecha_entrega_prevista\":\"2026-01-04\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2390\"} → {\"pedido\":\"#2390\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Camiseta\",\"talla\":\"L\",\"unidades\":1}],\"importe_eur\":25,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-01\",\"fecha_entrega_prevista\":\"2026-01-03\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2391\"} → {\"pedido\":\"#2391\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Vestido\",\"talla\":\"XL\",\"unidades\":3}],\"importe_eur\":210,\"estado\":\"preparando\",\"fecha_envio\":\"2026-01-03\",\"fecha_entrega_prevista\":\"2026-01-08\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}\nconsultar_pedido {\"numero\":\"2392\"} → {\"pedido\":\"#2392\",\"fecha_compra\":\"2025-12-31\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"L\",\"unidades\":1}],\"importe_eur\":60,\"estado\":\"enviado\",\"fecha_envio\":\"2026-01-02\",\"fecha_entrega_prevista\":\"2026-01-05\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}",
+    "h5-mixta": "buscar_ventas {\"devuelto\":true,\"agrupar_por\":\"talla\"} → {\"filtros\":{\"devuelto\":true},\"agrupado_por\":\"talla\",\"resumen\":{\"pedidos\":102,\"lineas\":102,\"unidades\":164,\"importe_bruto_eur\":9640.15,\"importe_neto_eur\":0,\"lineas_devueltas\":102},\"grupos\":[{\"grupo\":\"XS\",\"pedidos\":14,\"lineas\":14,\"unidades\":22,\"importe_bruto_eur\":1111.78,\"importe_neto_eur\":0,\"lineas_devueltas\":14},{\"grupo\":\"XL\",\"pedidos\":18,\"lineas\":18,\"unidades\":29,\"importe_bruto_eur\":1937.28,\"importe_neto_eur\":0,\"lineas_devueltas\":18},{\"grupo\":\"S\",\"pedidos\":19,\"lineas\":19,\"unidades\":30,\"importe_bruto_eur\":1695.23,\"importe_neto_eur\":0,\"lineas_devueltas\":19},{\"grupo\":\"M\",\"pedidos\":27,\"lineas\":27,\"unidades\":45,\"importe_bruto_eur\":2503,\"importe_neto_eur\":0,\"lineas_devueltas\":27},{\"grupo\":\"L\",\"pedidos\":24,\"lineas\":24,\"unidades\":38,\"importe_bruto_eur\":2392.86,\"importe_neto_eur\":0,\"lineas_devueltas\":24}],\"nota\":\"Importes en euros. importe_neto_eur descuenta lo devuelto; importe_bruto_eur no. Una línea es un producto dentro de un pedido. Para el total de pedidos usa resumen.pedidos: un pedido con varios productos o tallas cuenta en varios grupos. Cada grupo se redondea aparte (la suma puede diferir en algún céntimo).\",\"aviso\":\"Datos ficticios de una tienda de ejemplo (año 2025).\"}\nconsultar_pedido {\"numero\":\"1016\"} → {\"pedido\":\"#1016\",\"fecha_compra\":\"2025-01-05\",\"productos\":[{\"producto\":\"Pantalón\",\"talla\":\"L\",\"unidades\":1}],\"importe_eur\":64.08,\"estado\":\"devuelto\",\"fecha_envio\":\"2025-01-07\",\"fecha_entrega_prevista\":\"2025-01-10\",\"dias_desde_entrega\":null,\"dentro_plazo_devolucion\":false,\"se_puede_solicitar_devolucion\":false,\"plazo_devolucion_dias\":30,\"plazo_cuenta_desde\":\"la entrega (fecha_entrega_prevista)\",\"fecha_limite_devolucion\":null,\"devolucion_solicitada\":null,\"hoy_simulado\":\"2026-01-02\",\"aviso\":\"Datos ficticios de una tienda de ejemplo.\"}"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "resumen": {
+    "fecha": "2026-11-22T19:30:28.433Z",
+    "repeticiones": 3,
+    "casos": 4,
+    "errores_detectados_pct": 100,
+    "vetos_injustos_pct": 0,
+    "casos_inconsistentes": [],
+    "aciertos_por": {
+      "codigo": 0,
+      "gemini": 12
+    },
+    "errores_de_ejecucion": 0,
+    "por_tipo": {
+      "resultado": "0/0 aciertos",
+      "leccion": "0/0 aciertos",
+      "retirar": "12/12 aciertos",
+      "carpeta": "0/0 aciertos"
+    },
+    "fallos": []
+  },
+  "resultados": [
+    {
+      "id": "x-ok-anticuada",
+      "tipo": "retirar",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Retira una lección que ya no es cierta (ahora sí hay fecha límite)",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La propuesta justifica correctamente el retiro de la leccion porque las herramientas actuales ya devuelven los campos de plazo.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La leccion a retirar ya no es cierta porque consultar_pedido ahora devuelve campos como fecha_limite_devolucion y plazo_cuenta_desde.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La herramienta consultar_pedido ahora devuelve campos exactos sobre plazos, haciendo que la lección anterior sobre plazo sin fecha sea obsoleta.",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "x-ok-ultima",
+      "tipo": "retirar",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Retira una lección anticuada que es la ÚLTIMA del archivo",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La lección a retirar hace referencia a la falta de datos sobre plazos, pero consultar_pedido ahora incluye esos campos, por lo que la lección ya no es válida.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La propuesta explica correctamente que consultar_pedido ya aporta los campos necesarios, haciendo que la lección a retirar quede obsoleta.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La lección a retirar ya no es cierta porque la herramienta consultar_pedido ahora devuelve plazo_cuenta_desde y fecha_limite_devolucion.",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "x-mal-valida",
+      "tipo": "retirar",
+      "esperado": "VETADO",
+      "que_se_prueba": "Intenta retirar una lección que sigue siendo correcta",
+      "intentos": [
+        {
+          "veredicto": "VETADO",
+          "motivo": "La lección que se propone retirar sigue siendo correcta y útil para el puesto, y la propuesta no justifica adecuadamente su eliminación más allá de considerarla obvia.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "La lección a retirar sigue siendo correcta y útil según las reglas actuales del puesto.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "La leccion propuesta sigue siendo correcta y util para los agentes, y el motivo de retirada solo indica que es demasiado obvia sin justificar que choque con datos o reglas.",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "x-mal-sin-motivo",
+      "tipo": "retirar",
+      "esperado": "VETADO",
+      "que_se_prueba": "Propone retirar una lección sin explicar por qué",
+      "intentos": [
+        {
+          "veredicto": "VETADO",
+          "motivo": "La propuesta de retirada no explica por qué debe eliminarse la lección, y la regla sigue siendo correcta ya que los datos de las herramientas indican que el plazo de devolución se cuenta desde la entrega.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "La propuesta no explica los motivos para retirar la lección ni justifica que ya no sea útil o cierta.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "La propuesta de retirada no explica por qué se debe retirar la lección y la lección sigue siendo útil y coherente con las herramientas actuales.",
+          "por": "gemini"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "resumen": {
+    "fecha": "2026-11-23T15:46:25.534Z",
+    "repeticiones": 3,
+    "casos": 1,
+    "errores_detectados_pct": 0,
+    "vetos_injustos_pct": 0,
+    "casos_inconsistentes": [],
+    "aciertos_por": {
+      "codigo": 0,
+      "gemini": 3
+    },
+    "errores_de_ejecucion": 0,
+    "por_tipo": {
+      "resultado": "0/0 aciertos",
+      "leccion": "0/0 aciertos",
+      "retirar": "0/0 aciertos",
+      "carpeta": "3/3 aciertos"
+    },
+    "fallos": []
+  },
+  "resultados": [
+    {
+      "id": "resumen-devoluciones",
+      "tipo": "carpeta",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Puesto correcto de resumen de devoluciones",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La carpeta de puesto cumple con todos los requisitos estructurales, la longitud adecuada, las herramientas permitidas y los ejemplos son coherentes y correctos.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La carpeta cumple con todos los requisitos de estructura, herramientas permitidas, longitud del PUESTO.md y veracidad en los ejemplos sin inventar datos.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "La carpeta cumple con todos los requisitos de contenido, usa únicamente herramientas permitidas y los ejemplos son coherentes y correctos.",
+          "por": "gemini"
+        }
+      ]
+    }
+  ]
+}

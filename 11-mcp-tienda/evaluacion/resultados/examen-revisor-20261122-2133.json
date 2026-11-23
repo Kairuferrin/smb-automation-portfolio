@@ -1,0 +1,60 @@
+{
+  "resumen": {
+    "fecha": "2026-11-22T20:33:41.464Z",
+    "repeticiones": 2,
+    "casos": 2,
+    "errores_detectados_pct": 100,
+    "vetos_injustos_pct": 0,
+    "casos_inconsistentes": [],
+    "aciertos_por": {
+      "codigo": 2,
+      "gemini": 2
+    },
+    "errores_de_ejecucion": 0,
+    "por_tipo": {
+      "resultado": "4/4 aciertos",
+      "leccion": "0/0 aciertos",
+      "retirar": "0/0 aciertos",
+      "carpeta": "0/0 aciertos"
+    },
+    "fallos": []
+  },
+  "resultados": [
+    {
+      "id": "p-ok-13-pedidos",
+      "tipo": "resultado",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Rango de 13 pedidos, respuesta correcta",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El resultado responde correctamente a la tarea y todos los datos coinciden exactamente con los datos reales consultados.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El resultado responde exactamente a lo pedido, los datos coinciden con los registros reales y el formato es correcto.",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "p-mal-pedido-12",
+      "tipo": "resultado",
+      "esperado": "VETADO",
+      "que_se_prueba": "Rango de 13 pedidos con UN estado falso en el pedido 12 (2391 dicho enviado; está preparando)",
+      "intentos": [
+        {
+          "veredicto": "VETADO",
+          "motivo": "Comprobación automática: el pedido 2391 aparece como \"enviado\" pero está \"preparando\".",
+          "por": "codigo"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "Comprobación automática: el pedido 2391 aparece como \"enviado\" pero está \"preparando\".",
+          "por": "codigo"
+        }
+      ]
+    }
+  ]
+}

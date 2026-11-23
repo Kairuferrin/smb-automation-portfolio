@@ -1,0 +1,16 @@
+{
+  "enabledMcpjsonServers": ["tienda"],
+  "permissions": {
+    "allow": [
+      "mcp__tienda__consultar_pedido",
+      "mcp__tienda__buscar_ventas"
+    ],
+    "deny": [
+      "mcp__tienda__iniciar_devolucion",
+      "Edit",
+      "Bash",
+      "WebFetch",
+      "WebSearch"
+    ]
+  }
+}

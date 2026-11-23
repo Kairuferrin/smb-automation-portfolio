@@ -1,0 +1,114 @@
+{
+  "resumen": {
+    "fecha": "2026-11-22T20:27:55.979Z",
+    "repeticiones": 5,
+    "casos": 2,
+    "errores_detectados_pct": 40,
+    "vetos_injustos_pct": 0,
+    "casos_inconsistentes": [
+      "p-mal-pedido-12"
+    ],
+    "aciertos_por": {
+      "codigo": 0,
+      "gemini": 7
+    },
+    "errores_de_ejecucion": 0,
+    "por_tipo": {
+      "resultado": "7/10 aciertos",
+      "leccion": "0/0 aciertos",
+      "retirar": "0/0 aciertos",
+      "carpeta": "0/0 aciertos"
+    },
+    "fallos": [
+      {
+        "id": "p-mal-pedido-12",
+        "que_se_prueba": "Rango de 13 pedidos con UN estado falso en el pedido 12 (2391 dicho enviado; está preparando)",
+        "esperado": "VETADO",
+        "dijo": "APROBADO",
+        "motivo": "El trabajador responde correctamente a la tarea utilizando únicamente los datos reales obtenidos de consultar los pedidos indicados."
+      },
+      {
+        "id": "p-mal-pedido-12",
+        "que_se_prueba": "Rango de 13 pedidos con UN estado falso en el pedido 12 (2391 dicho enviado; está preparando)",
+        "esperado": "VETADO",
+        "dijo": "APROBADO",
+        "motivo": "El trabajador responde correctamente a la tarea utilizando los datos reales de los pedidos consultados."
+      },
+      {
+        "id": "p-mal-pedido-12",
+        "que_se_prueba": "Rango de 13 pedidos con UN estado falso en el pedido 12 (2391 dicho enviado; está preparando)",
+        "esperado": "VETADO",
+        "dijo": "APROBADO",
+        "motivo": "Todos los datos y estados coinciden con los datos reales consultados y responde correctamente a la tarea solicitada."
+      }
+    ]
+  },
+  "resultados": [
+    {
+      "id": "p-ok-13-pedidos",
+      "tipo": "resultado",
+      "esperado": "APROBADO",
+      "que_se_prueba": "Rango de 13 pedidos, respuesta correcta",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "Todos los datos sobre los pedidos del 2380 al 2392 coinciden perfectamente con los datos reales consultados.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El resultado responde correctamente a la tarea y todos los datos coinciden con los registros reales.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El resultado responde correctamente a la tarea y todos los datos coinciden con los registros reales.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El resultado responde correctamente a la tarea utilizando los datos reales de los pedidos consultados.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El trabajador responde correctamente a la tarea utilizando únicamente los datos reales consultados para los pedidos indicados.",
+          "por": "gemini"
+        }
+      ]
+    },
+    {
+      "id": "p-mal-pedido-12",
+      "tipo": "resultado",
+      "esperado": "VETADO",
+      "que_se_prueba": "Rango de 13 pedidos con UN estado falso en el pedido 12 (2391 dicho enviado; está preparando)",
+      "intentos": [
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El trabajador responde correctamente a la tarea utilizando únicamente los datos reales obtenidos de consultar los pedidos indicados.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "El trabajador afirma que el pedido 2391 ya está enviado cuando los datos reales indican que está en preparación, y además lo repite dos veces con estados distintos (enviado y preparando).",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "El trabajador responde correctamente a la tarea utilizando los datos reales de los pedidos consultados.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "APROBADO",
+          "motivo": "Todos los datos y estados coinciden con los datos reales consultados y responde correctamente a la tarea solicitada.",
+          "por": "gemini"
+        },
+        {
+          "veredicto": "VETADO",
+          "motivo": "El borrador incluye afirmaciones erróneas o repetitivas sobre el estado de algunos pedidos (como el 2391 mencionado dos veces con contradicciones) que no coinciden exactamente con los datos reales.",
+          "por": "gemini"
+        }
+      ]
+    }
+  ]
+}
